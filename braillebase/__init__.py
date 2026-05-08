@@ -3,6 +3,75 @@ class BrailleBase:
     def __init__(self):
         self.__letter_brailles = {}
 
+        braille_map = {
+        "⠀": ["⠀"],
+        "⠁": ["⠁"],
+        "⠂": ["⠂"],
+        "⠃": ["⠃"],
+        "⠄": ["⠄"],
+        "⠅": ["⠅"],
+        "⠆": ["⠆"],
+        "⠇": ["⠇"],
+        "⠈": ["⠈"],
+        "⠉": ["⠉"],
+        "⠊": ["⠊"],
+        "⠋": ["⠋"],
+        "⠌": ["⠌"],
+        "⠍": ["⠍"],
+        "⠎": ["⠎"],
+        "⠏": ["⠏"],
+        "⠐": ["⠐"],
+        "⠑": ["⠑"],
+        "⠒": ["⠒"],
+        "⠓": ["⠓"],
+        "⠔": ["⠔"],
+        "⠕": ["⠕"],
+        "⠖": ["⠖"],
+        "⠗": ["⠗"],
+        "⠘": ["⠘"],
+        "⠙": ["⠙"],
+        "⠚": ["⠚"],
+        "⠛": ["⠛"],
+        "⠜": ["⠜"],
+        "⠝": ["⠝"],
+        "⠞": ["⠞"],
+        "⠟": ["⠟"],
+        "⠠": ["⠠"],
+        "⠡": ["⠡"],
+        "⠢": ["⠢"],
+        "⠣": ["⠣"],
+        "⠤": ["⠤"],
+        "⠥": ["⠥"],
+        "⠦": ["⠦"],
+        "⠧": ["⠧"],
+        "⠨": ["⠨"],
+        "⠩": ["⠩"],
+        "⠪": ["⠪"],
+        "⠫": ["⠫"],
+        "⠬": ["⠬"],
+        "⠭": ["⠭"],
+        "⠮": ["⠮"],
+        "⠯": ["⠯"],
+        "⠰": ["⠰"],
+        "⠱": ["⠱"],
+        "⠲": ["⠲"],
+        "⠳": ["⠳"],
+        "⠴": ["⠴"],
+        "⠵": ["⠵"],
+        "⠶": ["⠶"],
+        "⠷": ["⠷"],
+        "⠸": ["⠸"],
+        "⠹": ["⠹"],
+        "⠺": ["⠺"],
+        "⠻": ["⠻"],
+        "⠼": ["⠼"],
+        "⠽": ["⠽"],
+        "⠾": ["⠾"],
+        "⠿": ["⠿"]
+        }
+        self.append_multiple_braille_letters(braille_map)
+        
+#---------------------------------------- Registry group (0001) ----------------------------------------
     #0001-A
     def append_braille_letter(self, letter: str, braille_list: list):
         """
@@ -144,22 +213,210 @@ class BrailleBase:
         self.__validate_braille_list(new_braille_list)
 
         self.__letter_brailles[letter] = new_braille_list
-#------------------------------------------------------------------------------------------------------------------------------------
-    #0002-A
+
+#---------------------------------------- Mapping group (0003) ----------------------------------------
+    #0003-A
+    @staticmethod
+    def get_braille_to_index(braille: str) -> int:
+        """
+        EN
+        Returns the index associated with the given braille symbol. The mapping follows the standard Unicode braille order (U+2800 to U+283F).
+
+        JP
+        指定した点字記号に対応するインデックスを返します。マッピングは Unicode の点字標準順（U+2800 ～ U+283F）に従います。
+
+        IT
+        Restituisce l’indice associato al simbolo braille indicato. La mappatura segue l’ordine standard Unicode del braille (U+2800–U+283F).
+
+        PT
+        Retorna o índice associado ao símbolo braille informado. O mapeamento segue a ordem padrão Unicode do braille (U+2800 a U+283F).
+        """
+        braille_to_index = {
+        '⠀': 0, '⠁': 1, '⠂': 2, '⠃': 3, '⠄': 4, '⠅': 5, '⠆': 6, '⠇': 7,
+        '⠈': 8, '⠉': 9, '⠊': 10, '⠋': 11, '⠌': 12, '⠍': 13, '⠎': 14, '⠏': 15,
+        '⠐': 16, '⠑': 17, '⠒': 18, '⠓': 19, '⠔': 20, '⠕': 21, '⠖': 22, '⠗': 23,
+        '⠘': 24, '⠙': 25, '⠚': 26, '⠛': 27, '⠜': 28, '⠝': 29, '⠞': 30, '⠟': 31,
+        '⠠': 32, '⠡': 33, '⠢': 34, '⠣': 35, '⠤': 36, '⠥': 37, '⠦': 38, '⠧': 39,
+        '⠨': 40, '⠩': 41, '⠪': 42, '⠫': 43, '⠬': 44, '⠭': 45, '⠮': 46, '⠯': 47,
+        '⠰': 48, '⠱': 49, '⠲': 50, '⠳': 51, '⠴': 52, '⠵': 53, '⠶': 54, '⠷': 55,
+        '⠸': 56, '⠹': 57, '⠺': 58, '⠻': 59, '⠼': 60, '⠽': 61, '⠾': 62, '⠿': 63
+    }
+        return braille_to_index[braille]
+    
+    #0003-B
+    @staticmethod
+    def get_braille_list_to_index_list(braille_list: list) -> list:
+        """
+        EN
+        Converts a list of braille symbols into a list of their corresponding indices.
+
+        JP
+        点字記号のリストを、それぞれに対応するインデックスのリストへ変換します。
+
+        IT
+        Converte una lista di simboli braille in una lista dei rispettivi indici.
+
+        PT
+        Converte uma lista de símbolos braille em uma lista com seus respectivos índices.
+        """
+        return [BrailleBase.get_braille_to_index(b) for b in braille_list]
+    
+#---------------------------------------- Tables group (0004) ----------------------------------------
+    #0004-A
+    @staticmethod
+    def braille_list():
+        """
+            EN
+            Returns all braille characters organized in the standard Unicode order, covering the range U+2800 to U+283F.
+            JP
+            Unicode の標準順（U+2800〜U+283F）に従って並べられた点字文字をすべて返します。
+            IT
+            Restituisce tutti i caratteri braille organizzati nell’ordine standard Unicode, coprendo l’intervallo da U+2800 a U+283F.
+            PT
+            Retorna todos os caracteres braille organizados na ordem padrão do Unicode, cobrindo o intervalo de U+2800 a U+283F.
+        """
+        return [
+            '⠀','⠁','⠂','⠃','⠄','⠅','⠆','⠇',
+            '⠈','⠉','⠊','⠋','⠌','⠍','⠎','⠏',
+            '⠐','⠑','⠒','⠓','⠔','⠕','⠖','⠗',
+            '⠘','⠙','⠚','⠛','⠜','⠝','⠞','⠟',
+            '⠠','⠡','⠢','⠣','⠤','⠥','⠦','⠧',
+            '⠨','⠩','⠪','⠫','⠬','⠭','⠮','⠯',
+            '⠰','⠱','⠲','⠳','⠴','⠵','⠶','⠷',
+            '⠸','⠹','⠺','⠻','⠼','⠽','⠾','⠿'
+        ]
+    #0004-B
+    @staticmethod
+    def get_binary_list():
+
+        """
+        EN
+        Returns a list with 64 items; each item is an array of 6 bits representing a braille character.
+        JP
+        64 個の項目を持つリストを返します。各項目は、点字文字を表す 6 ビットの配列です。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è un array di 6 bit che rappresenta un carattere braille.
+        PT
+        Retorna uma lista com 64 itens; cada item é um array de 6 bits que representa um caractere braille.
+        """
+        return [
+            [int(b) for b in f"{i:06b}"] for i in range(64)
+        ]
+    #0004-C
+    @staticmethod
+    def get_binary_string_list():
+        """
+        EN
+        Returns a list with 64 items; each item is a 6‑bit binary string representing a braille character.
+        JP
+        64 個の項目を持つリストを返します。各項目は、点字文字を表す 6 ビットの文字列です。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è una stringa binaria di 6 bit che rappresenta un carattere braille.
+        PT
+        Retorna uma lista com 64 itens; cada item é uma string binária de 6 bits que representa um caractere braille.
+        """
+        return [f"{i:06b}" for i in range(64)]
+    #0004-D
+    @staticmethod
+    def get_unicode_list():
+        """
+        EN
+        Returns a list with 64 items; each item is the Unicode code in hexadecimal format corresponding to a braille character.
+        JP
+        64 個の項目を持つリストを返します。各項目は、点字文字に対応する Unicode の 16 進コードです。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è il codice Unicode in formato esadecimale corrispondente a un carattere braille.
+        PT
+        Retorna uma lista com 64 itens; cada item é o código Unicode em formato hexadecimal correspondente a um caractere braille.
+        """
+        return [f"{0x2800 + i:04x}" for i in range(64)]
+    #0004-E
+    @staticmethod
+    def get_dot_count():
+        """
+        EN
+        Returns a list with 64 items; each item is an integer indicating how many points are active (1 to 6) in the corresponding braille character.
+        JP
+        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の数を示す整数です。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è un intero che indica quanti punti (da 1 a 6) sono attivi nel carattere braille corrispondente.
+        PT
+        Retorna uma lista com 64 itens; cada item é um inteiro indicando quantos pontos estão ativos (1 a 6) no caractere braille correspondente.
+        """
+        return [bin(i).count("1") for i in range(64)]
+    #0004-F
+    @staticmethod
+    def get_dot_numbering_list():
+        """
+        EN
+        Returns a list with 64 items; each item is an array containing the numbers of the active points (1 to 6) of the corresponding braille character. Commonly used in educational materials.
+        JP
+        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の番号を含む配列です。教育用資料でよく使用されます。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è un array che contiene i numeri dei punti attivi (da 1 a 6) del carattere braille corrispondente. Molto utilizzato in materiali didattici.
+        PT
+        Retorna uma lista com 64 itens; cada item é um array contendo os números dos pontos ativos (1 a 6) do caractere braille correspondente. Muito usado em materiais didáticos.
+        """
+        lst = []
+        for i in range(64):
+            dots = []
+            for d in range(6):
+                if (i >> d) & 1:
+                    dots.append(d+1)
+            lst.append(dots)
+        return lst
+    #0004-G
+    @staticmethod
+    def get_dot_numbering_string_list():
+        """
+        EN
+        Returns a list with 64 items; each item is a string containing the numbers of the active points (1 to 6) of the corresponding braille character, separated by hyphens. Commonly used in educational materials.
+        JP
+        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の番号をハイフンで区切った文字列です。教育用資料でよく使用されます。
+        IT
+        Restituisce una lista con 64 elementi; ogni elemento è una stringa che contiene i numeri dei punti attivi (da 1 a 6) del carattere braille corrispondente, separati da trattini. Molto utilizzato in materiali didattici.
+        PT
+        Retorna uma lista com 64 itens; cada item é uma string contendo os números dos pontos ativos (1 a 6) do caractere braille correspondente, separados por hífens. Muito usado em materiais didáticos.
+        """
+        return [
+            "-".join(str(d) for d in dots)
+            for dots in BrailleBase.get_dot_numbering_list()
+        ]
+#---------------------------------------- Translate group (0002) ----------------------------------------
+   #0002-A
     def translate_text_to_braille(self, text: str) -> list:
         """
         EN
-        Translates the input text into a flat list of braille symbols. Each character may expand into multiple braille cells.
+        The method expects a string as an argument — the text to be translated into braille.
+        Each character* is converted into braille.
+        This is the main method of the translate group (0002).
+        The entire text is processed and converted into a list of braille symbols, which will later be transformed into a list of indices.
+        The method translate_text_to_index(textBraille: str) is fully dependent on translate_text_to_braille(text: str).
 
         JP
-        入力テキストを点字記号のフラットなリストに変換します。文字によっては複数の点字セルに展開されます。
+        このメソッドは、引数として文字列（点字に変換したいテキスト）を受け取ります。
+        各文字*は点字に変換されます。
+        これは translate グループ（0002）の主要なメソッドです。
+        テキスト全体が処理され、点字記号のリストに変換され、その後インデックスのリストへと変換されます。
+        translate_text_to_index(textBraille: str) メソッドは、translate_text_to_braille(text: str) に完全に依存しています。
 
         IT
-        Traduce il testo di input in una lista piatta di simboli braille. Alcuni caratteri possono espandersi in più celle braille.
+        Il metodo accetta una stringa come argomento — il testo da tradurre in braille.
+        Ogni carattere* viene convertito in braille.
+        Questo è il metodo principale del gruppo translate (0002).
+        L’intero testo viene elaborato e convertito in una lista di simboli braille, che successivamente sarà trasformata in una lista di indici.
+        Il metodo translate_text_to_index(textBraille: str) dipende completamente da translate_text_to_braille(text: str).
+
 
         PT
-        Traduz o texto de entrada para uma lista linear de símbolos braille. Alguns caracteres podem se expandir em múltiplas células braille.
+        O método espera uma string como argumento — o texto que se deseja traduzir para braille.
+        Cada caractere* é transformado em braille.
+        Esse é o principal método do grupo translate.
+        Todo o texto é processado e convertido em uma lista de símbolos braille, que posteriormente será transformada em uma lista de índices.
+        O método translate_text_to_index(textBraille: str) é totalmente dependente de translate_text_to_braille(text: str).
         """
+        text = BrailleBase.prepare_number_braille(text)
+
         result = []
         for ch in text:
             brailles = self.get_brailles_with_letter(ch)
@@ -167,7 +424,7 @@ class BrailleBase:
         return result
     
     #0002-B
-    def translate_text_to_index(self, text: str) -> list:
+    def translate_text_to_index(self, textBraille: str) -> list:
         """
         EN
         Translates the input text into a list of braille indices. Each character may expand into multiple braille cells.
@@ -181,7 +438,7 @@ class BrailleBase:
         PT
         Traduz o texto de entrada para uma lista de índices braille. Alguns caracteres podem se expandir em múltiplas células braille.
         """
-        brailles = self.translate_text_to_braille(text)
+        brailles = self.translate_text_to_braille(textBraille)
         return BrailleBase.get_braille_list_to_index_list(brailles)
     
     #0002-C
@@ -348,176 +605,8 @@ class BrailleBase:
                 numbering_lists[i]
             ])
         return result
-#------------------------------------------------------------------------------------------------------------------------------------
-    #0003-A
-    @staticmethod
-    def get_braille_to_index(braille: str) -> int:
-        """
-        EN
-        Returns the index associated with the given braille symbol. The mapping follows the standard Unicode braille order (U+2800 to U+283F).
+#---------------------------------------- Output group (0005) ----------------------------------------
 
-        JP
-        指定した点字記号に対応するインデックスを返します。マッピングは Unicode の点字標準順（U+2800 ～ U+283F）に従います。
-
-        IT
-        Restituisce l’indice associato al simbolo braille indicato. La mappatura segue l’ordine standard Unicode del braille (U+2800–U+283F).
-
-        PT
-        Retorna o índice associado ao símbolo braille informado. O mapeamento segue a ordem padrão Unicode do braille (U+2800 a U+283F).
-        """
-        braille_to_index = {
-        '⠀': 0, '⠁': 1, '⠂': 2, '⠃': 3, '⠄': 4, '⠅': 5, '⠆': 6, '⠇': 7,
-        '⠈': 8, '⠉': 9, '⠊': 10, '⠋': 11, '⠌': 12, '⠍': 13, '⠎': 14, '⠏': 15,
-        '⠐': 16, '⠑': 17, '⠒': 18, '⠓': 19, '⠔': 20, '⠕': 21, '⠖': 22, '⠗': 23,
-        '⠘': 24, '⠙': 25, '⠚': 26, '⠛': 27, '⠜': 28, '⠝': 29, '⠞': 30, '⠟': 31,
-        '⠠': 32, '⠡': 33, '⠢': 34, '⠣': 35, '⠤': 36, '⠥': 37, '⠦': 38, '⠧': 39,
-        '⠨': 40, '⠩': 41, '⠪': 42, '⠫': 43, '⠬': 44, '⠭': 45, '⠮': 46, '⠯': 47,
-        '⠰': 48, '⠱': 49, '⠲': 50, '⠳': 51, '⠴': 52, '⠵': 53, '⠶': 54, '⠷': 55,
-        '⠸': 56, '⠹': 57, '⠺': 58, '⠻': 59, '⠼': 60, '⠽': 61, '⠾': 62, '⠿': 63
-    }
-        return braille_to_index[braille]
-    
-    #0003-B
-    @staticmethod
-    def get_braille_list_to_index_list(braille_list: list) -> list:
-        """
-        EN
-        Converts a list of braille symbols into a list of their corresponding indices.
-
-        JP
-        点字記号のリストを、それぞれに対応するインデックスのリストへ変換します。
-
-        IT
-        Converte una lista di simboli braille in una lista dei rispettivi indici.
-
-        PT
-        Converte uma lista de símbolos braille em uma lista com seus respectivos índices.
-        """
-        return [BrailleBase.get_braille_to_index(b) for b in braille_list]
-    
-    #------------------------------------------------------------------------------------------------------------------------------------
-    #0004-A
-    @staticmethod
-    def braille_list():
-        """
-            EN
-            Returns all braille characters organized in the standard Unicode order, covering the range U+2800 to U+283F.
-            JP
-            Unicode の標準順（U+2800〜U+283F）に従って並べられた点字文字をすべて返します。
-            IT
-            Restituisce tutti i caratteri braille organizzati nell’ordine standard Unicode, coprendo l’intervallo da U+2800 a U+283F.
-            PT
-            Retorna todos os caracteres braille organizados na ordem padrão do Unicode, cobrindo o intervalo de U+2800 a U+283F.
-        """
-        return [
-            '⠀','⠁','⠂','⠃','⠄','⠅','⠆','⠇',
-            '⠈','⠉','⠊','⠋','⠌','⠍','⠎','⠏',
-            '⠐','⠑','⠒','⠓','⠔','⠕','⠖','⠗',
-            '⠘','⠙','⠚','⠛','⠜','⠝','⠞','⠟',
-            '⠠','⠡','⠢','⠣','⠤','⠥','⠦','⠧',
-            '⠨','⠩','⠪','⠫','⠬','⠭','⠮','⠯',
-            '⠰','⠱','⠲','⠳','⠴','⠵','⠶','⠷',
-            '⠸','⠹','⠺','⠻','⠼','⠽','⠾','⠿'
-        ]
-    #0004-B
-    @staticmethod
-    def get_binary_list():
-
-        """
-        EN
-        Returns a list with 64 items; each item is an array of 6 bits representing a braille character.
-        JP
-        64 個の項目を持つリストを返します。各項目は、点字文字を表す 6 ビットの配列です。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è un array di 6 bit che rappresenta un carattere braille.
-        PT
-        Retorna uma lista com 64 itens; cada item é um array de 6 bits que representa um caractere braille.
-        """
-        return [
-            [int(b) for b in f"{i:06b}"] for i in range(64)
-        ]
-    #0004-C
-    @staticmethod
-    def get_binary_string_list():
-        """
-        EN
-        Returns a list with 64 items; each item is a 6‑bit binary string representing a braille character.
-        JP
-        64 個の項目を持つリストを返します。各項目は、点字文字を表す 6 ビットの文字列です。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è una stringa binaria di 6 bit che rappresenta un carattere braille.
-        PT
-        Retorna uma lista com 64 itens; cada item é uma string binária de 6 bits que representa um caractere braille.
-        """
-        return [f"{i:06b}" for i in range(64)]
-    #0004-D
-    @staticmethod
-    def get_unicode_list():
-        """
-        EN
-        Returns a list with 64 items; each item is the Unicode code in hexadecimal format corresponding to a braille character.
-        JP
-        64 個の項目を持つリストを返します。各項目は、点字文字に対応する Unicode の 16 進コードです。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è il codice Unicode in formato esadecimale corrispondente a un carattere braille.
-        PT
-        Retorna uma lista com 64 itens; cada item é o código Unicode em formato hexadecimal correspondente a um caractere braille.
-        """
-        return [f"{0x2800 + i:04x}" for i in range(64)]
-    #0004-E
-    @staticmethod
-    def get_dot_count():
-        """
-        EN
-        Returns a list with 64 items; each item is an integer indicating how many points are active (1 to 6) in the corresponding braille character.
-        JP
-        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の数を示す整数です。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è un intero che indica quanti punti (da 1 a 6) sono attivi nel carattere braille corrispondente.
-        PT
-        Retorna uma lista com 64 itens; cada item é um inteiro indicando quantos pontos estão ativos (1 a 6) no caractere braille correspondente.
-        """
-        return [bin(i).count("1") for i in range(64)]
-    #0004-F
-    @staticmethod
-    def get_dot_numbering_list():
-        """
-        EN
-        Returns a list with 64 items; each item is an array containing the numbers of the active points (1 to 6) of the corresponding braille character. Commonly used in educational materials.
-        JP
-        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の番号を含む配列です。教育用資料でよく使用されます。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è un array che contiene i numeri dei punti attivi (da 1 a 6) del carattere braille corrispondente. Molto utilizzato in materiali didattici.
-        PT
-        Retorna uma lista com 64 itens; cada item é um array contendo os números dos pontos ativos (1 a 6) do caractere braille correspondente. Muito usado em materiais didáticos.
-        """
-        lst = []
-        for i in range(64):
-            dots = []
-            for d in range(6):
-                if (i >> d) & 1:
-                    dots.append(d+1)
-            lst.append(dots)
-        return lst
-    #0004-G
-    @staticmethod
-    def get_dot_numbering_string_list():
-        """
-        EN
-        Returns a list with 64 items; each item is a string containing the numbers of the active points (1 to 6) of the corresponding braille character, separated by hyphens. Commonly used in educational materials.
-        JP
-        64 個の項目を持つリストを返します。各項目は、対応する点字文字でアクティブな点（1〜6）の番号をハイフンで区切った文字列です。教育用資料でよく使用されます。
-        IT
-        Restituisce una lista con 64 elementi; ogni elemento è una stringa che contiene i numeri dei punti attivi (da 1 a 6) del carattere braille corrispondente, separati da trattini. Molto utilizzato in materiali didattici.
-        PT
-        Retorna uma lista com 64 itens; cada item é uma string contendo os números dos pontos ativos (1 a 6) do caractere braille correspondente, separados por hífens. Muito usado em materiais didáticos.
-        """
-        return [
-            "-".join(str(d) for d in dots)
-            for dots in BrailleBase.get_dot_numbering_list()
-        ]
-
-#----------------------------------------------------------------------------------------------------------------------------------------
     #0005-A
     def output_all_json(self, text: str) -> str:
         """
@@ -942,12 +1031,49 @@ class BrailleBase:
                 raise TypeError("each braille item must be a string")
             if not ("\u2800" <= b <= "\u283F"):
                 raise ValueError(f"invalid braille character: {b}")
-#linguajaponesa = BrailleBase()
-#TESTE 1 OK
-#linguajaponesa.braille_letter_append("ぎ", ["⠂","⠣"])
-#print(linguajaponesa.get_brailles_with_letter("ぎ"))
+            
+    #----------------------------Internal logic for braille number processing---------------------------
+    def prepare_number_braille(text: str):
+        """
+        EN
+        Prepares the input text for braille number processing.  
+        Whenever a digit appears and the previous character was not a digit,  
+        the numeric indicator (⠼) is inserted before the digit.  
+        This method ensures that number sequences are correctly marked  
+        before the braille translation stage.
 
+        JP
+        点字の数字処理のためにテキストを前処理します。  
+        数字が現れ、直前の文字が数字でない場合、  
+        数字指標（⠼）をその数字の前に挿入します。  
+        このメソッドは、点字変換の前段階として  
+        数字列が正しくマークされるようにします。
 
-#TESTE 2
-#a = BrailleBase.get_dot_count()
-#print(a[BrailleBase.get_braille_to_index(linguajaponesa.get_brailles_with_letter("ぎ")[0])])
+        IT
+        Prepara il testo per la gestione dei numeri in braille.  
+        Ogni volta che compare una cifra e il carattere precedente non è una cifra,  
+        viene inserito l’indicatore numerico (⠼) prima della cifra.  
+        Questo metodo garantisce che le sequenze numeriche siano correttamente marcate  
+        prima della fase di traduzione in braille.
+
+        PT
+        Prepara o texto para o processamento de números em braille.  
+        Sempre que um dígito aparece e o caractere anterior não é um dígito,  
+        o indicador numérico (⠼) é inserido antes do número.  
+        Esse método garante que sequências numéricas sejam corretamente marcadas  
+        antes da etapa de tradução para braille.
+        """
+        result = []
+        previous = False
+
+        for ch in text:
+            isnum = ch.isdigit()
+
+            if isnum and not previous:
+                result.append("⠼")
+
+            result.append(ch)
+            previous = isnum
+
+        return "".join(result)
+            
