@@ -1,43 +1,80 @@
-EN
-About the Project
-BrailleBase is a Python library designed to provide a complete, consistent, and extensible foundation for working with Unicode Braille characters (U+2800–U+283F).
-It offers:
-- text‑to‑braille conversion
-- extraction of indices, binary patterns, Unicode values, and dot counts
-- export in multiple formats (JSON, CSV, XML, YAML, Markdown, HTML, TXT)
-- internal validation of braille characters
-- multilingual documentation (EN/JP/IT/PT)
-The goal is to serve as a solid foundation for educational tools, accessibility software, microcontroller projects, serialization systems, and braille‑learning applications.
+📘 BrailleBase — Internal Architecture Overview (EN)
+BrailleBase is organized into numbered functional groups, each responsible for a specific part of the internal logic.
+This modular structure improves readability, maintainability, scalability, and multilingual documentation.
+Below is the official description of each group.
 
-JP
-プロジェクト概要
-BrailleBase は、Unicode 点字文字（U+2800〜U+283F）を扱うための、完全で一貫性があり拡張可能な Python ライブラリです。
-主な機能は次のとおりです：
-- テキストから点字への変換
-- インデックス、バイナリ、Unicode、点の数などの抽出
-- JSON / CSV / XML / YAML / Markdown / HTML / TXT 形式でのエクスポート
-- 点字文字の内部バリデーション
-- 多言語ドキュメント（英語 / 日本語 / イタリア語 / ポルトガル語）
-教育用途、アクセシビリティツール、マイコン制御、シリアライズ処理、点字学習アプリなど、幅広い用途に対応できる基盤を提供します。
+<span style="color:red">📌 Observation Note
+We are continuously working to improve our application.
+Version 0.0.5 is already capable of handling text that contains numbers, as long as those characters are properly registered in the system.
+We are currently updating and expanding our documentation to make the usage of the library clearer.
+In version 0.1.0, known issues — such as map keys longer than two characters — will have been fully resolved.
+For questions, suggestions, or issue reports, please reach out through the GitHub Issues section.
+Your feedback is essential to help us improve this project.</span>
 
-IT
-Informazioni sul progetto
-BrailleBase è una libreria Python progettata per fornire una base completa, coerente ed estensibile per lavorare con i caratteri Braille Unicode (U+2800–U+283F).
-Offre:
-- conversione da testo a braille
-- estrazione di indici, pattern binari, valori Unicode e numero di punti
-- esportazione in più formati (JSON, CSV, XML, YAML, Markdown, HTML, TXT)
-- validazione interna dei caratteri braille
-- documentazione multilingue (EN/JP/IT/PT)
-L’obiettivo è fornire una base solida per strumenti educativi, software di accessibilità, progetti con microcontrollori, sistemi di serializzazione e applicazioni per l’apprendimento del braille.
 
-PT
-Sobre o projeto
-BrailleBase é uma biblioteca Python projetada para fornecer uma base completa, consistente e extensível para manipulação de caracteres Braille Unicode (U+2800–U+283F).
-Ela oferece:
-- conversão de texto para braille
-- extração de índices, binários, Unicode e contagem de pontos
-- exportação em múltiplos formatos (JSON, CSV, XML, YAML, Markdown, HTML, TXT)
-- validação interna de caracteres
-- suporte multilíngue na documentação (EN/JP/IT/PT)
-O objetivo é ser uma fundação sólida para projetos educacionais, acessibilidade, microcontroladores, serialização e ferramentas de estudo de Braille.
+0001 Registry → registers letters and braille mappings
+0002 Translate → converts text into braille and indices
+0003 Mapping → maps braille ↔ indices
+0004 Tables → provides fixed internal tables
+0005 Output → exports processed data
+
+🧩 0001 — Registry group
+Manages the internal registry of characters and their associated braille mappings.
+Main functions
+- append_braille_letter
+Registers a letter and its braille list. Overwrites the mapping if the letter already exists.
+- get_brailles_with_letter
+Returns the braille list associated with a registered letter.
+- has_letter
+Checks whether a letter is registered.
+- remove_letter
+Removes a letter from the internal registry.
+Group responsibility
+This group acts as the class’s internal database.
+No translation happens without going through this registry.
+
+🔤 0002 — Translate group
+Responsible for converting text into braille and then into numeric indices.
+Main functions
+- translate_text_to_braille
+Converts each character into one or more braille cells.
+Includes number preprocessing (⠼).
+- translate_text_to_index
+Converts a list of braille symbols into a list of indices (0–63).
+Group responsibility
+This is the core translation engine.
+All text passes through this group before being exported or processed further.
+
+🔁 0003 — Mapping group
+Provides direct mappings between:
+- braille → index
+- list of braille symbols → list of indices
+Main functions
+- get_braille_to_index
+Returns the Unicode braille index (U+2800–U+283F).
+- get_braille_list_to_index_list
+Converts an entire list of braille symbols into indices.
+Group responsibility
+This is the mathematical core of the library.
+No numeric conversion happens outside this group.
+
+📚 0004 — Tables group
+Contains fixed internal tables used as reference structures.
+Main functions
+- braille_list
+Returns the full list of 64 Unicode braille symbols.
+- get_binary_list
+Returns 64 arrays of 6 bits (binary representation of braille).
+- get_binary_string_list
+Returns 64 binary strings of 6 bits.
+Group responsibility
+Provides base structures for conversions, validation, and output formatting.
+
+📤 0005 — Output group
+Responsible for formatting and exporting processed data.
+Main functions
+- output_all_json
+Exports text, braille, and indices in JSON format.
+Group responsibility
+This is the final layer of the library.
+Everything that leaves BrailleBase goes through this group.
