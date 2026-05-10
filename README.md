@@ -3,6 +3,26 @@ BrailleBase is organized into numbered functional groups, each responsible for a
 This modular structure improves readability, maintainability, scalability, and multilingual documentation.
 Below is the official description of each group.
 
+Braille is a tactile writing system composed of raised dots arranged in a 6‑dot cell (2 columns × 3 rows).
+Each combination of dots represents letters, numbers, punctuation marks, or special symbols.
+It was created by Louis Braille in 1824, when he was only 15 years old.
+https://en.wikipedia.org/wiki/Braille
+
+📚 Purpose
+According to the sources, Braille is a complete writing system, not merely a code for the visual alphabet.
+It enables:
+• 	reading on embossed paper
+• 	reading on electronic braille displays
+• 	writing with slate and stylus
+• 	writing with braille typewriters or computers connected to braille embossers
+https://en.wikipedia.org/wiki/Braille
+
+🧠 Origin and History (summary)
+- Created by Louis Braille, who became blind after an accident in childhood.
+- Based on Charles Barbier’s “night writing,” but simplified to a 6‑dot system.
+- First published in 1829.
+https://www.britannica.com/topic/Braille-writing-system
+
 <span style="color:red">📌 Observation Note
 We are continuously working to improve our application.
 Version 0.0.5 is already capable of handling text that contains numbers, as long as those characters are properly registered in the system.
