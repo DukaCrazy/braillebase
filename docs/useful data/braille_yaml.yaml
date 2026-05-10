@@ -1,0 +1,639 @@
+- letter: "⠀"
+  braille: "⠀"
+  index: 0
+  binary_string: "000000"
+  binary_list: [0, 0, 0, 0, 0, 0]
+  unicode: "2800"
+  dot_count: 0
+  numbering_string: ""
+  numbering_list: []
+
+- letter: "⠁"
+  braille: "⠁"
+  index: 1
+  binary_string: "000001"
+  binary_list: [0, 0, 0, 0, 0, 1]
+  unicode: "2801"
+  dot_count: 1
+  numbering_string: "1"
+  numbering_list: [1]
+
+- letter: "⠂"
+  braille: "⠂"
+  index: 2
+  binary_string: "000010"
+  binary_list: [0, 0, 0, 0, 1, 0]
+  unicode: "2802"
+  dot_count: 1
+  numbering_string: "2"
+  numbering_list: [2]
+
+- letter: "⠃"
+  braille: "⠃"
+  index: 3
+  binary_string: "000011"
+  binary_list: [0, 0, 0, 0, 1, 1]
+  unicode: "2803"
+  dot_count: 2
+  numbering_string: "1-2"
+  numbering_list: [1, 2]
+
+- letter: "⠄"
+  braille: "⠄"
+  index: 4
+  binary_string: "000100"
+  binary_list: [0, 0, 0, 1, 0, 0]
+  unicode: "2804"
+  dot_count: 1
+  numbering_string: "3"
+  numbering_list: [3]
+
+- letter: "⠅"
+  braille: "⠅"
+  index: 5
+  binary_string: "000101"
+  binary_list: [0, 0, 0, 1, 0, 1]
+  unicode: "2805"
+  dot_count: 2
+  numbering_string: "1-3"
+  numbering_list: [1, 3]
+
+- letter: "⠆"
+  braille: "⠆"
+  index: 6
+  binary_string: "000110"
+  binary_list: [0, 0, 0, 1, 1, 0]
+  unicode: "2806"
+  dot_count: 2
+  numbering_string: "2-3"
+  numbering_list: [2, 3]
+
+- letter: "⠇"
+  braille: "⠇"
+  index: 7
+  binary_string: "000111"
+  binary_list: [0, 0, 0, 1, 1, 1]
+  unicode: "2807"
+  dot_count: 3
+  numbering_string: "1-2-3"
+  numbering_list: [1, 2, 3]
+
+- letter: "⠈"
+  braille: "⠈"
+  index: 8
+  binary_string: "001000"
+  binary_list: [0, 0, 1, 0, 0, 0]
+  unicode: "2808"
+  dot_count: 1
+  numbering_string: "4"
+  numbering_list: [4]
+
+- letter: "⠉"
+  braille: "⠉"
+  index: 9
+  binary_string: "001001"
+  binary_list: [0, 0, 1, 0, 0, 1]
+  unicode: "2809"
+  dot_count: 2
+  numbering_string: "1-4"
+  numbering_list: [1, 4]
+
+- letter: "⠊"
+  braille: "⠊"
+  index: 10
+  binary_string: "001010"
+  binary_list: [0, 0, 1, 0, 1, 0]
+  unicode: "280a"
+  dot_count: 2
+  numbering_string: "2-4"
+  numbering_list: [2, 4]
+
+- letter: "⠋"
+  braille: "⠋"
+  index: 11
+  binary_string: "001011"
+  binary_list: [0, 0, 1, 0, 1, 1]
+  unicode: "280b"
+  dot_count: 3
+  numbering_string: "1-2-4"
+  numbering_list: [1, 2, 4]
+
+- letter: "⠌"
+  braille: "⠌"
+  index: 12
+  binary_string: "001100"
+  binary_list: [0, 0, 1, 1, 0, 0]
+  unicode: "280c"
+  dot_count: 2
+  numbering_string: "3-4"
+  numbering_list: [3, 4]
+
+- letter: "⠍"
+  braille: "⠍"
+  index: 13
+  binary_string: "001101"
+  binary_list: [0, 0, 1, 1, 0, 1]
+  unicode: "280d"
+  dot_count: 3
+  numbering_string: "1-3-4"
+  numbering_list: [1, 3, 4]
+
+- letter: "⠎"
+  braille: "⠎"
+  index: 14
+  binary_string: "001110"
+  binary_list: [0, 0, 1, 1, 1, 0]
+  unicode: "280e"
+  dot_count: 3
+  numbering_string: "2-3-4"
+  numbering_list: [2, 3, 4]
+
+- letter: "⠏"
+  braille: "⠏"
+  index: 15
+  binary_string: "001111"
+  binary_list: [0, 0, 1, 1, 1, 1]
+  unicode: "280f"
+  dot_count: 4
+  numbering_string: "1-2-3-4"
+  numbering_list: [1, 2, 3, 4]
+
+- letter: "⠐"
+  braille: "⠐"
+  index: 16
+  binary_string: "010000"
+  binary_list: [0, 1, 0, 0, 0, 0]
+  unicode: "2810"
+  dot_count: 1
+  numbering_string: "5"
+  numbering_list: [5]
+
+- letter: "⠑"
+  braille: "⠑"
+  index: 17
+  binary_string: "010001"
+  binary_list: [0, 1, 0, 0, 0, 1]
+  unicode: "2811"
+  dot_count: 2
+  numbering_string: "1-5"
+  numbering_list: [1, 5]
+
+- letter: "⠒"
+  braille: "⠒"
+  index: 18
+  binary_string: "010010"
+  binary_list: [0, 1, 0, 0, 1, 0]
+  unicode: "2812"
+  dot_count: 2
+  numbering_string: "2-5"
+  numbering_list: [2, 5]
+
+- letter: "⠓"
+  braille: "⠓"
+  index: 19
+  binary_string: "010011"
+  binary_list: [0, 1, 0, 0, 1, 1]
+  unicode: "2813"
+  dot_count: 3
+  numbering_string: "1-2-5"
+  numbering_list: [1, 2, 5]
+
+- letter: "⠔"
+  braille: "⠔"
+  index: 20
+  binary_string: "010100"
+  binary_list: [0, 1, 0, 1, 0, 0]
+  unicode: "2814"
+  dot_count: 2
+  numbering_string: "3-5"
+  numbering_list: [3, 5]
+
+- letter: "⠕"
+  braille: "⠕"
+  index: 21
+  binary_string: "010101"
+  binary_list: [0, 1, 0, 1, 0, 1]
+  unicode: "2815"
+  dot_count: 3
+  numbering_string: "1-3-5"
+  numbering_list: [1, 3, 5]
+
+- letter: "⠖"
+  braille: "⠖"
+  index: 22
+  binary_string: "010110"
+  binary_list: [0, 1, 0, 1, 1, 0]
+  unicode: "2816"
+  dot_count: 3
+  numbering_string: "2-3-5"
+  numbering_list: [2, 3, 5]
+
+- letter: "⠗"
+  braille: "⠗"
+  index: 23
+  binary_string: "010111"
+  binary_list: [0, 1, 0, 1, 1, 1]
+  unicode: "2817"
+  dot_count: 4
+  numbering_string: "1-2-3-5"
+  numbering_list: [1, 2, 3, 5]
+
+- letter: "⠘"
+  braille: "⠘"
+  index: 24
+  binary_string: "011000"
+  binary_list: [0, 1, 1, 0, 0, 0]
+  unicode: "2818"
+  dot_count: 2
+  numbering_string: "4-5"
+  numbering_list: [4, 5]
+
+- letter: "⠙"
+  braille: "⠙"
+  index: 25
+  binary_string: "011001"
+  binary_list: [0, 1, 1, 0, 0, 1]
+  unicode: "2819"
+  dot_count: 3
+  numbering_string: "1-4-5"
+  numbering_list: [1, 4, 5]
+
+- letter: "⠚"
+  braille: "⠚"
+  index: 26
+  binary_string: "011010"
+  binary_list: [0, 1, 1, 0, 1, 0]
+  unicode: "281a"
+  dot_count: 3
+  numbering_string: "2-4-5"
+  numbering_list: [2, 4, 5]
+
+- letter: "⠛"
+  braille: "⠛"
+  index: 27
+  binary_string: "011011"
+  binary_list: [0, 1, 1, 0, 1, 1]
+  unicode: "281b"
+  dot_count: 4
+  numbering_string: "1-2-4-5"
+  numbering_list: [1, 2, 4, 5]
+
+- letter: "⠜"
+  braille: "⠜"
+  index: 28
+  binary_string: "011100"
+  binary_list: [0, 1, 1, 1, 0, 0]
+  unicode: "281c"
+  dot_count: 3
+  numbering_string: "3-4-5"
+  numbering_list: [3, 4, 5]
+
+- letter: "⠝"
+  braille: "⠝"
+  index: 29
+  binary_string: "011101"
+  binary_list: [0, 1, 1, 1, 0, 1]
+  unicode: "281d"
+  dot_count: 4
+  numbering_string: "1-3-4-5"
+  numbering_list: [1, 3, 4, 5]
+
+- letter: "⠞"
+  braille: "⠞"
+  index: 30
+  binary_string: "011110"
+  binary_list: [0, 1, 1, 1, 1, 0]
+  unicode: "281e"
+  dot_count: 4
+  numbering_string: "2-3-4-5"
+  numbering_list: [2, 3, 4, 5]
+
+- letter: "⠟"
+  braille: "⠟"
+  index: 31
+  binary_string: "011111"
+  binary_list: [0, 1, 1, 1, 1, 1]
+  unicode: "281f"
+  dot_count: 5
+  numbering_string: "1-2-3-4-5"
+  numbering_list: [1, 2, 3, 4, 5]
+
+- letter: "⠠"
+  braille: "⠠"
+  index: 32
+  binary_string: "100000"
+  binary_list: [1, 0, 0, 0, 0, 0]
+  unicode: "2820"
+  dot_count: 1
+  numbering_string: "6"
+  numbering_list: [6]
+
+- letter: "⠡"
+  braille: "⠡"
+  index: 33
+  binary_string: "100001"
+  binary_list: [1, 0, 0, 0, 0, 1]
+  unicode: "2821"
+  dot_count: 2
+  numbering_string: "1-6"
+  numbering_list: [1, 6]
+
+- letter: "⠢"
+  braille: "⠢"
+  index: 34
+  binary_string: "100010"
+  binary_list: [1, 0, 0, 0, 1, 0]
+  unicode: "2822"
+  dot_count: 2
+  numbering_string: "2-6"
+  numbering_list: [2, 6]
+
+- letter: "⠣"
+  braille: "⠣"
+  index: 35
+  binary_string: "100011"
+  binary_list: [1, 0, 0, 0, 1, 1]
+  unicode: "2823"
+  dot_count: 3
+  numbering_string: "1-2-6"
+  numbering_list: [1, 2, 6]
+
+- letter: "⠤"
+  braille: "⠤"
+  index: 36
+  binary_string: "100100"
+  binary_list: [1, 0, 0, 1, 0, 0]
+  unicode: "2824"
+  dot_count: 2
+  numbering_string: "3-6"
+  numbering_list: [3, 6]
+
+- letter: "⠥"
+  braille: "⠥"
+  index: 37
+  binary_string: "100101"
+  binary_list: [1, 0, 0, 1, 0, 1]
+  unicode: "2825"
+  dot_count: 3
+  numbering_string: "1-3-6"
+  numbering_list: [1, 3, 6]
+
+- letter: "⠦"
+  braille: "⠦"
+  index: 38
+  binary_string: "100110"
+  binary_list: [1, 0, 0, 1, 1, 0]
+  unicode: "2826"
+  dot_count: 3
+  numbering_string: "2-3-6"
+  numbering_list: [2, 3, 6]
+
+- letter: "⠧"
+  braille: "⠧"
+  index: 39
+  binary_string: "100111"
+  binary_list: [1, 0, 0, 1, 1, 1]
+  unicode: "2827"
+  dot_count: 4
+  numbering_string: "1-2-3-6"
+  numbering_list: [1, 2, 3, 6]
+
+- letter: "⠨"
+  braille: "⠨"
+  index: 40
+  binary_string: "101000"
+  binary_list: [1, 0, 1, 0, 0, 0]
+  unicode: "2828"
+  dot_count: 2
+  numbering_string: "4-6"
+  numbering_list: [4, 6]
+
+- letter: "⠩"
+  braille: "⠩"
+  index: 41
+  binary_string: "101001"
+  binary_list: [1, 0, 1, 0, 0, 1]
+  unicode: "2829"
+  dot_count: 3
+  numbering_string: "1-4-6"
+  numbering_list: [1, 4, 6]
+
+- letter: "⠪"
+  braille: "⠪"
+  index: 42
+  binary_string: "101010"
+  binary_list: [1, 0, 1, 0, 1, 0]
+  unicode: "282a"
+  dot_count: 3
+  numbering_string: "2-4-6"
+  numbering_list: [2, 4, 6]
+
+- letter: "⠫"
+  braille: "⠫"
+  index: 43
+  binary_string: "101011"
+  binary_list: [1, 0, 1, 0, 1, 1]
+  unicode: "282b"
+  dot_count: 4
+  numbering_string: "1-2-4-6"
+  numbering_list: [1, 2, 4, 6]
+
+- letter: "⠬"
+  braille: "⠬"
+  index: 44
+  binary_string: "101100"
+  binary_list: [1, 0, 1, 1, 0, 0]
+  unicode: "282c"
+  dot_count: 3
+  numbering_string: "3-4-6"
+  numbering_list: [3, 4, 6]
+
+- letter: "⠭"
+  braille: "⠭"
+  index: 45
+  binary_string: "101101"
+  binary_list: [1, 0, 1, 1, 0, 1]
+  unicode: "282d"
+  dot_count: 4
+  numbering_string: "1-3-4-6"
+  numbering_list: [1, 3, 4, 6]
+
+- letter: "⠮"
+  braille: "⠮"
+  index: 46
+  binary_string: "101110"
+  binary_list: [1, 0, 1, 1, 1, 0]
+  unicode: "282e"
+  dot_count: 4
+  numbering_string: "2-3-4-6"
+  numbering_list: [2, 3, 4, 6]
+
+- letter: "⠯"
+  braille: "⠯"
+  index: 47
+  binary_string: "101111"
+  binary_list: [1, 0, 1, 1, 1, 1]
+  unicode: "282f"
+  dot_count: 5
+  numbering_string: "1-2-3-4-6"
+  numbering_list: [1, 2, 3, 4, 6]
+
+- letter: "⠰"
+  braille: "⠰"
+  index: 48
+  binary_string: "110000"
+  binary_list: [1, 1, 0, 0, 0, 0]
+  unicode: "2830"
+  dot_count: 2
+  numbering_string: "5-6"
+  numbering_list: [5, 6]
+
+- letter: "⠱"
+  braille: "⠱"
+  index: 49
+  binary_string: "110001"
+  binary_list: [1, 1, 0, 0, 0, 1]
+  unicode: "2831"
+  dot_count: 3
+  numbering_string: "1-5-6"
+  numbering_list: [1, 5, 6]
+
+- letter: "⠲"
+  braille: "⠲"
+  index: 50
+  binary_string: "110010"
+  binary_list: [1, 1, 0, 0, 1, 0]
+  unicode: "2832"
+  dot_count: 3
+  numbering_string: "2-5-6"
+  numbering_list: [2, 5, 6]
+
+- letter: "⠳"
+  braille: "⠳"
+  index: 51
+  binary_string: "110011"
+  binary_list: [1, 1, 0, 0, 1, 1]
+  unicode: "2833"
+  dot_count: 4
+  numbering_string: "1-2-5-6"
+  numbering_list: [1, 2, 5, 6]
+
+- letter: "⠴"
+  braille: "⠴"
+  index: 52
+  binary_string: "110100"
+  binary_list: [1, 1, 0, 1, 0, 0]
+  unicode: "2834"
+  dot_count: 3
+  numbering_string: "3-5-6"
+  numbering_list: [3, 5, 6]
+
+- letter: "⠵"
+  braille: "⠵"
+  index: 53
+  binary_string: "110101"
+  binary_list: [1, 1, 0, 1, 0, 1]
+  unicode: "2835"
+  dot_count: 4
+  numbering_string: "1-3-5-6"
+  numbering_list: [1, 3, 5, 6]
+
+- letter: "⠶"
+  braille: "⠶"
+  index: 54
+  binary_string: "110110"
+  binary_list: [1, 1, 0, 1, 1, 0]
+  unicode: "2836"
+  dot_count: 4
+  numbering_string: "2-3-5-6"
+  numbering_list: [2, 3, 5, 6]
+
+- letter: "⠷"
+  braille: "⠷"
+  index: 55
+  binary_string: "110111"
+  binary_list: [1, 1, 0, 1, 1, 1]
+  unicode: "2837"
+  dot_count: 5
+  numbering_string: "1-2-3-5-6"
+  numbering_list: [1, 2, 3, 5, 6]
+
+- letter: "⠸"
+  braille: "⠸"
+  index: 56
+  binary_string: "111000"
+  binary_list: [1, 1, 1, 0, 0, 0]
+  unicode: "2838"
+  dot_count: 3
+  numbering_string: "4-5-6"
+  numbering_list: [4, 5, 6]
+
+- letter: "⠹"
+  braille: "⠹"
+  index: 57
+  binary_string: "111001"
+  binary_list: [1, 1, 1, 0, 0, 1]
+  unicode: "2839"
+  dot_count: 4
+  numbering_string: "1-4-5-6"
+  numbering_list: [1, 4, 5, 6]
+
+- letter: "⠺"
+  braille: "⠺"
+  index: 58
+  binary_string: "111010"
+  binary_list: [1, 1, 1, 0, 1, 0]
+  unicode: "283a"
+  dot_count: 4
+  numbering_string: "2-4-5-6"
+  numbering_list: [2, 4, 5, 6]
+
+- letter: "⠻"
+  braille: "⠻"
+  index: 59
+  binary_string: "111011"
+  binary_list: [1, 1, 1, 0, 1, 1]
+  unicode: "283b"
+  dot_count: 5
+  numbering_string: "1-2-4-5-6"
+  numbering_list: [1, 2, 4, 5, 6]
+
+- letter: "⠼"
+  braille: "⠼"
+  index: 60
+  binary_string: "111100"
+  binary_list: [1, 1, 1, 1, 0, 0]
+  unicode: "283c"
+  dot_count: 4
+  numbering_string: "3-4-5-6"
+  numbering_list: [3, 4, 5, 6]
+
+- letter: "⠽"
+  braille: "⠽"
+  index: 61
+  binary_string: "111101"
+  binary_list: [1, 1, 1, 1, 0, 1]
+  unicode: "283d"
+  dot_count: 5
+  numbering_string: "1-3-4-5-6"
+  numbering_list: [1, 3, 4, 5, 6]
+
+- letter: "⠾"
+  braille: "⠾"
+  index: 62
+  binary_string: "111110"
+  binary_list: [1, 1, 1, 1, 1, 0]
+  unicode: "283e"
+  dot_count: 5
+  numbering_string: "2-3-4-5-6"
+  numbering_list: [2, 3, 4, 5, 6]
+
+- letter: "⠿"
+  braille: "⠿"
+  index: 63
+  binary_string: "111111"
+  binary_list: [1, 1, 1, 1, 1, 1]
+  unicode: "283f"
+  dot_count: 6
+  numbering_string: "1-2-3-4-5-6"
+  numbering_list: [1, 2, 3, 4, 5, 6]

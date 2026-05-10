@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<braille_output>
+    <item>
+        <letter>⠀</letter>
+        <braille>⠀</braille>
+        <index>0</index>
+        <binary_string>000000</binary_string>
+        <binary_list>[0, 0, 0, 0, 0, 0]</binary_list>
+        <unicode>2800</unicode>
+        <dot_count>0</dot_count>
+        <numbering_string/>
+        <numbering_list>[]</numbering_list>
+    </item>
+    <item>
+        <letter>⠁</letter>
+        <braille>⠁</braille>
+        <index>1</index>
+        <binary_string>000001</binary_string>
+        <binary_list>[0, 0, 0, 0, 0, 1]</binary_list>
+        <unicode>2801</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>1</numbering_string>
+        <numbering_list>[1]</numbering_list>
+    </item>
+    <item>
+        <letter>⠂</letter>
+        <braille>⠂</braille>
+        <index>2</index>
+        <binary_string>000010</binary_string>
+        <binary_list>[0, 0, 0, 0, 1, 0]</binary_list>
+        <unicode>2802</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>2</numbering_string>
+        <numbering_list>[2]</numbering_list>
+    </item>
+    <item>
+        <letter>⠃</letter>
+        <braille>⠃</braille>
+        <index>3</index>
+        <binary_string>000011</binary_string>
+        <binary_list>[0, 0, 0, 0, 1, 1]</binary_list>
+        <unicode>2803</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>1-2</numbering_string>
+        <numbering_list>[1, 2]</numbering_list>
+    </item>
+    <item>
+        <letter>⠄</letter>
+        <braille>⠄</braille>
+        <index>4</index>
+        <binary_string>000100</binary_string>
+        <binary_list>[0, 0, 0, 1, 0, 0]</binary_list>
+        <unicode>2804</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>3</numbering_string>
+        <numbering_list>[3]</numbering_list>
+    </item>
+    <item>
+        <letter>⠅</letter>
+        <braille>⠅</braille>
+        <index>5</index>
+        <binary_string>000101</binary_string>
+        <binary_list>[0, 0, 0, 1, 0, 1]</binary_list>
+        <unicode>2805</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>1-3</numbering_string>
+        <numbering_list>[1, 3]</numbering_list>
+    </item>
+    <item>
+        <letter>⠆</letter>
+        <braille>⠆</braille>
+        <index>6</index>
+        <binary_string>000110</binary_string>
+        <binary_list>[0, 0, 0, 1, 1, 0]</binary_list>
+        <unicode>2806</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>2-3</numbering_string>
+        <numbering_list>[2, 3]</numbering_list>
+    </item>
+    <item>
+        <letter>⠇</letter>
+        <braille>⠇</braille>
+        <index>7</index>
+        <binary_string>000111</binary_string>
+        <binary_list>[0, 0, 0, 1, 1, 1]</binary_list>
+        <unicode>2807</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-2-3</numbering_string>
+        <numbering_list>[1, 2, 3]</numbering_list>
+    </item>
+    <item>
+        <letter>⠈</letter>
+        <braille>⠈</braille>
+        <index>8</index>
+        <binary_string>001000</binary_string>
+        <binary_list>[0, 0, 1, 0, 0, 0]</binary_list>
+        <unicode>2808</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>4</numbering_string>
+        <numbering_list>[4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠉</letter>
+        <braille>⠉</braille>
+        <index>9</index>
+        <binary_string>001001</binary_string>
+        <binary_list>[0, 0, 1, 0, 0, 1]</binary_list>
+        <unicode>2809</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>1-4</numbering_string>
+        <numbering_list>[1, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠊</letter>
+        <braille>⠊</braille>
+        <index>10</index>
+        <binary_string>001010</binary_string>
+        <binary_list>[0, 0, 1, 0, 1, 0]</binary_list>
+        <unicode>280a</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>2-4</numbering_string>
+        <numbering_list>[2, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠋</letter>
+        <braille>⠋</braille>
+        <index>11</index>
+        <binary_string>001011</binary_string>
+        <binary_list>[0, 0, 1, 0, 1, 1]</binary_list>
+        <unicode>280b</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-2-4</numbering_string>
+        <numbering_list>[1, 2, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠌</letter>
+        <braille>⠌</braille>
+        <index>12</index>
+        <binary_string>001100</binary_string>
+        <binary_list>[0, 0, 1, 1, 0, 0]</binary_list>
+        <unicode>280c</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>3-4</numbering_string>
+        <numbering_list>[3, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠍</letter>
+        <braille>⠍</braille>
+        <index>13</index>
+        <binary_string>001101</binary_string>
+        <binary_list>[0, 0, 1, 1, 0, 1]</binary_list>
+        <unicode>280d</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-3-4</numbering_string>
+        <numbering_list>[1, 3, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠎</letter>
+        <braille>⠎</braille>
+        <index>14</index>
+        <binary_string>001110</binary_string>
+        <binary_list>[0, 0, 1, 1, 1, 0]</binary_list>
+        <unicode>280e</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-3-4</numbering_string>
+        <numbering_list>[2, 3, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠏</letter>
+        <braille>⠏</braille>
+        <index>15</index>
+        <binary_string>001111</binary_string>
+        <binary_list>[0, 0, 1, 1, 1, 1]</binary_list>
+        <unicode>280f</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-3-4</numbering_string>
+        <numbering_list>[1, 2, 3, 4]</numbering_list>
+    </item>
+    <item>
+        <letter>⠐</letter>
+        <braille>⠐</braille>
+        <index>16</index>
+        <binary_string>010000</binary_string>
+        <binary_list>[0, 1, 0, 0, 0, 0]</binary_list>
+        <unicode>2810</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>5</numbering_string>
+        <numbering_list>[5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠑</letter>
+        <braille>⠑</braille>
+        <index>17</index>
+        <binary_string>010001</binary_string>
+        <binary_list>[0, 1, 0, 0, 0, 1]</binary_list>
+        <unicode>2811</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>1-5</numbering_string>
+        <numbering_list>[1, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠒</letter>
+        <braille>⠒</braille>
+        <index>18</index>
+        <binary_string>010010</binary_string>
+        <binary_list>[0, 1, 0, 0, 1, 0]</binary_list>
+        <unicode>2812</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>2-5</numbering_string>
+        <numbering_list>[2, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠓</letter>
+        <braille>⠓</braille>
+        <index>19</index>
+        <binary_string>010011</binary_string>
+        <binary_list>[0, 1, 0, 0, 1, 1]</binary_list>
+        <unicode>2813</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-2-5</numbering_string>
+        <numbering_list>[1, 2, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠔</letter>
+        <braille>⠔</braille>
+        <index>20</index>
+        <binary_string>010100</binary_string>
+        <binary_list>[0, 1, 0, 1, 0, 0]</binary_list>
+        <unicode>2814</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>3-5</numbering_string>
+        <numbering_list>[3, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠕</letter>
+        <braille>⠕</braille>
+        <index>21</index>
+        <binary_string>010101</binary_string>
+        <binary_list>[0, 1, 0, 1, 0, 1]</binary_list>
+        <unicode>2815</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-3-5</numbering_string>
+        <numbering_list>[1, 3, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠖</letter>
+        <braille>⠖</braille>
+        <index>22</index>
+        <binary_string>010110</binary_string>
+        <binary_list>[0, 1, 0, 1, 1, 0]</binary_list>
+        <unicode>2816</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-3-5</numbering_string>
+        <numbering_list>[2, 3, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠗</letter>
+        <braille>⠗</braille>
+        <index>23</index>
+        <binary_string>010111</binary_string>
+        <binary_list>[0, 1, 0, 1, 1, 1]</binary_list>
+        <unicode>2817</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-3-5</numbering_string>
+        <numbering_list>[1, 2, 3, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠘</letter>
+        <braille>⠘</braille>
+        <index>24</index>
+        <binary_string>011000</binary_string>
+        <binary_list>[0, 1, 1, 0, 0, 0]</binary_list>
+        <unicode>2818</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>4-5</numbering_string>
+        <numbering_list>[4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠙</letter>
+        <braille>⠙</braille>
+        <index>25</index>
+        <binary_string>011001</binary_string>
+        <binary_list>[0, 1, 1, 0, 0, 1]</binary_list>
+        <unicode>2819</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-4-5</numbering_string>
+        <numbering_list>[1, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠚</letter>
+        <braille>⠚</braille>
+        <index>26</index>
+        <binary_string>011010</binary_string>
+        <binary_list>[0, 1, 1, 0, 1, 0]</binary_list>
+        <unicode>281a</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-4-5</numbering_string>
+        <numbering_list>[2, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠛</letter>
+        <braille>⠛</braille>
+        <index>27</index>
+        <binary_string>011011</binary_string>
+        <binary_list>[0, 1, 1, 0, 1, 1]</binary_list>
+        <unicode>281b</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-4-5</numbering_string>
+        <numbering_list>[1, 2, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠜</letter>
+        <braille>⠜</braille>
+        <index>28</index>
+        <binary_string>011100</binary_string>
+        <binary_list>[0, 1, 1, 1, 0, 0]</binary_list>
+        <unicode>281c</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>3-4-5</numbering_string>
+        <numbering_list>[3, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠝</letter>
+        <braille>⠝</braille>
+        <index>29</index>
+        <binary_string>011101</binary_string>
+        <binary_list>[0, 1, 1, 1, 0, 1]</binary_list>
+        <unicode>281d</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-3-4-5</numbering_string>
+        <numbering_list>[1, 3, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠞</letter>
+        <braille>⠞</braille>
+        <index>30</index>
+        <binary_string>011110</binary_string>
+        <binary_list>[0, 1, 1, 1, 1, 0]</binary_list>
+        <unicode>281e</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>2-3-4-5</numbering_string>
+        <numbering_list>[2, 3, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠟</letter>
+        <braille>⠟</braille>
+        <index>31</index>
+        <binary_string>011111</binary_string>
+        <binary_list>[0, 1, 1, 1, 1, 1]</binary_list>
+        <unicode>281f</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>1-2-3-4-5</numbering_string>
+        <numbering_list>[1, 2, 3, 4, 5]</numbering_list>
+    </item>
+    <item>
+        <letter>⠠</letter>
+        <braille>⠠</braille>
+        <index>32</index>
+        <binary_string>100000</binary_string>
+        <binary_list>[1, 0, 0, 0, 0, 0]</binary_list>
+        <unicode>2820</unicode>
+        <dot_count>1</dot_count>
+        <numbering_string>6</numbering_string>
+        <numbering_list>[6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠡</letter>
+        <braille>⠡</braille>
+        <index>33</index>
+        <binary_string>100001</binary_string>
+        <binary_list>[1, 0, 0, 0, 0, 1]</binary_list>
+        <unicode>2821</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>1-6</numbering_string>
+        <numbering_list>[1, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠢</letter>
+        <braille>⠢</braille>
+        <index>34</index>
+        <binary_string>100010</binary_string>
+        <binary_list>[1, 0, 0, 0, 1, 0]</binary_list>
+        <unicode>2822</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>2-6</numbering_string>
+        <numbering_list>[2, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠣</letter>
+        <braille>⠣</braille>
+        <index>35</index>
+        <binary_string>100011</binary_string>
+        <binary_list>[1, 0, 0, 0, 1, 1]</binary_list>
+        <unicode>2823</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-2-6</numbering_string>
+        <numbering_list>[1, 2, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠤</letter>
+        <braille>⠤</braille>
+        <index>36</index>
+        <binary_string>100100</binary_string>
+        <binary_list>[1, 0, 0, 1, 0, 0]</binary_list>
+        <unicode>2824</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>3-6</numbering_string>
+        <numbering_list>[3, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠥</letter>
+        <braille>⠥</braille>
+        <index>37</index>
+        <binary_string>100101</binary_string>
+        <binary_list>[1, 0, 0, 1, 0, 1]</binary_list>
+        <unicode>2825</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-3-6</numbering_string>
+        <numbering_list>[1, 3, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠦</letter>
+        <braille>⠦</braille>
+        <index>38</index>
+        <binary_string>100110</binary_string>
+        <binary_list>[1, 0, 0, 1, 1, 0]</binary_list>
+        <unicode>2826</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-3-6</numbering_string>
+        <numbering_list>[2, 3, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠧</letter>
+        <braille>⠧</braille>
+        <index>39</index>
+        <binary_string>100111</binary_string>
+        <binary_list>[1, 0, 0, 1, 1, 1]</binary_list>
+        <unicode>2827</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-3-6</numbering_string>
+        <numbering_list>[1, 2, 3, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠨</letter>
+        <braille>⠨</braille>
+        <index>40</index>
+        <binary_string>101000</binary_string>
+        <binary_list>[1, 0, 1, 0, 0, 0]</binary_list>
+        <unicode>2828</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>4-6</numbering_string>
+        <numbering_list>[4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠩</letter>
+        <braille>⠩</braille>
+        <index>41</index>
+        <binary_string>101001</binary_string>
+        <binary_list>[1, 0, 1, 0, 0, 1]</binary_list>
+        <unicode>2829</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-4-6</numbering_string>
+        <numbering_list>[1, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠪</letter>
+        <braille>⠪</braille>
+        <index>42</index>
+        <binary_string>101010</binary_string>
+        <binary_list>[1, 0, 1, 0, 1, 0]</binary_list>
+        <unicode>282a</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-4-6</numbering_string>
+        <numbering_list>[2, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠫</letter>
+        <braille>⠫</braille>
+        <index>43</index>
+        <binary_string>101011</binary_string>
+        <binary_list>[1, 0, 1, 0, 1, 1]</binary_list>
+        <unicode>282b</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-4-6</numbering_string>
+        <numbering_list>[1, 2, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠬</letter>
+        <braille>⠬</braille>
+        <index>44</index>
+        <binary_string>101100</binary_string>
+        <binary_list>[1, 0, 1, 1, 0, 0]</binary_list>
+        <unicode>282c</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>3-4-6</numbering_string>
+        <numbering_list>[3, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠭</letter>
+        <braille>⠭</braille>
+        <index>45</index>
+        <binary_string>101101</binary_string>
+        <binary_list>[1, 0, 1, 1, 0, 1]</binary_list>
+        <unicode>282d</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-3-4-6</numbering_string>
+        <numbering_list>[1, 3, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠮</letter>
+        <braille>⠮</braille>
+        <index>46</index>
+        <binary_string>101110</binary_string>
+        <binary_list>[1, 0, 1, 1, 1, 0]</binary_list>
+        <unicode>282e</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>2-3-4-6</numbering_string>
+        <numbering_list>[2, 3, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠯</letter>
+        <braille>⠯</braille>
+        <index>47</index>
+        <binary_string>101111</binary_string>
+        <binary_list>[1, 0, 1, 1, 1, 1]</binary_list>
+        <unicode>282f</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>1-2-3-4-6</numbering_string>
+        <numbering_list>[1, 2, 3, 4, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠰</letter>
+        <braille>⠰</braille>
+        <index>48</index>
+        <binary_string>110000</binary_string>
+        <binary_list>[1, 1, 0, 0, 0, 0]</binary_list>
+        <unicode>2830</unicode>
+        <dot_count>2</dot_count>
+        <numbering_string>5-6</numbering_string>
+        <numbering_list>[5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠱</letter>
+        <braille>⠱</braille>
+        <index>49</index>
+        <binary_string>110001</binary_string>
+        <binary_list>[1, 1, 0, 0, 0, 1]</binary_list>
+        <unicode>2831</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>1-5-6</numbering_string>
+        <numbering_list>[1, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠲</letter>
+        <braille>⠲</braille>
+        <index>50</index>
+        <binary_string>110010</binary_string>
+        <binary_list>[1, 1, 0, 0, 1, 0]</binary_list>
+        <unicode>2832</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>2-5-6</numbering_string>
+        <numbering_list>[2, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠳</letter>
+        <braille>⠳</braille>
+        <index>51</index>
+        <binary_string>110011</binary_string>
+        <binary_list>[1, 1, 0, 0, 1, 1]</binary_list>
+        <unicode>2833</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-2-5-6</numbering_string>
+        <numbering_list>[1, 2, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠴</letter>
+        <braille>⠴</braille>
+        <index>52</index>
+        <binary_string>110100</binary_string>
+        <binary_list>[1, 1, 0, 1, 0, 0]</binary_list>
+        <unicode>2834</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>3-5-6</numbering_string>
+        <numbering_list>[3, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠵</letter>
+        <braille>⠵</braille>
+        <index>53</index>
+        <binary_string>110101</binary_string>
+        <binary_list>[1, 1, 0, 1, 0, 1]</binary_list>
+        <unicode>2835</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-3-5-6</numbering_string>
+        <numbering_list>[1, 3, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠶</letter>
+        <braille>⠶</braille>
+        <index>54</index>
+        <binary_string>110110</binary_string>
+        <binary_list>[1, 1, 0, 1, 1, 0]</binary_list>
+        <unicode>2836</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>2-3-5-6</numbering_string>
+        <numbering_list>[2, 3, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠷</letter>
+        <braille>⠷</braille>
+        <index>55</index>
+        <binary_string>110111</binary_string>
+        <binary_list>[1, 1, 0, 1, 1, 1]</binary_list>
+        <unicode>2837</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>1-2-3-5-6</numbering_string>
+        <numbering_list>[1, 2, 3, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠸</letter>
+        <braille>⠸</braille>
+        <index>56</index>
+        <binary_string>111000</binary_string>
+        <binary_list>[1, 1, 1, 0, 0, 0]</binary_list>
+        <unicode>2838</unicode>
+        <dot_count>3</dot_count>
+        <numbering_string>4-5-6</numbering_string>
+        <numbering_list>[4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠹</letter>
+        <braille>⠹</braille>
+        <index>57</index>
+        <binary_string>111001</binary_string>
+        <binary_list>[1, 1, 1, 0, 0, 1]</binary_list>
+        <unicode>2839</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>1-4-5-6</numbering_string>
+        <numbering_list>[1, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠺</letter>
+        <braille>⠺</braille>
+        <index>58</index>
+        <binary_string>111010</binary_string>
+        <binary_list>[1, 1, 1, 0, 1, 0]</binary_list>
+        <unicode>283a</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>2-4-5-6</numbering_string>
+        <numbering_list>[2, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠻</letter>
+        <braille>⠻</braille>
+        <index>59</index>
+        <binary_string>111011</binary_string>
+        <binary_list>[1, 1, 1, 0, 1, 1]</binary_list>
+        <unicode>283b</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>1-2-4-5-6</numbering_string>
+        <numbering_list>[1, 2, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠼</letter>
+        <braille>⠼</braille>
+        <index>60</index>
+        <binary_string>111100</binary_string>
+        <binary_list>[1, 1, 1, 1, 0, 0]</binary_list>
+        <unicode>283c</unicode>
+        <dot_count>4</dot_count>
+        <numbering_string>3-4-5-6</numbering_string>
+        <numbering_list>[3, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠽</letter>
+        <braille>⠽</braille>
+        <index>61</index>
+        <binary_string>111101</binary_string>
+        <binary_list>[1, 1, 1, 1, 0, 1]</binary_list>
+        <unicode>283d</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>1-3-4-5-6</numbering_string>
+        <numbering_list>[1, 3, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠾</letter>
+        <braille>⠾</braille>
+        <index>62</index>
+        <binary_string>111110</binary_string>
+        <binary_list>[1, 1, 1, 1, 1, 0]</binary_list>
+        <unicode>283e</unicode>
+        <dot_count>5</dot_count>
+        <numbering_string>2-3-4-5-6</numbering_string>
+        <numbering_list>[2, 3, 4, 5, 6]</numbering_list>
+    </item>
+    <item>
+        <letter>⠿</letter>
+        <braille>⠿</braille>
+        <index>63</index>
+        <binary_string>111111</binary_string>
+        <binary_list>[1, 1, 1, 1, 1, 1]</binary_list>
+        <unicode>283f</unicode>
+        <dot_count>6</dot_count>
+        <numbering_string>1-2-3-4-5-6</numbering_string>
+        <numbering_list>[1, 2, 3, 4, 5, 6]</numbering_list>
+    </item>
+</braille_output>
