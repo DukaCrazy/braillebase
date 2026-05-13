@@ -1,11 +1,16 @@
 class BrailleBase:
     # map: __letter_brailles[letter: str]  = braille_list} 
-    # map: __letter_brailles[letter: str]  = specialBraille_list} 
+    # map: __letter_specialBraille_rules01[letter: str]  = specialBraille_list} 
 
     #0000
     def __init__(self):
         self.__letter_brailles = {}
-        self.__letter_specialBraille = {}
+        #rules 01
+        self.__letter_specialBraille_rules01 = {}
+        self.setting_braille_rules01("⠠")
+        #rules 02
+        self.__letter_specialBraille_rules02 = {}
+        self.setting_braille_rules02("⠰")
 
         self.__constructor_map_braille()
         self.__constructor_map_spaces()
@@ -40,7 +45,7 @@ class BrailleBase:
         self.__letter_brailles[letter] = braille_list
 
     #0001-AB
-    def append_special_braille_letter(self, letter: str, braille_list: list):
+    def append_special_braille_lettr_rules01(self, letter: str, braille_list: list):
         """
         """
         if not isinstance(letter, str):
@@ -52,7 +57,22 @@ class BrailleBase:
         self.__validate_braille_list(braille_list)
 
         self.__letter_brailles[letter] = braille_list
-        self.__letter_specialBraille[letter] = braille_list
+        self.__letter_specialBraille_rules01[letter] = braille_list
+
+    #0001-AC
+    def append_special_braille_lettr_rules02(self, letter: str, braille_list: list):
+        """
+        """
+        if not isinstance(letter, str):
+            raise TypeError("letter must be a string")
+
+        if len(letter) == 0:
+            raise ValueError("letter cannot be empty")
+        
+        self.__validate_braille_list(braille_list)
+
+        self.__letter_brailles[letter] = braille_list
+        self.__letter_specialBraille_rules02[letter] = braille_list
 
     #0001-B
     def get_brailles_with_letter(self, letter: str):
@@ -100,11 +120,17 @@ class BrailleBase:
         """
         return letter in self.__letter_brailles
     
-        #0001-CB
-    def has_letter_specialBraille(self, letter: str) -> bool:
+    #0001-CB
+    def has_letter_specialBraille_rules01(self, letter: str) -> bool:
         """
         """
-        return letter in self.__letter_specialBraille
+        return letter in self.__letter_specialBraille_rules01
+    
+    #0001-CC
+    def has_letter_specialBraille_rules02(self, letter: str) -> bool:
+        """
+        """
+        return letter in self.__letter_specialBraille_rules02
 
     #0001-D
     def remove_letter(self, letter: str):
@@ -150,11 +176,17 @@ class BrailleBase:
         """
         return list(self.__letter_brailles.keys())
     
-        #0001-EB
+    #0001-EB
     def get_registered_letters_specialBraille(self):
         """
         """
-        return list(self.__letter_specialBraille.keys())
+        return list(self.__letter_specialBraille_rules01.keys())
+    
+    #0001-EC
+    def get_registered_letters_specialBraille(self):
+        """
+        """
+        return list(self.__letter_specialBraille_rules02.keys())
 
     #0001-F
     def append_multiple_braille_letters(self, mapping: dict):
@@ -463,8 +495,10 @@ class BrailleBase:
 
         """
         text = BrailleBase.prepare_number_braille(text)
-        text = self.prepare_special_braille(text)
-        
+        #apply rules 1
+        text = self.prepare_special_braille_rules01(text)
+        #apply rules 2
+        text = self.prepare_special_braille_rules02(text)
         tokens = self.tokenize_text(text)
 
         result = []
@@ -1180,37 +1214,6 @@ class BrailleBase:
     #----------------------------Internal logic for braille number processing---------------------------
     def prepare_number_braille(text: str):
         """
-        EN
-        Prepares the input text for braille number processing.  
-        Whenever a digit appears and the previous character was not a digit,  
-        the numeric indicator (⠼) is inserted before the digit.  
-        This method ensures that number sequences are correctly marked  
-        before the braille translation stage.
-
-        JP
-        点字の数字処理のためにテキストを前処理します。  
-        数字が現れ、直前の文字が数字でない場合、  
-        数字指標（⠼）をその数字の前に挿入します。  
-        このメソッドは、点字変換の前段階として  
-        数字列が正しくマークされるようにします。
-
-        IT
-        Prepara il testo per la gestione dei numeri in braille.  
-        Ogni volta che compare una cifra e il carattere precedente non è una cifra,  
-        viene inserito l’indicatore numerico (⠼) prima della cifra.  
-        Questo metodo garantisce che le sequenze numeriche siano correttamente marcate  
-        prima della fase di traduzione in braille.
-
-        PT
-        Prepara o texto para o processamento de números em braille.  
-        Sempre que um dígito aparece e o caractere anterior não é um dígito,  
-        o indicador numérico (⠼) é inserido antes do número.  
-        Esse método garante que sequências numéricas sejam corretamente marcadas  
-        antes da etapa de tradução para braille.
-
-        CH
-        为点字数字处理准备输入文本。每当出现数字且前一个字符不是数字时，会在该数字前插入数字指示符（⠼）。
-        此方法确保在进入点字转换阶段之前，数字序列能够被正确标记。
         """
         result = []
         previous = False
@@ -1226,21 +1229,61 @@ class BrailleBase:
 
         return "".join(result)
     
-    def prepare_special_braille(self, text: str) -> str:
+    #----------------------------Prepare Special 01---------------------------
+
+    def prepare_special_braille_rules01(self, text: str) -> str:
+        result = []
+        text_size = len(text)
+
+        for iLetter in range(text_size):
+            previous_letter = text[iLetter - 1] if iLetter > 0 else None
+            current_letter = text[iLetter]
+            next_letter = text[iLetter + 1] if iLetter < text_size - 1 else None
+
+            has_previous_letter = previous_letter in self.__letter_specialBraille_rules01 if previous_letter else False
+            has_current_letter = current_letter in self.__letter_specialBraille_rules01
+            has_next_letter = next_letter in self.__letter_specialBraille_rules01 if next_letter else False
+
+            if not has_previous_letter and has_current_letter and has_next_letter:
+                result.append(self.__braille_rules01)
+                result.append(self.__braille_rules01)
+
+            elif  not has_previous_letter and has_current_letter and not has_next_letter:
+                result.append(self.__braille_rules01)
+
+
+            if has_previous_letter and has_current_letter and not has_next_letter:
+                result.append(current_letter)
+                result.append(self.__braille_rules01)
+            else:
+                result.append(current_letter)
+
+        return "".join(result)
+    
+    def setting_braille_rules01(self, braille: str) -> str:
+        self.__braille_rules01 = braille
+
+    #----------------------------Prepare Special 02---------------------------
+    
+    def prepare_special_braille_rules02(self, text: str) -> str:
         result = []
         previous = False
 
         for ch in text:
-            is_special = ch in self.__letter_specialBraille
+            is_special = ch in self.__letter_specialBraille_rules02
 
             if is_special and not previous:
-                result.append("⠰")
+                result.append(self.__braille_rules02)
 
             result.append(ch)
             previous = is_special
 
         return "".join(result)
+    
+    def setting_braille_rules02(self, braille: str) -> str:
+        self.__braille_rules02 = braille
 
+    #----------------------------Token---------------------------
 
     def tokenize_text(self, text: str) -> list[str]:
         tokens = []
@@ -1267,14 +1310,15 @@ class BrailleBase:
     #    def tokenize_text(self, text: str) -> list[str]: #TEST
     def confidence_test(self, text: str) -> dict:
         text = BrailleBase.prepare_number_braille(text)
+        text = self.prepare_special_braille_rules01(text)
+        text = self.prepare_special_braille_rules01(text)
+
         tokens = self.tokenize_text(text)
         result = {}
         for token in tokens:
             brailles = self.get_brailles_with_letter(token)
             result[token] = brailles
         return result
-
-
 
         #----------------------------Constructor ---------------------------
 
