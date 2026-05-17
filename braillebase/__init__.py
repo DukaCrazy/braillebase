@@ -4,16 +4,19 @@ class BrailleBase:
 
     #0000
     def __init__(self):
-        self.__letter_brailles = {}
+        self.__letter_brailles: dict[str, list[str]] = {}
         #rules 01
-        self.__letter_specialBraille_rules01 = {}
+        self.__letter_specialBraille_rules01: dict[str, list[str]] = {}
         self.setting_braille_rules01("⠠")
         #rules 02
-        self.__letter_specialBraille_rules02 = {}
+        self.__letter_specialBraille_rules02: dict[str, list[str]] = {}
         self.setting_braille_rules02("⠰")
 
         self.__constructor_map_braille()
         self.__constructor_map_spaces()
+        self.__constructor_all_table()
+
+        self.abc()
 
 #---------------------------------------- Registry group (0001) ----------------------------------------
     #0001-AA
@@ -177,13 +180,13 @@ class BrailleBase:
         return list(self.__letter_brailles.keys())
     
     #0001-EB
-    def get_registered_letters_specialBraille(self):
+    def get_registered_letters_specialBraille_Rules01(self):
         """
         """
         return list(self.__letter_specialBraille_rules01.keys())
     
     #0001-EC
-    def get_registered_letters_specialBraille(self):
+    def get_registered_letters_specialBraille_Rules02(self):
         """
         """
         return list(self.__letter_specialBraille_rules02.keys())
@@ -239,9 +242,17 @@ class BrailleBase:
 
 #---------------------------------------- Mapping group (0003) ----------------------------------------
     #0003-A
-    @staticmethod
-    def get_braille_to_index(braille: str) -> int:
+    def get_braille_to_index(self, braille: str) -> int:
         """
+        '⠀': 0, '⠁': 1, '⠂': 2, '⠃': 3, '⠄': 4, '⠅': 5, '⠆': 6, '⠇': 7,
+        '⠈': 8, '⠉': 9, '⠊': 10, '⠋': 11, '⠌': 12, '⠍': 13, '⠎': 14, '⠏': 15,
+        '⠐': 16, '⠑': 17, '⠒': 18, '⠓': 19, '⠔': 20, '⠕': 21, '⠖': 22, '⠗': 23,
+        '⠘': 24, '⠙': 25, '⠚': 26, '⠛': 27, '⠜': 28, '⠝': 29, '⠞': 30, '⠟': 31,
+        '⠠': 32, '⠡': 33, '⠢': 34, '⠣': 35, '⠤': 36, '⠥': 37, '⠦': 38, '⠧': 39,
+        '⠨': 40, '⠩': 41, '⠪': 42, '⠫': 43, '⠬': 44, '⠭': 45, '⠮': 46, '⠯': 47,
+        '⠰': 48, '⠱': 49, '⠲': 50, '⠳': 51, '⠴': 52, '⠵': 53, '⠶': 54, '⠷': 55,
+        '⠸': 56, '⠹': 57, '⠺': 58, '⠻': 59, '⠼': 60, '⠽': 61, '⠾': 62, '⠿': 63
+
         EN
         Receives a character (string), which must be a valid braille symbol, 
         and returns an integer (int) that represents its position in the Unicode braille table (U+2800 to U+283F).
@@ -261,21 +272,13 @@ class BrailleBase:
         CH
         接收一个字符（string），该字符必须是有效的点字符号，并返回一个整数（int），表示其在 Unicode 点字表（U+2800 至 U+283F）中的位置。
         """
-        braille_to_index = {
-        '⠀': 0, '⠁': 1, '⠂': 2, '⠃': 3, '⠄': 4, '⠅': 5, '⠆': 6, '⠇': 7,
-        '⠈': 8, '⠉': 9, '⠊': 10, '⠋': 11, '⠌': 12, '⠍': 13, '⠎': 14, '⠏': 15,
-        '⠐': 16, '⠑': 17, '⠒': 18, '⠓': 19, '⠔': 20, '⠕': 21, '⠖': 22, '⠗': 23,
-        '⠘': 24, '⠙': 25, '⠚': 26, '⠛': 27, '⠜': 28, '⠝': 29, '⠞': 30, '⠟': 31,
-        '⠠': 32, '⠡': 33, '⠢': 34, '⠣': 35, '⠤': 36, '⠥': 37, '⠦': 38, '⠧': 39,
-        '⠨': 40, '⠩': 41, '⠪': 42, '⠫': 43, '⠬': 44, '⠭': 45, '⠮': 46, '⠯': 47,
-        '⠰': 48, '⠱': 49, '⠲': 50, '⠳': 51, '⠴': 52, '⠵': 53, '⠶': 54, '⠷': 55,
-        '⠸': 56, '⠹': 57, '⠺': 58, '⠻': 59, '⠼': 60, '⠽': 61, '⠾': 62, '⠿': 63
-    }
-        return braille_to_index[braille]
-    
+
+        return self.__braille_to_index[braille]
+    #0003-C
+    def get_index_to_braille(self, index: int) -> str:
+        return self.__BrailleList[index]
     #0003-B
-    @staticmethod
-    def get_braille_list_to_index_list(braille_list: list) -> list:
+    def get_braille_list_to_index_list(self, braille_list: list) -> list:
         """
         EN
         Receives multiple characters (strings), each of which must be a valid braille symbol, and returns a list of integers (int), 
@@ -297,13 +300,21 @@ class BrailleBase:
         CH
         接收多个字符（string），每个字符都必须是有效的点字符号，并返回一个整数（int）列表，其中每个值表示相应符号在 Unicode 点字表（U+2800 至 U+283F）中的位置。
         """
-        return [BrailleBase.get_braille_to_index(b) for b in braille_list]
+        return [self.get_braille_to_index(b) for b in braille_list]
     
 #---------------------------------------- Tables group (0004) ----------------------------------------
     #0004-A
-    @staticmethod
-    def braille_list():
+    def braille_list(self) -> list[str]:
         """
+            '⠀','⠁','⠂','⠃','⠄','⠅','⠆','⠇',
+            '⠈','⠉','⠊','⠋','⠌','⠍','⠎','⠏',
+            '⠐','⠑','⠒','⠓','⠔','⠕','⠖','⠗',
+            '⠘','⠙','⠚','⠛','⠜','⠝','⠞','⠟',
+            '⠠','⠡','⠢','⠣','⠤','⠥','⠦','⠧',
+            '⠨','⠩','⠪','⠫','⠬','⠭','⠮','⠯',
+            '⠰','⠱','⠲','⠳','⠴','⠵','⠶','⠷',
+            '⠸','⠹','⠺','⠻','⠼','⠽','⠾','⠿'
+
         EN
         Returns all braille characters organized in the standard Unicode order, covering the range U+2800 to U+283F.
  
@@ -319,19 +330,9 @@ class BrailleBase:
         CH
         返回按 Unicode 标准顺序排列的所有点字符号，范围覆盖 U+2800 至 U+283F。
         """
-        return [
-            '⠀','⠁','⠂','⠃','⠄','⠅','⠆','⠇',
-            '⠈','⠉','⠊','⠋','⠌','⠍','⠎','⠏',
-            '⠐','⠑','⠒','⠓','⠔','⠕','⠖','⠗',
-            '⠘','⠙','⠚','⠛','⠜','⠝','⠞','⠟',
-            '⠠','⠡','⠢','⠣','⠤','⠥','⠦','⠧',
-            '⠨','⠩','⠪','⠫','⠬','⠭','⠮','⠯',
-            '⠰','⠱','⠲','⠳','⠴','⠵','⠶','⠷',
-            '⠸','⠹','⠺','⠻','⠼','⠽','⠾','⠿'
-        ]
+        return self.__BrailleList
     #0004-B
-    @staticmethod
-    def get_binary_list():
+    def get_binary_list(self) -> list[list[int]]:
 
         """
         EN
@@ -346,12 +347,9 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是由 6 位组成的数组，用于表示一个点字符号。
         """
-        return [
-            [int(b) for b in f"{i:06b}"] for i in range(64)
-        ]
+        return self.__BinaryList
     #0004-C
-    @staticmethod
-    def get_binary_string_list():
+    def get_binary_string_list(self) -> list[str]:
         """
         EN
         Returns a list with 64 items; each item is a 6‑bit binary string representing a braille character.
@@ -365,10 +363,9 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是一个由 6 位组成的二进制字符串，用于表示一个点字符号。
         """
-        return [f"{i:06b}" for i in range(64)]
+        return self.__BinaryStringList
     #0004-D
-    @staticmethod
-    def get_unicode_list():
+    def get_unicode_list(self) -> list[str]:
         """
         EN
         Returns a list with 64 items; each item is the Unicode code in hexadecimal format corresponding to a braille character.
@@ -382,10 +379,9 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是对应点字符号的 Unicode 十六进制代码。
         """
-        return [f"{0x2800 + i:04x}" for i in range(64)]
+        return self.__UnicodeList
     #0004-E
-    @staticmethod
-    def get_dot_count():
+    def get_dot_count(self) -> list[int]:
         """
         EN
         Returns a list with 64 items; each item is an integer indicating how many points are active (1 to 6) in the corresponding braille character.
@@ -399,10 +395,9 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是一个整数，用于表示对应点字符号中有多少个激活点（1 至 6）。
         """
-        return [bin(i).count("1") for i in range(64)]
+        return self.__DotCountList
     #0004-F
-    @staticmethod
-    def get_dot_numbering_list():
+    def get_dot_numbering_list(self) -> list[list[int]]:
         """
         EN
         Returns a list with 64 items; each item is an array containing the numbers of the active points (1 to 6) of the corresponding braille character. Commonly used in educational materials.
@@ -419,17 +414,9 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是一个数组，包含对应点字符号中激活点（1 至 6）的编号。常用于教学材料。
         """
-        lst = []
-        for i in range(64):
-            dots = []
-            for d in range(6):
-                if (i >> d) & 1:
-                    dots.append(d+1)
-            lst.append(dots)
-        return lst
+        return self.__DotNumberingList
     #0004-G
-    @staticmethod
-    def get_dot_numbering_string_list():
+    def get_dot_numbering_string_list(self) -> list[str]:
         """
         EN
         Returns a list with 64 items; each item is a string containing the numbers of the active points (1 to 6) of the corresponding braille character, separated by hyphens. Commonly used in educational materials.
@@ -446,10 +433,7 @@ class BrailleBase:
         CH
         返回一个包含 64 个项目的列表；每个项目都是一个字符串，包含对应点字符号中激活点（1 至 6）的编号，并以连字符分隔。常用于教学材料。
         """
-        return [
-            "-".join(str(d) for d in dots)
-            for dots in BrailleBase.get_dot_numbering_list()
-        ]
+        return self.__DotNumberingStringList
 #---------------------------------------- Translate group (0002) ----------------------------------------
    #0002-A
     def translate_text_to_braille(self, text: str) -> list:
@@ -478,7 +462,6 @@ class BrailleBase:
         Tutti i metodi del gruppo translate dipendono completamente da translate_text_to_braille(text: str).
 
 
-
         PT
         O método espera uma string como argumento — o texto que se deseja traduzir para braille.
         Cada caractere* é transformado em braille.
@@ -494,7 +477,7 @@ class BrailleBase:
         translate 组的所有方法都完全依赖于 translate_text_to_braille(text: str)。
 
         """
-        text = BrailleBase.prepare_number_braille(text)
+        text = self.prepare_number_braille(text)
         #apply rules 1
         text = self.prepare_special_braille_rules01(text)
         #apply rules 2
@@ -528,7 +511,7 @@ class BrailleBase:
         将输入文本转换为点字索引列表。某些字符可能会展开为多个点字单元。
         """
         brailles = self.translate_text_to_braille(textBraille)
-        return BrailleBase.get_braille_list_to_index_list(brailles)
+        return self.get_braille_list_to_index_list(brailles)
     
     #0002-C
     def translate_text_to_binary_string(self, text: str) -> list:
@@ -549,8 +532,8 @@ class BrailleBase:
         将输入文本转换为表示每个点字单元的 6 位二进制字符串列表。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        binary_strings = BrailleBase.get_binary_string_list()
+        indices = self.get_braille_list_to_index_list(brailles)
+        binary_strings = self.get_binary_string_list()
         return [binary_strings[i] for i in indices]
     
     #0002-D
@@ -572,8 +555,8 @@ class BrailleBase:
         将输入文本转换为表示每个点字单元的 6 位二进制数组列表。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        binary_lists = BrailleBase.get_binary_list()
+        indices = self.get_braille_list_to_index_list(brailles)
+        binary_lists = self.get_binary_list()
         return [binary_lists[i] for i in indices]
     
     #0002-E
@@ -595,8 +578,8 @@ class BrailleBase:
         将输入文本转换为表示每个点字单元的 Unicode 代码列表。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        unicode_lists = BrailleBase.get_unicode_list()
+        indices = self.get_braille_list_to_index_list(brailles)
+        unicode_lists = self.get_unicode_list()
         return [unicode_lists[i] for i in indices]
     
     #0002-F
@@ -618,8 +601,8 @@ class BrailleBase:
         将输入文本转换为一个列表，其中包含每个点字单元的点数。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        dot_count_lists = BrailleBase.get_dot_count()
+        indices = self.get_braille_list_to_index_list(brailles)
+        dot_count_lists = self.get_dot_count()
         return [dot_count_lists[i] for i in indices]
     
     #0002-G
@@ -641,8 +624,8 @@ class BrailleBase:
         将输入文本转换为编号字符串列表，每个字符串表示对应点字单元的激活点位置。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
+        indices = self.get_braille_list_to_index_list(brailles)
+        numbering_strings = self.get_dot_numbering_string_list()
         return [numbering_strings[i] for i in indices]
     
     #0002-H
@@ -664,8 +647,8 @@ class BrailleBase:
         将输入文本转换为编号列表的列表，每个编号列表包含对应点字单元的激活点位置。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        indices = self.get_braille_list_to_index_list(brailles)
+        numbering_lists = self.get_dot_numbering_list()
         return [numbering_lists[i] for i in indices]
     
     #0002-I
@@ -691,14 +674,14 @@ class BrailleBase:
         将输入文本转换为完整的点字相关数据列表。每个条目包含：点字符号、索引、二进制字符串、二进制数组、Unicode 值、点数、编号字符串以及编号列表。
         """
         brailles = self.translate_text_to_braille(text)
-        indices = BrailleBase.get_braille_list_to_index_list(brailles)
+        indices = self.get_braille_list_to_index_list(brailles)
 
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_count_lists = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_count_lists = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         result = []
 
@@ -743,13 +726,13 @@ class BrailleBase:
 
         result = []
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -810,13 +793,13 @@ class BrailleBase:
             "numbering_list"
         ])
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -867,13 +850,13 @@ class BrailleBase:
 
         root = ET.Element("braille_output")
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -894,7 +877,6 @@ class BrailleBase:
         reparsed = minidom.parseString(rough_xml)
         return reparsed.toprettyxml(indent="    ", encoding="utf-8").decode("utf-8")
 
-    
     #0005-D
     def output_all_yaml(self, text: str) -> str:
         """
@@ -921,13 +903,13 @@ class BrailleBase:
         """
         lines = []
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -973,13 +955,13 @@ class BrailleBase:
         """
         lines = []
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -1030,13 +1012,13 @@ class BrailleBase:
 
         lines.append('<div class="braille-output">')
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -1090,13 +1072,13 @@ class BrailleBase:
         """
         lines = []
 
-        braille_list = BrailleBase.braille_list()
-        binary_strings = BrailleBase.get_binary_string_list()
-        binary_lists = BrailleBase.get_binary_list()
-        unicode_lists = BrailleBase.get_unicode_list()
-        dot_counts = BrailleBase.get_dot_count()
-        numbering_strings = BrailleBase.get_dot_numbering_string_list()
-        numbering_lists = BrailleBase.get_dot_numbering_list()
+        braille_list = self.braille_list()
+        binary_strings = self.get_binary_string_list()
+        binary_lists = self.get_binary_list()
+        unicode_lists = self.get_unicode_list()
+        dot_counts = self.get_dot_count()
+        numbering_strings = self.get_dot_numbering_string_list()
+        numbering_lists = self.get_dot_numbering_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -1141,8 +1123,8 @@ class BrailleBase:
         """
         lines = []
 
-        binary_strings = BrailleBase.get_binary_string_list()
-        braille_list = BrailleBase.braille_list()
+        binary_strings = self.get_binary_string_list()
+        braille_list = self.braille_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -1159,8 +1141,8 @@ class BrailleBase:
         """
         lines = []
 
-        braille_strings = BrailleBase.braille_list()
-        braille_list = BrailleBase.braille_list()
+        braille_strings = self.braille_list()
+        braille_list = self.braille_list()
 
         brailles = self.translate_text_to_braille(text)
 
@@ -1212,7 +1194,7 @@ class BrailleBase:
                 raise ValueError(f"invalid braille character: {b}")
             
     #----------------------------Internal logic for braille number processing---------------------------
-    def prepare_number_braille(text: str):
+    def prepare_number_braille(self, text: str) -> str:
         """
         """
         result = []
@@ -1260,7 +1242,7 @@ class BrailleBase:
 
         return "".join(result)
     
-    def setting_braille_rules01(self, braille: str) -> str:
+    def setting_braille_rules01(self, braille: str):
         self.__braille_rules01 = braille
 
     #----------------------------Prepare Special 02---------------------------
@@ -1280,7 +1262,7 @@ class BrailleBase:
 
         return "".join(result)
     
-    def setting_braille_rules02(self, braille: str) -> str:
+    def setting_braille_rules02(self, braille: str):
         self.__braille_rules02 = braille
 
     #----------------------------Token---------------------------
@@ -1309,9 +1291,9 @@ class BrailleBase:
     
     #    def tokenize_text(self, text: str) -> list[str]: #TEST
     def confidence_test(self, text: str) -> dict:
-        text = BrailleBase.prepare_number_braille(text)
+        text = self.prepare_number_braille(text)
         text = self.prepare_special_braille_rules01(text)
-        text = self.prepare_special_braille_rules01(text)
+        text = self.prepare_special_braille_rules02(text)
 
         tokens = self.tokenize_text(text)
         result = {}
@@ -1321,6 +1303,28 @@ class BrailleBase:
         return result
 
         #----------------------------Constructor ---------------------------
+
+    def __constructor_all_table(self):
+        from brailletable import BrailleTable
+
+        self.__BrailleList: list[str] = BrailleTable.braille_list() #A
+        self.__BinaryList: list[list[int]] = BrailleTable.binary_list() #B
+        self.__BinaryStringList: list[str] = BrailleTable.binary_string_list() #C
+        self.__UnicodeList: list[str] = BrailleTable.unicode_list() #D
+        self.__DotCountList: list[int] = BrailleTable.dot_count() #E
+        self.__DotNumberingList: list[list[int]]  = BrailleTable.dot_numbering_list() #F
+        self.__DotNumberingStringList: list[str] = BrailleTable.dot_numbering_string_list() #G
+
+        self.__braille_to_index = {
+        '⠀': 0, '⠁': 1, '⠂': 2, '⠃': 3, '⠄': 4, '⠅': 5, '⠆': 6, '⠇': 7,
+        '⠈': 8, '⠉': 9, '⠊': 10, '⠋': 11, '⠌': 12, '⠍': 13, '⠎': 14, '⠏': 15,
+        '⠐': 16, '⠑': 17, '⠒': 18, '⠓': 19, '⠔': 20, '⠕': 21, '⠖': 22, '⠗': 23,
+        '⠘': 24, '⠙': 25, '⠚': 26, '⠛': 27, '⠜': 28, '⠝': 29, '⠞': 30, '⠟': 31,
+        '⠠': 32, '⠡': 33, '⠢': 34, '⠣': 35, '⠤': 36, '⠥': 37, '⠦': 38, '⠧': 39,
+        '⠨': 40, '⠩': 41, '⠪': 42, '⠫': 43, '⠬': 44, '⠭': 45, '⠮': 46, '⠯': 47,
+        '⠰': 48, '⠱': 49, '⠲': 50, '⠳': 51, '⠴': 52, '⠵': 53, '⠶': 54, '⠷': 55,
+        '⠸': 56, '⠹': 57, '⠺': 58, '⠻': 59, '⠼': 60, '⠽': 61, '⠾': 62, '⠿': 63
+    }
 
     def __constructor_map_braille(self):
         braille_map = {
@@ -1394,35 +1398,33 @@ class BrailleBase:
 
     def __constructor_map_spaces(self):
         spaces = {
-        "\u0009": ["\u2800"],
-        "\u000A": ["\u2800"],
-        "\u000B": ["\u2800"],
-        "\u000C": ["\u2800"],
-        "\u000D": ["\u2800"],
-        "\u0020": ["\u2800"],
-        "\u00A0": ["\u2800"],
-        "\u1680": ["\u2800"],
-        "\u180E": ["\u2800"],
-        "\u2000": ["\u2800"],
-        "\u2001": ["\u2800"],
-        "\u2002": ["\u2800"],
-        "\u2003": ["\u2800"],
-        "\u2004": ["\u2800"],
-        "\u2005": ["\u2800"],
-        "\u2006": ["\u2800"],
-        "\u2007": ["\u2800"],
-        "\u2008": ["\u2800"],
-        "\u2009": ["\u2800"],
-        "\u200A": ["\u2800"],
-        "\u200B": ["\u2800"],
-        "\u200C": ["\u2800"],
-        "\u200D": ["\u2800"],
-        "\u2028": ["\u2800"],
-        "\u2029": ["\u2800"],
-        "\u202F": ["\u2800"],
-        "\u205F": ["\u2800"],
-        "\u2060": ["\u2800"],
-        "\u3000": ["\u2800"],
-        "\uFEFF": ["\u2800"]
+            # whitespace
+            "\u0020": ["\u2800"],  # SPACE
+            "\u1680": ["\u2800"],
+            "\u180E": ["\u2800"],
+            "\u2000": ["\u2800"],
+            "\u2001": ["\u2800"],
+            "\u2002": ["\u2800"],
+            "\u2003": ["\u2800"],
+            "\u2004": ["\u2800"],
+            "\u2005": ["\u2800"],
+            "\u2006": ["\u2800"],
+            "\u2007": ["\u2800"],
+            "\u2008": ["\u2800"],
+            "\u2009": ["\u2800"],
+            "\u200A": ["\u2800"],
+            "\u200B": ["\u2800"],
+            "\u200C": ["\u2800"],
+            "\u200D": ["\u2800"],
+            "\u202F": ["\u2800"],
+            "\u205F": ["\u2800"],
+            "\u2060": ["\u2800"],
+            "\u3000": ["\u2800"],
+            "\uFEFF": ["\u2800"],
+
+            #"\u00A0": ["⠀"],      # NBSP
+            #"\t": ["⠄"],   # TAB
+            #"\n": ["\n"]
         }
+
         self.append_multiple_braille_letters(spaces)
