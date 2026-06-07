@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "braillebase"
-version = "0.0.8"
+version = "0.0.9"
 description = "A complete and extensible Unicode Braille processing library."
 authors = [
     { name = "Nagao Yuji" }
@@ -15,7 +15,7 @@ requires-python = ">=3.6"
 keywords = ["braille", "unicode", "accessibility", "API", "binary", "blind", "education"]
 
 dependencies = [
-    "brailletable>=1.0.0"
+    "brailletable>=1.0.1"
 ]
 
 [project.urls]
