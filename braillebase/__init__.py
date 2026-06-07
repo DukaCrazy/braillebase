@@ -34,8 +34,6 @@ class BrailleBase:
         self.__constructor_map_spaces()
         self.__constructor_all_table()
 
-        self.abc()
-
 #---------------------------------------- Registry group (0001) ----------------------------------------
     #0001-AA
     def append_braille_letter(self, letter: str, braille_list: list):
