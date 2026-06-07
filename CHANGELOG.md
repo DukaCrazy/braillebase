@@ -1,3 +1,9 @@
+
+## 2026/05/17 — Version 0.0.9 Summary
+- Updated documentation.
+- Updated dependence/     def __constructor_all_table(self): [brailletable 1.0.0 -> brailletable 1.0.1].
+- New paramether in Prepare Special 01: Roma Letter/    def setting_braille_rules01(self, braille_uppercase: str, braille_lowercase: str): [Only Uppercase -> Uppercase and Lowercase]
+
 ## 2026/05/17 — Version 0.0.8 Summary
 - 1) Mapping group (0003) Add: def get_index_to_braille(self, index: int) -> str: 0003-C
 - 2) All class members became instance members
