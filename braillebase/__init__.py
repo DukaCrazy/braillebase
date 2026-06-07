@@ -2,12 +2,30 @@ class BrailleBase:
     # map: __letter_brailles[letter: str]  = braille_list} 
     # map: __letter_specialBraille_rules01[letter: str]  = specialBraille_list} 
 
+
+#   self.__letter_brailles: dict[str, list[str]]
+#   self.__letter_specialBraille_rules01: dict[str, list[str]]
+#   self.__letter_specialBraille_rules02: dict[str, list[str]]
+#   self.__braille_to_index: dict[str, int]
+
+#   self.__BrailleList: list[str]
+#   self.__BinaryList: list[list[int]]
+#   self.__BinaryStringList: list[str]
+#   self.__UnicodeList: list[str]
+#   self.__DotCountList: list[int]
+#   self.__DotNumberingList: list[list[int]]
+#   self.__DotNumberingStringList: list[str]
+
+#   self.__braille_rules01_a: str
+#   self.__braille_rules01_b: str
+#   self.__braille_rules02: str
+
     #0000
     def __init__(self):
         self.__letter_brailles: dict[str, list[str]] = {}
         #rules 01
         self.__letter_specialBraille_rules01: dict[str, list[str]] = {}
-        self.setting_braille_rules01("⠠")
+        self.setting_braille_rules01("⠠", "⠠")
         #rules 02
         self.__letter_specialBraille_rules02: dict[str, list[str]] = {}
         self.setting_braille_rules02("⠰")
@@ -278,7 +296,7 @@ class BrailleBase:
     def get_index_to_braille(self, index: int) -> str:
         return self.__BrailleList[index]
     #0003-B
-    def get_braille_list_to_index_list(self, braille_list: list) -> list:
+    def get_braille_list_to_index_list(self, braille_list: list[str]) -> list[int]:
         """
         EN
         Receives multiple characters (strings), each of which must be a valid braille symbol, and returns a list of integers (int), 
@@ -1211,7 +1229,7 @@ class BrailleBase:
 
         return "".join(result)
     
-    #----------------------------Prepare Special 01---------------------------
+    #----------------------------Prepare Special 01: Roma Letter---------------------------
 
     def prepare_special_braille_rules01(self, text: str) -> str:
         result = []
@@ -1227,23 +1245,24 @@ class BrailleBase:
             has_next_letter = next_letter in self.__letter_specialBraille_rules01 if next_letter else False
 
             if not has_previous_letter and has_current_letter and has_next_letter:
-                result.append(self.__braille_rules01)
-                result.append(self.__braille_rules01)
+                result.append(self.__braille_rules01_a)
+                result.append(self.__braille_rules01_a)
 
             elif  not has_previous_letter and has_current_letter and not has_next_letter:
-                result.append(self.__braille_rules01)
+                result.append(self.__braille_rules01_a)
 
 
             if has_previous_letter and has_current_letter and not has_next_letter:
                 result.append(current_letter)
-                result.append(self.__braille_rules01)
+                result.append(self.__braille_rules01_b)
             else:
                 result.append(current_letter)
 
         return "".join(result)
     
-    def setting_braille_rules01(self, braille: str):
-        self.__braille_rules01 = braille
+    def setting_braille_rules01(self, braille_uppercase: str, braille_lowercase: str):
+        self.__braille_rules01_a = braille_uppercase
+        self.__braille_rules01_b = braille_lowercase
 
     #----------------------------Prepare Special 02---------------------------
     
