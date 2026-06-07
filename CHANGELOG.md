@@ -1,5 +1,5 @@
 
-## 2026/06/07 — Version 0.0.9 Summary
+## 2026/06/07 — Version 0.0.10 Summary
 - Updated documentation.
 - Updated dependence/     def __constructor_all_table(self): [brailletable 1.0.0 -> brailletable 1.0.1].
 - New paramether in Prepare Special 01: Roma Letter/    def setting_braille_rules01(self, braille_uppercase: str, braille_lowercase: str): [Only Uppercase -> Uppercase and Lowercase]
