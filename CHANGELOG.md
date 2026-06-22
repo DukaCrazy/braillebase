@@ -1,3 +1,9 @@
+
+## 2026/06/22 - Version 0.0.14 Summary
+- Separating the RTL module for languages like Arabic, Hebrew, and Persian.
+- Specific rules for uppercase Latin letters.
+- Spelling fix in method names: lettr -> letter
+
 ## 2026/06/14 - Version 0.0.13 Summary
 - Scope Optimization for Latin Characters: Updated internal variables within the methods responsible for parsing and validating Latin alphabet rules.
 - Modularization and Isolation of the CJK Block: Segregated the processing pipeline for CJK languages (Chinese, Japanese, and Korean). 
