@@ -41,21 +41,30 @@ class BrailleBase:
         
 #---------------------------------------- Registry group (0001) ----------------------------------------
     #0001-AA
-    def append_braille_letter(self, letter: str, braille_list: list):
+    def append_braille_letter(self, letter: str, braille_list: list, type = 0):
         """
         Registers a letter and its associated braille list. If the letter already exists, its mapping is overwritten.
         """
-        if not isinstance(letter, str):
-            raise TypeError("letter must be a string")
+        if type == 0:
+            if not isinstance(letter, str):
+                raise TypeError("letter must be a string")
 
-        if len(letter) == 0:
-            raise ValueError("letter cannot be empty")
-        
-        self.__validate_braille_list(braille_list)
+            if len(letter) == 0:
+                raise ValueError("letter cannot be empty")
+            
+            self.__validate_braille_list(braille_list)
+            self.__letter_brailles[letter] = braille_list
 
-        self.__letter_brailles[letter] = braille_list
+        elif type ==  1:
+            self.append_special_braille_letter_rules_uppercase(letter, braille_list)
 
-    #0001-AB
+        elif type == 2:
+            self.append_special_braille_letter_rules_CJK(letter, braille_list)
+
+        elif type == 3:
+            self.append_special_braille_letter_rules_RTL(letter, braille_list)
+
+    #0001-AB; type 1
     def append_special_braille_letter_rules_uppercase(self, letter: str, braille_list: list):
         """
         """
@@ -71,7 +80,7 @@ class BrailleBase:
         self.__letter_specialBraille_rules_uppercase[letter] = braille_list
 
 
-    #0001-AC
+    #0001-AC; type 2
     def append_special_braille_letter_rules_CJK(self, letter: str, braille_list: list):
         """
         Adds Chinese, Japanese, and Korean characters to the CJK list.
@@ -88,7 +97,7 @@ class BrailleBase:
         self.__letter_specialBraille_rules_CJK[letter] = braille_list
 
 
-    #0001-AD 
+    #0001-AD; type 3
     def append_special_braille_letter_rules_RTL(self, letter: str, braille_list: list):
         """
         Right-to-Left
