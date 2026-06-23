@@ -1,4 +1,7 @@
 
+## 2026/06/22 - Version 0.0.15 Summary
+- Invocation of the special append methods via the simple append method using the third argument.
+
 ## 2026/06/22 - Version 0.0.14 Summary
 - Separating the RTL module for languages like Arabic, Hebrew, and Persian.
 - Specific rules for uppercase Latin letters.
