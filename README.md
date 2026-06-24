@@ -1,100 +1,42 @@
-📘 BrailleBase — Internal Architecture Overview (EN)
-BrailleBase is organized into numbered functional groups, each responsible for a specific part of the internal logic.
-This modular structure improves readability, maintainability, scalability, and multilingual documentation.
-Below is the official description of each group.
+# BrailleBase
+## What is BrailleBase
+- BrailleBase is an algorithm that translates characters into Braille.
+- Today, each country uses different Braille rules, and there is no universal standard for developers. This makes it almost impossible to create tools that are compatible with each other.
+- BrailleBase creates a universal layer that standardizes the logic, allowing any tool — from screen readers to Braille embossers — to speak the same language.
+- As a result, learning languages, accessing culture, and integrating devices becomes more accessible for millions of people.
+### Beyond translation
+- BrailleBase provides the number of dots in each Braille symbol.
+`Example: the character '⠼', which indicates that a number follows, contains 4 dots.`
 
-Braille is a tactile writing system composed of raised dots arranged in a 6‑dot cell (2 columns × 3 rows).
-Each combination of dots represents letters, numbers, punctuation marks, or special symbols.
-It was created by Louis Braille in 1824, when he was only 15 years old.
-https://en.wikipedia.org/wiki/Braille
+- It also provides the numeric position of each dot and the corresponding binary pattern.
+` For '⠼', the positions are 3‑4‑5‑6 and the binary is 001111.`
 
-📚 Purpose
-According to the sources, Braille is a complete writing system, not merely a code for the visual alphabet.
-It enables:
-• 	reading on embossed paper
-• 	reading on electronic braille displays
-• 	writing with slate and stylus
-• 	writing with braille typewriters or computers connected to braille embossers
-https://en.wikipedia.org/wiki/Braille
+- These data can be accessed directly through methods that return dot counts, positions, binary patterns, and other metadata.
+- For integration with other tools, the output methods generate a complete map of each symbol in formats such as JSON, XML, YAML, and more.
+- The library is still under development, so method signatures may change. We are working to release a stable version as soon as possible.
 
-🧠 Origin and History (summary)
-- Created by Louis Braille, who became blind after an accident in childhood.
-- Based on Charles Barbier’s “night writing,” but simplified to a 6‑dot system.
-- First published in 1829.
-https://www.britannica.com/topic/Braille-writing-system
+## Purpose of BrailleBase
+### Standardized Technology
+- Many companies and developers who want to create tools and technologies for blind people face a major barrier: integrating their microsystems with other equipment.
+- BrailleBase is the first library that combines translation, complete metadata, and multiple output formats without external dependencies.
+## Challenges to Be Addressed
+- Many countries do not have a well‑structured Braille system or documented rules.
+- Understanding these rules, standardizing them, and converting them into a base algorithm usable by subclasses is one of the biggest challenges.
+- Presenting BrailleBase to companies in the accessibility sector is another area we need to improve, especially in communicating the value of the tool.
+- It is also essential to produce educational material and clear documentation, ensuring that both beginners and experienced developers can use BrailleBase without difficulty.
+## Final Statement
+- This is the first official text of the BrailleBase tool.
+- The system currently includes the Japanese, Portuguese, Arabic, and English alphabets.
+- All letters have been individually verified, but the second‑level rules are still under development.
+- There is still no support for full‑word translation, but this feature is already planned.
+- We are preparing a draft of the Pinyin class.
+- Once the English documentation is completed, the Pinyin class finalized, and the known bugs fixed, we will release the first usable version of the package.
+- From that release onward, the method signatures will become stable, ensuring that updates do not break dependent applications.
+- We do not use external dependencies beyond those provided by default in each programming language.
+- The classes braille, braillebase, braillebasejapanese, braillebaseportuguese, braillebasearabic, and braillebaseenglish have (or will have) CC0, MIT, or Apache 2.0 licenses.
 
-<span style="color:red">📌 Observation Note
-We are continuously working to improve our application.
-Version 0.0.5 is already capable of handling text that contains numbers, as long as those characters are properly registered in the system.
-We are currently updating and expanding our documentation to make the usage of the library clearer.
-In version 0.1.0, known issues — such as map keys longer than two characters — will have been fully resolved.
-For questions, suggestions, or issue reports, please reach out through the GitHub Issues section.
-Your feedback is essential to help us improve this project.</span>
+` Get in touch through GitHub: https://github.com/DukaCrazy`
 
+` My name is Duka — and if a project isn’t crazy enough to change the world, it’s probably not mine.`
 
-0001 Registry → registers letters and braille mappings
-0002 Translate → converts text into braille and indices
-0003 Mapping → maps braille ↔ indices
-0004 Tables → provides fixed internal tables
-0005 Output → exports processed data
-
-🧩 0001 — Registry group
-Manages the internal registry of characters and their associated braille mappings.
-Main functions
-- append_braille_letter
-Registers a letter and its braille list. Overwrites the mapping if the letter already exists.
-- get_brailles_with_letter
-Returns the braille list associated with a registered letter.
-- has_letter
-Checks whether a letter is registered.
-- remove_letter
-Removes a letter from the internal registry.
-Group responsibility
-This group acts as the class’s internal database.
-No translation happens without going through this registry.
-
-🔤 0002 — Translate group
-Responsible for converting text into braille and then into numeric indices.
-Main functions
-- translate_text_to_braille
-Converts each character into one or more braille cells.
-Includes number preprocessing (⠼).
-- translate_text_to_index
-Converts a list of braille symbols into a list of indices (0–63).
-Group responsibility
-This is the core translation engine.
-All text passes through this group before being exported or processed further.
-
-🔁 0003 — Mapping group
-Provides direct mappings between:
-- braille → index
-- list of braille symbols → list of indices
-Main functions
-- get_braille_to_index
-Returns the Unicode braille index (U+2800–U+283F).
-- get_braille_list_to_index_list
-Converts an entire list of braille symbols into indices.
-Group responsibility
-This is the mathematical core of the library.
-No numeric conversion happens outside this group.
-
-📚 0004 — Tables group
-Contains fixed internal tables used as reference structures.
-Main functions
-- braille_list
-Returns the full list of 64 Unicode braille symbols.
-- get_binary_list
-Returns 64 arrays of 6 bits (binary representation of braille).
-- get_binary_string_list
-Returns 64 binary strings of 6 bits.
-Group responsibility
-Provides base structures for conversions, validation, and output formatting.
-
-📤 0005 — Output group
-Responsible for formatting and exporting processed data.
-Main functions
-- output_all_json
-Exports text, braille, and indices in JSON format.
-Group responsibility
-This is the final layer of the library.
-Everything that leaves BrailleBase goes through this group.
+- 2026/06/24
