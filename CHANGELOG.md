@@ -1,9 +1,12 @@
+## 2026/07/20 - Version 0.1.2 Summary
+- Bug fix for the [translate_text_to_reverse braille()] method.
+- Update to the HTML generator method [output_all_html()].
 
 ## 2026/07/13 - Version 0.1.1 Summary
-- Addition of the base reverse Braille.
+- Edition of the base reverse Braille.
 - Definition of the base architecture.
 
-## 2026/06/23 - Version 0.0.15 Summary
+## 2026/06/22 - Version 0.0.15 Summary
 - Invocation of the special append methods via the simple append method using the third argument.
 
 ## 2026/06/22 - Version 0.0.14 Summary
