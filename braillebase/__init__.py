@@ -261,18 +261,12 @@ class BrailleBase:
         The entire text is processed and converted into a list of braille symbols, which will later be transformed into a list of indices.
         All methods in the translate group are fully dependent on translate_text_to_braille(text: str).
         """
-        text = self.prepare_number_braille(text)
-        #apply rules 1
-        text = self.prepare_special_braille_rules_uppercase(text)
-        #apply rules 2
-        text = self.prepare_special_braille_rules_CJK(text)
-        #apply rules 3
-        text = self.prepare_special_braille_rules_RTL(text)
-        tokens = self.tokenize_text(text)
+
+        tokens = self.confidence_test(text)
 
         result = []
-        for token in tokens:
-            brailles = self.get_brailles_with_letter(token)
+        for iToken in range(0, len(tokens)):
+            brailles = self.get_brailles_with_letter(tokens[iToken][0])
             result.extend(brailles)
 
         return result
@@ -361,7 +355,7 @@ class BrailleBase:
                 self.__DotCountList[i],
                 self.__DotNumberingStringList[i],
                 self.__DotNumberingList[i],
-                self.__ReverseBrailleListbrailles[idx],
+                self.__ReverseBrailleList[idx],
             ])
         return result
     
@@ -372,7 +366,9 @@ class BrailleBase:
         Translates the input text into a list of Reverse Braille.
         """
         brailles = self.translate_text_to_braille(textBraille)
-        return self.get_braille_list_to_index_list(brailles)
+        indices = self.get_braille_list_to_index_list(brailles)
+        return [self.__ReverseBrailleList[i] for i in reversed(indices)]
+    
 #---------------------------------------- Output group (0005) ----------------------------------------
 
     #0005-A
@@ -539,39 +535,80 @@ class BrailleBase:
         return "\n".join(lines)
     
     #0005-F
-    def output_all_html(self, text: str) -> str:
+    def output_all_html(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         Generates an HTML-formatted string containing all braille-related data for each character in the input text.  
         Each section includes: braille symbol, index, binary string, binary array, Unicode value, dot count, numbering string, and numbering list.
         """
         lines = []
+        brailles_map = self.confidence_test(text)
+        iBraille = 1
 
-        lines.append('<div class="braille-output">')
+        lines.append('<!DOCTYPE html>')
+        lines.append('<html>')
+        lines.append('<head>')
+        lines.append('  <meta charset="UTF-8">')
+        lines.append('  <title>Braille Base - HTML Generate</title>')
+        lines.append('  <style>')
+        lines.append('    table {      border-collapse: collapse;      width: 400px;      font-family: sans-serif;    }')
+        lines.append('    td {      border: 1px solid #000;      padding: 6px 10px;    }')
+        lines.append('    .cell-letter {      font-size: 48px;      text-align: center;      vertical-align: middle;      width: 100px;    }')
+        lines.append('  </style>')
+        lines.append('</head>')
+        lines.append('<body>')
 
-        brailles = self.translate_text_to_braille(text)
-
-        count = 1
-        for braille_cell in brailles:
-            idx = self.__BrailleList.index(braille_cell)
-
-            lines.append(f'  <section class="braille-item">')
-            lines.append(f'    <h2>Braille {count}</h2>')
-            lines.append('    <ul>')
-            lines.append(f'      <li><strong>Braille:</strong> {self.__BrailleList[idx]}</li>')
-            lines.append(f'      <li><strong>Index:</strong> {idx}</li>')
-            lines.append(f'      <li><strong>Binary:</strong> <code>{self.__BinaryStringList[idx]}</code></li>')
-            lines.append(f'      <li><strong>Binary List:</strong> {self.__BinaryList[idx]}</li>')
-            lines.append(f'      <li><strong>Unicode:</strong> {self.__UnicodeList[idx]}</li>')
-            lines.append(f'      <li><strong>Dot Count:</strong> {self.__DotCountList[idx]}</li>')
-            lines.append(f'      <li><strong>Numbering:</strong> {self.__DotNumberingStringList[idx]}</li>')
-            lines.append(f'      <li><strong>Numbering List:</strong> {self.__DotNumberingList[idx]}</li>')
-            lines.append(f'      <li><strong>Reverse Braille:</strong> {self.__ReverseBrailleList[idx]}</li>')
-            lines.append('    </ul>')
-            lines.append('  </section>')
-
-            count += 1
-
+        lines.append('<div class="text-output">')
+        lines.append('<h2>Text</h2>')
+        lines.append(f'<p>{text}</p>')
         lines.append('</div>')
+
+        lines.append('<div class="read-braille-output">')
+        lines.append('<h2>Read Braille</h2>')
+        lines.append(f'<p>{self.translate_text_to_braille(text)}</p>')
+        lines.append('</div>')
+
+        lines.append('<div class="read-braille-output">')
+        lines.append('<h2>Write Braille</h2>')
+        lines.append(f'<p>{self.translate_text_to_reverse_braille(text)}</p>')
+        lines.append('</div>')
+
+        lines.append('<div class="braille-table-output">')
+
+        for key, braille_list in brailles_map.items():
+            lines.append(f'    <h3>Letter {iBraille}</h3>')
+
+            #iToken
+            for braille_cell in braille_list[1]:
+                
+
+                idx = self.__BrailleList.index(braille_cell)
+
+                lines.append('<table>')
+                lines.append(f'    <tr>    <td class="cell-letter" rowspan="10">{braille_list[0]}</td>')
+            #Braille
+                lines.append(f'      <td colspan="2"><b>Read Braille</b></td>')
+                lines.append(f'      <tr>    <td>Braille:</td><td>{self.__BrailleList[idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Binary:</td><td>{self.__BinaryStringList[idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Numbering:</td><td>{self.__DotNumberingStringList[idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Unicode:</td><td>U+{self.__UnicodeList[idx]}</td>  </tr>')
+            #Reverse Braille
+                lines.append(f'      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>')
+                lines.append(f'      <tr>    <td>Braille:</td><td>{self.__BrailleList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Binary:</td><td>{self.__BinaryStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Numbering:</td><td>{self.__DotNumberingStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Unicode:</td><td>U+{self.__UnicodeList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
+
+                
+
+            lines.append('</table>')
+            lines.append('<br>')
+
+            iBraille += 1
+                
+        lines.append('</div>')
+        lines.append(f'<footer><p>{footer}</p></footer>')
+        lines.append('</body>')
+        lines.append('</html>')
 
         return "\n".join(lines)
 
@@ -651,16 +688,6 @@ class BrailleBase:
 
         return "".join(lines)
     
-    #0005-GD
-    def output_braille_map_txt(self, text: str) -> str:
-        """
-
-        """
-        mapping = self.confidence_test(text)
-        lines = []
-        for token, brailles in mapping.items():
-            lines.append(f"{token}: {''.join(brailles)}")
-        return "\n".join(lines)
     #----------------------------Internal logic of exceptions-------------------------------
     def __validate_braille_list(self, braille_list: list):
         """
