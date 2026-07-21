@@ -1,18 +1,72 @@
 # BrailleBase
-## How to use Braille Base?
+## Custom Language and Mapping Implementation
+This code snippet demonstrates how to extend the core BrailleBase class to create a custom translator using Object-Oriented Programming (OOP) inheritance. By inheriting from BrailleBase and leveraging the append_braille_letter() method, you can map any custom character or language symbol to its corresponding Braille unicode character.
 
-### First, install the Braille library.
-- pip install braille
+Step-by-step breakdown:
 
-## Then just use it.
+Class Inheritance: Defines BrailleBaseAnyLanguage, which inherits all core functionality from BrailleBase.
+
+Character Mapping: Inside the constructor (__init__), it registers custom symbols (hieroglyphs in this example) alongside their corresponding Braille dots.
+
+Execution: Instantiates the custom class (bbal) and translates the input string into Braille text output via output_braille_txt().
+
+Key Technical Takeaways
+Design Pattern: Class Inheritance and Extensibility.
+
+Core Advantage: Demonstrates that the library is not restricted to pre-packaged languages, allowing developers to define custom Braille lookup tables for any writing system.
+
+```python
+from braillebase import BrailleBase
+
+class BrailleBaseAnyLanguage(BrailleBase):
+    def __init__(self):
+        super().__init__()
+        self.append_braille_letter("𓃒", ["⠁"]) 
+        self.append_braille_letter("𓃖", ["⠃"]) 
+        self.append_braille_letter("𓃯", ["⠉"]) 
+        self.append_braille_letter("𓅅", ["⠙"]) 
+        self.append_braille_letter("𓅼", ["⠑"]) 
+
+bbal = BrailleBaseAnyLanguage()
+print("𓃒 𓃖 𓃯 𓅅 𓅼")
+print(bbal.output_braille_txt("𓃒 𓃖 𓃯 𓅅 𓅼"))
+```
+
+### Output
+𓃒 𓃖 𓃯 𓅅 𓅼
+
+⠁⠀⠃⠀⠉⠀⠙⠀⠑
+
+
+## Generating Full HTML Reports and Alternative Data Formats
+This code snippet illustrates how to process Japanese text using a pre-configured language module (BrailleBaseJapanese) and export a comprehensive HTML report containing detailed Braille character metadata.
+
+Step-by-step breakdown:
+
 ```python
 from braille import *
 
 bbj = BrailleBaseJapanese()
 print(bbj.output_all_html("おはよう"))
 ```
-## HTML Generate.
-In the example above, the method generates an HTML with the data needed to write the word in Japanese 'おはよう'.
+
+Language Module Import: Imports the library components and instantiates the BrailleBaseJapanese parser.
+
+HTML Document Generation: The output_all_html() method converts the input string (e.g., "おはよう") into a complete, structured HTML document.
+
+Structured Metadata Display: The generated HTML provides detailed character breakdown tables, including:
+
+Reading vs. Writing Braille: Visual representations for reading and writing modes.
+
+Encoding & Metrics: Binary representations, standard cell numbering (dot positions 1 through 6), and Unicode values (e.g., U+280a) for each character.
+
+Multi-Format Export Support: In addition to HTML output, the library provides built-in serializers for JSON, YAML, XML, and other data formats for integration with web APIs and external applications.
+
+Key Technical Takeaways
+Primary Function: Comprehensive document and dataset generation for language-specific Braille conversion.
+
+Core Advantage: Provides full character inspection (binary, cell dot numbering, Unicode hex) alongside visual Braille characters, making it ideal for rendering in web browsers or exporting to data pipelines.
+
 
 ```html
 <!DOCTYPE html>
@@ -105,48 +159,6 @@ In the example above, the method generates an HTML with the data needed to write
 </body>
 </html>
 ```
-
-### We also offer JSON, YAML, XML generators, and many more.
-
-## Supports 4 languages. 
-Right now, we offer Braille translations in 4 languages: English, Japanese, Arabic, and Portuguese.
-
-### braillebasearabic
-- Apache License Version 2.0
-### braillebaseenglish
-- Apache License Version 2.0
-### braillebasejapanese
-- Apache License Version 2.0
-### braillebaseportuguese
-- Apache License Version 2.0
-### brailletable
-- MIT
-### braillebase
-- MIT
-
-## Create your own dictionaries using the base Braille library. Here's an example.
-### Any Language
-```python
-from braillebase import BrailleBase
-
-class BrailleBaseAnyLanguage(BrailleBase):
-    def __init__(self):
-        super().__init__()
-        self.append_braille_letter("𓃒", ["⠁"]) 
-        self.append_braille_letter("𓃖", ["⠃"]) 
-        self.append_braille_letter("𓃯", ["⠉"]) 
-        self.append_braille_letter("𓅅", ["⠙"]) 
-        self.append_braille_letter("𓅼", ["⠑"]) 
-
-bbal = BrailleBaseAnyLanguage()
-print("𓃒 𓃖 𓃯 𓅅 𓅼")
-print(bbal.output_braille_txt("𓃒 𓃖 𓃯 𓅅 𓅼"))
-```
-
-## Output
-𓃒 𓃖 𓃯 𓅅 𓅼
-
-⠁⠀⠃⠀⠉⠀⠙⠀⠑
 
 ## Thanks
 The tool is still in development, but it's fully usable and we’d love your opinion. Thanks for reading this far. Cheers.
