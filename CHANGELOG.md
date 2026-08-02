@@ -1,3 +1,11 @@
+
+## 2026/08/02 - Version 0.1.3 Summary
+- Fixed internal bugs.
+- Added new output methods.
+- Configurable token size.
+    *def configure_token(self, token_size: int)
+        **This method defines the maximum size of each item identified by the tokenization method.
+
 ## 2026/07/20 - Version 0.1.2 Summary
 - Bug fix for the [translate_text_to_reverse braille()] method.
 - Update to the HTML generator method [output_all_html()].
