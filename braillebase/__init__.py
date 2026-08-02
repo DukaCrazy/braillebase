@@ -28,6 +28,7 @@ class BrailleBase:
         """
         0000
         """
+        self.configure_token = 12
 
         self.__letter_brailles: dict[str, list[str]] = {}
         #rules uppercase
@@ -381,25 +382,32 @@ class BrailleBase:
 
         result = []
 
+        brailles_map = self.confidence_test(text)
 
-        brailles = self.translate_text_to_braille(text)
+        for key, braille_list in brailles_map.items():
 
-        for braille_cell in brailles:
-            idx = self.__BrailleList.index(braille_cell)
+            #iToken
+            for braille_cell in braille_list[1]:
 
-            result.append({
-                "braille": self.__BrailleList[idx],
-                "index": idx,
-                "binary_string": self.__BinaryStringList[idx],
-                "binary_list": self.__BinaryList[idx],
-                "unicode": self.__UnicodeList[idx],
-                "dot_count": self.__DotCountList[idx],
-                "numbering_string": self.__DotNumberingStringList[idx],
-                "numbering_list": self.__DotNumberingList[idx],
-                "reverse_braille": self.__ReverseBrailleList[idx]
-            })
+                idx = self.__BrailleList.index(braille_cell)
+
+                result.append({
+                    "index": key,
+                    "Letter": braille_list[0],
+
+                    "Braille": self.__BrailleList[idx],
+                    "Binary": self.__BinaryStringList[idx],
+                    "Numbering": self.__DotNumberingStringList[idx],
+                    "Unicode":  "U+" + self.__UnicodeList[idx],
+
+                    "ReverseBraille": self.__BrailleList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    "ReverseBinary": self.__BinaryStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    "ReverseNumbering": self.__DotNumberingStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    "ReverseUnicode": "U+" + self.__UnicodeList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]
+                })
 
         return json.dumps(result, ensure_ascii=False, indent=4)
+        
 
     #0005-B
     def output_all_csv(self, text: str) -> str:
@@ -414,36 +422,44 @@ class BrailleBase:
         writer = csv.writer(output)
 
         writer.writerow([
-            "letter",
-            "braille",
             "index",
-            "binary_string",
-            "binary_list",
-            "unicode",
-            "dot_count",
-            "numbering_string",
-            "numbering_list",
-            "reverse_braille",
+            "Letter",
+
+            "Braille",
+            "Binary",
+            "Numbering",
+            "Unicode",
+
+            "ReverseBraille",
+            "ReverseBinary",
+            "ReverseNumbering",
+            "ReverseUnicode",
         ])
 
 
-        brailles = self.translate_text_to_braille(text)
+        brailles_map = self.confidence_test(text)
 
-        for braille_cell in brailles:
-            idx = self.__BrailleList.index(braille_cell)
+        for key, braille_list in brailles_map.items():
 
-            writer.writerow([
-                "",
-                self.__BrailleList[idx],
-                idx,
-                self.__BinaryStringList[idx],
-                str(self.__BinaryList[idx]),
-                self.__UnicodeList[idx],
-                self.__DotCountList[idx],
-                self.__DotNumberingStringList[idx],
-                str(self.__DotNumberingList[idx]),
-                self.__ReverseBrailleList[idx]
-            ])
+            #iToken
+            for braille_cell in braille_list[1]:
+
+                idx = self.__BrailleList.index(braille_cell)
+
+                writer.writerow([
+                    key,
+                    braille_list[0],
+
+                    self.__BrailleList[idx],
+                    self.__BinaryStringList[idx],
+                    self.__DotNumberingStringList[idx],
+                    "U+" + self.__UnicodeList[idx],
+
+                    self.__BrailleList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    self.__BinaryStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    self.__DotNumberingStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])],
+                    "U+" + self.__UnicodeList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]
+                ])
 
         return output.getvalue()
 
@@ -542,7 +558,6 @@ class BrailleBase:
         """
         lines = []
         brailles_map = self.confidence_test(text)
-        iBraille = 1
 
         lines.append('<!DOCTYPE html>')
         lines.append('<html>')
@@ -575,7 +590,8 @@ class BrailleBase:
         lines.append('<div class="braille-table-output">')
 
         for key, braille_list in brailles_map.items():
-            lines.append(f'    <h3>Letter {iBraille}</h3>')
+            lines.append(f'    <h3>Letter {key}</h3>')
+            lines.append('<table>')
 
             #iToken
             for braille_cell in braille_list[1]:
@@ -583,7 +599,7 @@ class BrailleBase:
 
                 idx = self.__BrailleList.index(braille_cell)
 
-                lines.append('<table>')
+                
                 lines.append(f'    <tr>    <td class="cell-letter" rowspan="10">{braille_list[0]}</td>')
             #Braille
                 lines.append(f'      <td colspan="2"><b>Read Braille</b></td>')
@@ -603,7 +619,6 @@ class BrailleBase:
             lines.append('</table>')
             lines.append('<br>')
 
-            iBraille += 1
                 
         lines.append('</div>')
         lines.append(f'<footer><p>{footer}</p></footer>')
@@ -653,7 +668,7 @@ class BrailleBase:
         brailles = self.translate_text_to_braille(text)
 
         for braille_cell in brailles:
-            idx = self.__BrailleList.index(braille_cell)
+            idx = self.__BrailleList.index(braille_cell)                    
             lines.append(self.__BinaryStringList[idx])
 
         return "\n".join(lines)
@@ -801,7 +816,7 @@ class BrailleBase:
     def tokenize_text(self, text: str) -> list[str]:
         tokens = []
         i = 0
-        max_len = 5  
+        max_len = self.__token_size  
 
         while i < len(text):
             matched = False
@@ -820,7 +835,7 @@ class BrailleBase:
 
         return tokens
     
-    #    def tokenize_text(self, text: str) -> list[str]: #TEST
+    #    def tokenize_text(self, text: str) -> list[str]:
     def confidence_test(self, text: str) -> dict:
         iToken = 0
 
@@ -838,6 +853,8 @@ class BrailleBase:
             iToken+=1
         return result
 
+    def configure_token(self, token_size: int):
+        self.__token_size = token_size
         #----------------------------Constructor ---------------------------
 
     def __constructor_all_table(self):
