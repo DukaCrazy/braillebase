@@ -1,164 +1,78 @@
 # BrailleBase
-## Custom Language and Mapping Implementation
-This code snippet demonstrates how to extend the core BrailleBase class to create a custom translator using Object-Oriented Programming (OOP) inheritance. By inheriting from BrailleBase and leveraging the append_braille_letter() method, you can map any custom character or language symbol to its corresponding Braille unicode character.
+### pip install braille or pip install braillebase
+## Announcement
+- This package is part of an ecosystem called Braille Base. This name does not represent a company or business; it is an independent initiative aimed at providing registered braille tables for all of humanity.
 
-Step-by-step breakdown:
+- We constantly need help to register, update, and validate braille tables. There is still no official contact channel, but you can find new information on the blog braillebase.blogspot.com or brailletable.blogspot.com.
 
-Class Inheritance: Defines BrailleBaseAnyLanguage, which inherits all core functionality from BrailleBase.
-
-Character Mapping: Inside the constructor (__init__), it registers custom symbols (hieroglyphs in this example) alongside their corresponding Braille dots.
-
-Execution: Instantiates the custom class (bbal) and translates the input string into Braille text output via output_braille_txt().
-
-Key Technical Takeaways
-Design Pattern: Class Inheritance and Extensibility.
-
-Core Advantage: Demonstrates that the library is not restricted to pre-packaged languages, allowing developers to define custom Braille lookup tables for any writing system.
-
-```python
-from braillebase import BrailleBase
-
-class BrailleBaseAnyLanguage(BrailleBase):
-    def __init__(self):
-        super().__init__()
-        self.append_braille_letter("𓃒", ["⠁"]) 
-        self.append_braille_letter("𓃖", ["⠃"]) 
-        self.append_braille_letter("𓃯", ["⠉"]) 
-        self.append_braille_letter("𓅅", ["⠙"]) 
-        self.append_braille_letter("𓅼", ["⠑"]) 
-
-bbal = BrailleBaseAnyLanguage()
-print("𓃒 𓃖 𓃯 𓅅 𓅼")
-print(bbal.output_braille_txt("𓃒 𓃖 𓃯 𓅅 𓅼"))
-```
-
-### Output
-𓃒 𓃖 𓃯 𓅅 𓅼
-
-⠁⠀⠃⠀⠉⠀⠙⠀⠑
-
-
-## Generating Full HTML Reports and Alternative Data Formats
-This code snippet illustrates how to process Japanese text using a pre-configured language module (BrailleBaseJapanese) and export a comprehensive HTML report containing detailed Braille character metadata.
-
-Step-by-step breakdown:
+## English
+### We believe that the translation generated in this test is 100% correct.
+"Library Developed to Handle Simple and Complex Braille 2026"
 
 ```python
 from braille import *
 
-bbj = BrailleBaseJapanese()
-print(bbj.output_all_html("おはよう"))
+bb = bbe()
+print(bb.output_braille_txt("Library Developed to Handle Simple and Complex Braille 2026"))
 ```
+Output: ⠠⠇⠊⠃⠗⠁⠗⠽⠀⠠⠙⠑⠧⠑⠇⠕⠏⠑⠙⠀⠞⠕⠀⠠⠓⠁⠝⠙⠇⠑⠀⠠⠎⠊⠍⠏⠇⠑⠀⠁⠝⠙⠀⠠⠉⠕⠍⠏⠇⠑⠭⠀⠠⠃⠗⠁⠊⠇⠇⠑⠀⠼⠃⠚⠃⠋
 
-Language Module Import: Imports the library components and instantiates the BrailleBaseJapanese parser.
+## Japanese
+### We believe that the translation generated in this test is 100% correct.
+"単純な点字と複雑な点字の両方に対応できるライブラリが開発されました 2026年。"
 
-HTML Document Generation: The output_all_html() method converts the input string (e.g., "おはよう") into a complete, structured HTML document.
+```python
+from braille import *
 
-Structured Metadata Display: The generated HTML provides detailed character breakdown tables, including:
-
-Reading vs. Writing Braille: Visual representations for reading and writing modes.
-
-Encoding & Metrics: Binary representations, standard cell numbering (dot positions 1 through 6), and Unicode values (e.g., U+280a) for each character.
-
-Multi-Format Export Support: In addition to HTML output, the library provides built-in serializers for JSON, YAML, XML, and other data formats for integration with web APIs and external applications.
-
-Key Technical Takeaways
-Primary Function: Comprehensive document and dataset generation for language-specific Braille conversion.
-
-Core Advantage: Provides full character inspection (binary, cell dot numbering, Unicode hex) alongside visual Braille characters, making it ideal for rendering in web browsers or exporting to data pipelines.
-
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Braille Base - HTML Generate</title>
-  <style>
-    table {      border-collapse: collapse;      width: 400px;      font-family: sans-serif;    }
-    td {      border: 1px solid #000;      padding: 6px 10px;    }
-    .cell-letter {      font-size: 48px;      text-align: center;      vertical-align: middle;      width: 100px;    }
-  </style>
-</head>
-<body>
-<div class="text-output">
-<h2>Text</h2>
-<p>おはよう</p>
-</div>
-<div class="read-braille-output">
-<h2>Read Braille</h2>
-<p>['⠊', '⠥', '⠜', '⠉']</p>
-</div>
-<div class="read-braille-output">
-<h2>Write Braille</h2>
-<p>['⠉', '⠣', '⠬', '⠑']</p>
-</div>
-<div class="braille-table-output">
-    <h3>Letter 1</h3>
-<table>
-    <tr>    <td class="cell-letter" rowspan="10">お</td>
-      <td colspan="2"><b>Read Braille</b></td>
-      <tr>    <td>Braille:</td><td>⠊</td>  </tr>
-      <tr>    <td>Binary:</td><td>001010</td>  </tr>
-      <tr>    <td>Numbering:</td><td>2-4</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+280a</td>  </tr>
-      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>
-      <tr>    <td>Braille:</td><td>⠑</td>  </tr>
-      <tr>    <td>Binary:</td><td>010001</td>  </tr>
-      <tr>    <td>Numbering:</td><td>1-5</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+2811</td>  </tr>
-</table>
-<br>
-    <h3>Letter 2</h3>
-<table>
-    <tr>    <td class="cell-letter" rowspan="10">は</td>
-      <td colspan="2"><b>Read Braille</b></td>
-      <tr>    <td>Braille:</td><td>⠥</td>  </tr>
-      <tr>    <td>Binary:</td><td>100101</td>  </tr>
-      <tr>    <td>Numbering:</td><td>1-3-6</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+2825</td>  </tr>
-      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>
-      <tr>    <td>Braille:</td><td>⠬</td>  </tr>
-      <tr>    <td>Binary:</td><td>101100</td>  </tr>
-      <tr>    <td>Numbering:</td><td>3-4-6</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+282c</td>  </tr>
-</table>
-<br>
-    <h3>Letter 3</h3>
-<table>
-    <tr>    <td class="cell-letter" rowspan="10">よ</td>
-      <td colspan="2"><b>Read Braille</b></td>
-      <tr>    <td>Braille:</td><td>⠜</td>  </tr>
-      <tr>    <td>Binary:</td><td>011100</td>  </tr>
-      <tr>    <td>Numbering:</td><td>3-4-5</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+281c</td>  </tr>
-      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>
-      <tr>    <td>Braille:</td><td>⠣</td>  </tr>
-      <tr>    <td>Binary:</td><td>100011</td>  </tr>
-      <tr>    <td>Numbering:</td><td>1-2-6</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+2823</td>  </tr>
-</table>
-<br>
-    <h3>Letter 4</h3>
-<table>
-    <tr>    <td class="cell-letter" rowspan="10">う</td>
-      <td colspan="2"><b>Read Braille</b></td>
-      <tr>    <td>Braille:</td><td>⠉</td>  </tr>
-      <tr>    <td>Binary:</td><td>001001</td>  </tr>
-      <tr>    <td>Numbering:</td><td>1-4</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+2809</td>  </tr>
-      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>
-      <tr>    <td>Braille:</td><td>⠉</td>  </tr>
-      <tr>    <td>Binary:</td><td>001001</td>  </tr>
-      <tr>    <td>Numbering:</td><td>1-4</td>  </tr>
-      <tr>    <td>Unicode:</td><td>U+2809</td>  </tr>
-</table>
-<br>
-</div>
-<footer><p>Thank you for using Braille Base.</p></footer>
-</body>
-</html>
+bb = bbj()
+print(bb.output_braille_txt("たんじゅんな てんじ と ふくざつな てんじ の りょうほう に たいおう できる らいぶらり が かいはつ されました 2026ねん 。"))
 ```
+Output: ⠕⠴⠘⠹⠴⠅⠀⠟⠴⠐⠳⠀⠞⠀⠭⠩⠐⠱⠝⠅⠀⠟⠴⠐⠳⠀⠎⠀⠈⠚⠉⠮⠉⠀⠇⠀⠕⠃⠊⠉⠀⠐⠟⠣⠙⠀⠑⠃⠐⠭⠑⠓⠀⠐⠡⠀⠡⠃⠥⠝⠀⠱⠛⠵⠳⠕⠀⠼⠃⠚⠃⠋⠏⠴⠀⠲⠀
 
-## Thanks
-The tool is still in development, but it's fully usable and we’d love your opinion. Thanks for reading this far. Cheers.
+## Portuguese
+### We believe that the translation generated in this test is 100% correct.
+"Biblioteca Desenvolvida para Lidar com Braille Simples e Complexo 2026"
+
+```python
+from braille import *
+
+bb = bbp()
+print(bb.output_braille_txt("Biblioteca Desenvolvida para Lidar com Braille Simples e Complexo 2026"))
+```
+Output: ⠨⠃⠊⠃⠇⠊⠕⠞⠑⠉⠁⠀⠨⠙⠑⠎⠑⠝⠧⠕⠇⠧⠊⠙⠁⠀⠏⠁⠗⠁⠀⠨⠇⠊⠙⠁⠗⠀⠉⠕⠍⠀⠨⠃⠗⠁⠊⠇⠇⠑⠀⠨⠎⠊⠍⠏⠇⠑⠎⠀⠑⠀⠨⠉⠕⠍⠏⠇⠑⠭⠕⠀⠼⠃⠚⠃⠋
+
+## In Test
+
+## Arabic
+### The algorithm behaves normally, as it does in any other language; however, we are not able to verify whether the braille generated for the Arabic library is correct.
+"مكتبة برمجية طُوِّرت للتعامل مع نصوص برايل البسيطة والمعقدة 2026"
+
+```python
+from braille import *
+
+bb = bba()
+print()
+print(bb.output_braille_txt("مكتبة برمجية طُوِّرت للتعامل مع نصوص برايل البسيطة والمعقدة 2026"))
+```
+Output: ⠍⠅⠞⠃⠡⠀⠃⠗⠍⠚⠊⠡⠀⠾⠥⠺⠠⠑⠗⠞⠀⠇⠇⠞⠷⠁⠍⠇⠀⠍⠷⠀⠝⠯⠺⠯⠀⠃⠗⠁⠊⠇⠀⠁⠇⠃⠎⠊⠾⠡⠀⠺⠁⠇⠍⠷⠟⠙⠡⠀⠼⠃⠚⠃⠋
+
+## Viet
+### We have managed to achieve our goals so far. We have not found braille representations for the accented letters of the Vietnamese language. We need help to update this part of the database.
+"Thư viện được phát triển để xử lý chữ nổi Braille đơn giản và phức tạp năm 2026"
+
+```python
+from braille import *
+
+bb = bbv()
+print(bb.output_braille_txt("Thư viện được phát triển để xử lý chữ nổi Braille đơn giản và phức tạp năm 2026"))
+```
+Output: ⠠⠞⠓⠳⠀⠧⠊⠣⠝⠀⠮⠳⠪⠉⠀⠏⠓⠁⠞⠀⠞⠗⠊⠣⠝⠀⠮⠣⠀⠭⠳⠀⠇⠽⠀⠉⠓⠳⠀⠝⠹⠊⠀⠠⠃⠗⠁⠊⠇⠇⠑⠀⠮⠪⠝⠀⠛⠊⠁⠝⠀⠧⠁⠀⠏⠓⠳⠉⠀⠞⠁⠏⠀⠝⠜⠍⠀⠼⠃⠚⠃⠋
+
+# Confidence Test Method 
+```python
+from braille import *
+
+bb = bbe()
+print(bb.confidence_test("Braille"))
+```
+- Output: {0: ['⠠', ['⠠']], 1: ['B', ['⠃']], 2: ['r', ['⠗']], 3: ['a', ['⠁']], 4: ['i', ['⠊']], 5: ['l', ['⠇']], 6: ['l', ['⠇']], 7: ['e', ['⠑']]}
