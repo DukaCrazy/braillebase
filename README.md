@@ -76,3 +76,5 @@ bb = bbe()
 print(bb.confidence_test("Braille"))
 ```
 - Output: {0: ['⠠', ['⠠']], 1: ['B', ['⠃']], 2: ['r', ['⠗']], 3: ['a', ['⠁']], 4: ['i', ['⠊']], 5: ['l', ['⠇']], 6: ['l', ['⠇']], 7: ['e', ['⠑']]}
+
+  <img src="./img/logo.png" alt="Logo" width="500" height="493">
