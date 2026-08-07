@@ -53,3 +53,4 @@ Code Refactoring and Cleanup: Removed structural redundancies to improve system 
 - Added support for handling text that contains numbers (using the number‑processing method we implemented).
 - Updated and expanded documentation to reflect the new initialization behavior and numeric‑handling support.
 
+<img src="./img/logo.png" alt="Logo" width="500" height="493">
