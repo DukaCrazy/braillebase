@@ -1,5 +1,16 @@
 
-## 2026/08/02 - Version 0.1.3 Summary
+## 2026/08/07 - Version 0.2.0 Summary
+- Fixed critical bug: configure_token attribute shadowed the configure_token() method and left __token_size unset, causing AttributeError on every translation. Token size now defaults to 12 and is validated.
+- Fixed translate_text_to_full_list() using the loop position instead of the braille index for reverse braille entries.
+- Fixed output_all_html() generating malformed nested <tr> rows; tables are now well-formed.
+- Added bbe: English (UEB-style) grade-1 subclass with a-z, A-Z, digits, and common punctuation.
+- Added configure_token() input validation (TypeError/ValueError).
+- Added module docstring, __version__, and __all__.
+- Added test suite (56 tests) covering registry, mapping, translate, output groups, and the English subclass.
+- Added pyproject pytest configuration, dev extras, and classifiers; added .gitignore.
+- README examples now use the correct import (braillebase) and run as documented.
+
+
 - Fixed internal bugs.
 - Added new output methods.
 - Configurable token size.

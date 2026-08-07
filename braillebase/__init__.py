@@ -1,3 +1,21 @@
+"""BrailleBase - a complete and extensible Unicode Braille processing library.
+
+The :class:`BrailleBase` class provides the core engine: a registry of
+letter -> braille-cell mappings, full Unicode braille table access
+(U+2800-U+283F), text translation into braille, and structured output
+formats (JSON, CSV, XML, YAML, Markdown, HTML, plain text).
+
+Language-specific subclasses ship the actual letter tables. ``bbe``
+implements the English (UEB-style) grade-1 mapping; more languages can be
+added by subclassing :class:`BrailleBase` and registering mappings with
+:meth:`BrailleBase.append_multiple_braille_letters`.
+"""
+
+__version__ = "0.2.0"
+
+__all__ = ["BrailleBase", "bbe"]
+
+
 class BrailleBase:
     # map: __letter_brailles[letter: str]  = braille_list} 
     # map: __letter_special_braille_rules_uppercase[letter: str]  = special_braille_list} 
@@ -28,7 +46,7 @@ class BrailleBase:
         """
         0000
         """
-        self.configure_token = 12
+        self.__token_size = 12
 
         self.__letter_brailles: dict[str, list[str]] = {}
         #rules uppercase
@@ -356,7 +374,7 @@ class BrailleBase:
                 self.__DotCountList[i],
                 self.__DotNumberingStringList[i],
                 self.__DotNumberingList[i],
-                self.__ReverseBrailleList[idx],
+                self.__ReverseBrailleList[i],
             ])
         return result
     
@@ -595,26 +613,26 @@ class BrailleBase:
 
             #iToken
             for braille_cell in braille_list[1]:
-                
 
                 idx = self.__BrailleList.index(braille_cell)
+                rev_idx = self.__BrailleList.index(self.__ReverseBrailleList[idx])
 
-                
-                lines.append(f'    <tr>    <td class="cell-letter" rowspan="10">{braille_list[0]}</td>')
-            #Braille
-                lines.append(f'      <td colspan="2"><b>Read Braille</b></td>')
+                lines.append('      <tr>')
+                lines.append(f'        <td class="cell-letter" rowspan="10">{braille_list[0]}</td>')
+                lines.append('        <td colspan="2"><b>Read Braille</b></td>')
+                lines.append('      </tr>')
                 lines.append(f'      <tr>    <td>Braille:</td><td>{self.__BrailleList[idx]}</td>  </tr>')
                 lines.append(f'      <tr>    <td>Binary:</td><td>{self.__BinaryStringList[idx]}</td>  </tr>')
                 lines.append(f'      <tr>    <td>Numbering:</td><td>{self.__DotNumberingStringList[idx]}</td>  </tr>')
                 lines.append(f'      <tr>    <td>Unicode:</td><td>U+{self.__UnicodeList[idx]}</td>  </tr>')
-            #Reverse Braille
-                lines.append(f'      <tr>    <td colspan="2"><b>Write Braille</b></td>  </tr>')
-                lines.append(f'      <tr>    <td>Braille:</td><td>{self.__BrailleList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
-                lines.append(f'      <tr>    <td>Binary:</td><td>{self.__BinaryStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
-                lines.append(f'      <tr>    <td>Numbering:</td><td>{self.__DotNumberingStringList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
-                lines.append(f'      <tr>    <td>Unicode:</td><td>U+{self.__UnicodeList[self.__BrailleList.index(self.__ReverseBrailleList[idx])]}</td>  </tr>')
-
-                
+                #Reverse Braille
+                lines.append('      <tr>')
+                lines.append('        <td colspan="2"><b>Write Braille</b></td>')
+                lines.append('      </tr>')
+                lines.append(f'      <tr>    <td>Braille:</td><td>{self.__BrailleList[rev_idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Binary:</td><td>{self.__BinaryStringList[rev_idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Numbering:</td><td>{self.__DotNumberingStringList[rev_idx]}</td>  </tr>')
+                lines.append(f'      <tr>    <td>Unicode:</td><td>U+{self.__UnicodeList[rev_idx]}</td>  </tr>')
 
             lines.append('</table>')
             lines.append('<br>')
@@ -854,6 +872,17 @@ class BrailleBase:
         return result
 
     def configure_token(self, token_size: int):
+        """
+        Sets the maximum token length used by :meth:`tokenize_text`.
+
+        The tokenizer tries the longest registered mapping first, so this
+        value must be at least as large as the longest multi-cell braille
+        mapping (e.g. a two-cell quote mark). Defaults to 12.
+        """
+        if not isinstance(token_size, int) or isinstance(token_size, bool):
+            raise TypeError("token_size must be an integer")
+        if token_size < 1:
+            raise ValueError("token_size must be >= 1")
         self.__token_size = token_size
         #----------------------------Constructor ---------------------------
 
@@ -982,3 +1011,52 @@ class BrailleBase:
         }
 
         self.append_multiple_braille_letters(spaces)
+
+
+#---------------------------------------- English subclass (bbe) ----------------------------------------
+
+class bbe(BrailleBase):
+    """
+    English (UEB-style grade 1) braille engine.
+
+    Ships the standard English letter table: a-z, A-Z, digits 0-9 and
+    common punctuation. Uppercase letters are marked with the capital
+    sign (U+2800 block ``⠠``) and digit runs with the number sign
+    (``⠼``), following the rules already implemented in the base class.
+    """
+
+    def __init__(self):
+        super().__init__()
+
+        letters = {
+            "a": ["\u2801"], "b": ["\u2803"], "c": ["\u2809"], "d": ["\u2819"],
+            "e": ["\u2811"], "f": ["\u280B"], "g": ["\u281B"], "h": ["\u2813"],
+            "i": ["\u280A"], "j": ["\u281A"], "k": ["\u2805"], "l": ["\u2807"],
+            "m": ["\u280D"], "n": ["\u281D"], "o": ["\u2815"], "p": ["\u280F"],
+            "q": ["\u281F"], "r": ["\u2817"], "s": ["\u280E"], "t": ["\u281E"],
+            "u": ["\u2825"], "v": ["\u2827"], "w": ["\u283A"], "x": ["\u282D"],
+            "y": ["\u283D"], "z": ["\u2835"],
+        }
+        self.append_multiple_braille_letters(letters)
+
+        # Uppercase letters reuse the lowercase cells; the capital sign is
+        # inserted by prepare_special_braille_rules_uppercase (type=1).
+        uppercase = {ch.upper(): cells for ch, cells in letters.items()}
+        self.append_multiple_braille_letters(uppercase, 1)
+
+        # Digits: 1-9, 0 map to the a-j cells, prefixed by the number sign
+        # (⠼) which the base class inserts automatically.
+        digits = {
+            "1": ["\u2801"], "2": ["\u2803"], "3": ["\u2809"], "4": ["\u2819"],
+            "5": ["\u2811"], "6": ["\u280B"], "7": ["\u281B"], "8": ["\u2813"],
+            "9": ["\u280A"], "0": ["\u281A"],
+        }
+        self.append_multiple_braille_letters(digits)
+
+        # Common punctuation (single-cell and the two-cell quote mark).
+        punctuation = {
+            ".": ["\u2832"], ",": ["\u2802"], "?": ["\u2826"], "!": ["\u2816"],
+            "'": ["\u2804"], ";": ["\u2806"], ":": ["\u2812"], "-": ["\u2824"],
+            "(": ["\u2836"], ")": ["\u2836"], "\"": ["\u2810", "\u2826"],
+        }
+        self.append_multiple_braille_letters(punctuation)
