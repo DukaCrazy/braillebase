@@ -28,7 +28,7 @@ class BrailleBase:
         """
         0000
         """
-        self.configure_token = 12
+        self.configure_token(12)
 
         self.__letter_brailles: dict[str, list[str]] = {}
         #rules uppercase
