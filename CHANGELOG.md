@@ -26,16 +26,6 @@
     *def configure_token(self, token_size: int)
         **This method defines the maximum size of each item identified by the tokenization method.
 
-## 2026/08/02 - Version 0.1.4 Summary
-- Adjustments to the token size definition caused a bug that was not detected in the testing environment but was noticed after the version was released. The inconsistency has been fixed.
-
-## 2026/08/02 - Version 0.1.3 Summary
-- Fixed internal bugs.
-- Added new output methods.
-- Configurable token size.
-    *def configure_token(self, token_size: int)
-        **This method defines the maximum size of each item identified by the tokenization method.
-
 ## 2026/07/20 - Version 0.1.2 Summary
 - Bug fix for the [translate_text_to_reverse braille()] method.
 - Update to the HTML generator method [output_all_html()].
@@ -82,5 +72,3 @@ Code Refactoring and Cleanup: Removed structural redundancies to improve system 
 - Added automatic registration of all 64 Unicode braille cells as default keys in the internal map.
 - Added support for handling text that contains numbers (using the number‑processing method we implemented).
 - Updated and expanded documentation to reflect the new initialization behavior and numeric‑handling support.
-
-<img src="./img/logo.png" alt="Logo" width="500" height="493">
