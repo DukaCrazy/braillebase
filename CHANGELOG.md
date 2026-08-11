@@ -1,7 +1,7 @@
 
 ## 2026/08/02 - Version 0.1.4 Summary
 - Adjustments to the token size definition caused a bug that was not detected in the testing environment but was noticed after the version was released. The inconsistency has been fixed.
-- 
+
 ## 2026/08/02 - Version 0.1.3 Summary
 - Fixed internal bugs.
 - Added new output methods.
