@@ -1,6 +1,8 @@
 # 🙏 Thanks
 ## This project exists thanks to the support, collaboration, and tools provided by many people and communities.
 ### My sincere appreciation goes to:
+### ghostfix-pm
+- Thank you for proposing useful solutions for code improvement and for helping to improve the documentation.
 ### João Victor Nagao
 - For contributing to the development of new accessibility tools and helping expand the possibilities of this project.
 ### Microsoft – Copilot
