@@ -1,4 +1,61 @@
 
+## 2026/8/16 - Version 0.2.4 Sumary
+### Architecture Updates
+- Centralization of common data:  
+- All universal symbols — such as numbers, Roman letters, and other elements shared across multiple languages — are now registered directly in the BrailleBase superclass.
+- Language‑specific subclasses no longer duplicate these entries and instead inherit the unified core set automatically.
+### Updates to multiple‑append methods
+`def append_braille_letter_IO(target_data_path: str):`
+- Support for external files:  
+- The multiple‑append methods have been updated to allow registering new symbols directly from CSV, JSON, or XML files.
+- Dynamic table updates:
+- The internal database can now be updated by calling native library methods that process these external files, making maintenance simpler and more automated.
+
+        # Braille Base IO
+        Reader for JSON, XML, and CSV formats.
+
+        ## Input Examples
+        JSON example:
+        ```json
+        [
+            {
+                "letter": "a",
+                "braille": "⠁,⠁",
+                "pattern": 0
+            },
+            {
+                "letter": "b",
+                "braille": "⠟,⠟,⠟",
+                "pattern": 0
+            }
+        ]
+        ```
+        XML example:
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <braille_append>
+            <item>
+                <letter>a</letter>
+                <braille>⠁,⠁</braille>
+                <pattern>0</pattern>
+            </item>
+
+            <item>
+                <letter>b</letter>
+                <braille>⠟,⠟,⠟</braille>
+                <pattern>0</pattern>
+            </item>
+        </braille_append>
+        ```
+        CSV example:
+        ```csv
+        a,"⠁,⠁",0
+        b,"⠟,⠟,⠟",0
+        ```
+        ## Output Example
+
+        [('a', ['⠁', '⠁'], 0), ('b', ['⠟', '⠟', '⠟'], 0)]
+
 ## 2026/08/11 - Version 0.1.5 Summary
 ### Added
 - Full implementation of the BrailleBaseOutput module, responsible for generating multiple output formats based on the data processed by braillebase.
