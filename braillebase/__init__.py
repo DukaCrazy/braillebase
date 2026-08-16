@@ -189,7 +189,7 @@ class BrailleBase:
 
     #0001-FB IO Version
     def append_braille_letter_IO(self, target_data_path: str):
-        from braillebaseinout import read_file
+        from .braillebaseinout import read_file
         self.append_multiple_braille_letters(read_file(target_data_path))
 
             
@@ -638,9 +638,9 @@ class BrailleBase:
     }
 
     def __constructor_output(self):
-        from braillebaseoutputstring import BrailleBaseOutputString
+        from .braillebaseoutputstring import BrailleBaseOutputString
         self.__BrailleBaseOutputString = BrailleBaseOutputString(self.__BrailleList, self.__BinaryList, self.__BinaryStringList, self.__UnicodeList, self.__DotCountList, self.__DotNumberingList, self.__DotNumberingStringList, self.__ReverseBrailleList, self.__BrailleIndex)
 
     def __constructor_map_braille(self):
-        from braillebaseuniversalset import BrailleBaseBniversalSet
+        from .braillebaseuniversalset import BrailleBaseBniversalSet
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
