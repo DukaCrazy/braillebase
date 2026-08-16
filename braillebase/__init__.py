@@ -1,5 +1,5 @@
 
-class BrailleBasea:  
+class BrailleBase:  
     # map: __letter_brailles[letter: str]  = braille_list} 
     # map: __letter_special_braille_rules_uppercase[letter: str]  = special_braille_list} 
 
