@@ -1,4 +1,5 @@
-class BrailleBase:
+
+class BrailleBasea:  
     # map: __letter_brailles[letter: str]  = braille_list} 
     # map: __letter_special_braille_rules_uppercase[letter: str]  = special_braille_list} 
 
@@ -46,7 +47,6 @@ class BrailleBase:
         self.__constructor_all_table()
         self.__constructor_output()
         self.__constructor_map_braille()
-        self.__constructor_map_spaces()
 
         #Output
 
@@ -80,8 +80,7 @@ class BrailleBase:
             case 3:
                 self.__letter_special_braille_rules_RTL[letter] = braille_list
                 
-    def append_braille_letter_IO():
-        pass
+
     #-----Get-------------------------------------------------------------------------------------------
     #0001-B
     def get_brailles_with_letter(self, letter: str):
@@ -171,8 +170,8 @@ class BrailleBase:
                 return list(self.__letter_special_braille_rules_RTL.keys())
     
 
-    #0001-F
-    def append_multiple_braille_letters(self, mapping: dict, type = 0):
+    #0001-FA
+    def append_multiple_braille_letters(self, letter_braillelist_pattern: list):
         """
         0001-F
         Registers multiple letter-to-braille mappings at once. Each entry is validated and added individually.
@@ -182,20 +181,18 @@ class BrailleBase:
         CJK: 2
         RTL: 3
         """
-        if not isinstance(mapping, dict):
-            raise TypeError("mapping must be a dict")
+        if not isinstance(letter_braillelist_pattern, list):
+            raise TypeError("Invalid: append_multiple_braille_letters - #0001-F")
 
-        for letter, braille_list in mapping.items():
-            self.append_braille_letter(letter, braille_list)
-            match type:                
-                case 1:
-                    self.append_braille_letter(letter, braille_list, 1)
-                case 2:
-                    self.append_braille_letter(letter, braille_list, 2)
-                case 3:
-                    self.append_braille_letter(letter, braille_list, 3)
+        for index in letter_braillelist_pattern:
+            self.append_braille_letter(index[0], index[1], index[2])
+
+    #0001-FB IO Version
+    def append_braille_letter_IO(self, target_data_path: str):
+        from braillebaseinout import read_file
+        self.append_multiple_braille_letters(read_file(target_data_path))
+
             
-
     #0001-G
     def edit_braille_letter(self, letter: str, new_braille_list: list, type = 0):
         """
@@ -383,43 +380,43 @@ class BrailleBase:
     def output_all_json(self, text: str) -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_json(self.confidence_test(text))
+        return self.__BrailleBaseOutputString.output_all_json(self.confidence_test(text))
     
     #0005-B
     def output_all_csv(self, text: str) -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_csv(self.confidence_test(text))
+        return self.__BrailleBaseOutputString.output_all_csv(self.confidence_test(text))
 
     #0005-C
     def output_all_xml(self, text: str) -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_xml(self.confidence_test(text))
+        return self.__BrailleBaseOutputString.output_all_xml(self.confidence_test(text))
 
     #0005-D
     def output_all_yaml(self, text: str) -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_yaml(self.confidence_test(text))
+        return self.__BrailleBaseOutputString.output_all_yaml(self.confidence_test(text))
     
     #0005-E
     def output_all_markdown(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_markdown(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_markdown(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
     
     #0005-F
     def output_all_html(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_html(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_html(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
 
     #0005-GA
     def output_all_txt(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutput.output_all_txt(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_txt(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
     
     #0005-GB
     def output_binary_txt(self, text: str) -> str:
@@ -641,108 +638,9 @@ class BrailleBase:
     }
 
     def __constructor_output(self):
-        from braillebaseoutput import BrailleBaseOutput
-        self.__BrailleBaseOutput = BrailleBaseOutput(self.__BrailleList, self.__BinaryList, self.__BinaryStringList, self.__UnicodeList, self.__DotCountList, self.__DotNumberingList, self.__DotNumberingStringList, self.__ReverseBrailleList, self.__BrailleIndex)
+        from braillebaseoutputstring import BrailleBaseOutputString
+        self.__BrailleBaseOutputString = BrailleBaseOutputString(self.__BrailleList, self.__BinaryList, self.__BinaryStringList, self.__UnicodeList, self.__DotCountList, self.__DotNumberingList, self.__DotNumberingStringList, self.__ReverseBrailleList, self.__BrailleIndex)
 
     def __constructor_map_braille(self):
-        braille_map = {
-
-        "⠀": ["\u2800"],
-        "⠁": ["⠁"],
-        "⠂": ["⠂"],
-        "⠃": ["⠃"],
-        "⠄": ["⠄"],
-        "⠅": ["⠅"],
-        "⠆": ["⠆"],
-        "⠇": ["⠇"],
-        "⠈": ["⠈"],
-        "⠉": ["⠉"],
-        "⠊": ["⠊"],
-        "⠋": ["⠋"],
-        "⠌": ["⠌"],
-        "⠍": ["⠍"],
-        "⠎": ["⠎"],
-        "⠏": ["⠏"],
-        "⠐": ["⠐"],
-        "⠑": ["⠑"],
-        "⠒": ["⠒"],
-        "⠓": ["⠓"],
-        "⠔": ["⠔"],
-        "⠕": ["⠕"],
-        "⠖": ["⠖"],
-        "⠗": ["⠗"],
-        "⠘": ["⠘"],
-        "⠙": ["⠙"],
-        "⠚": ["⠚"],
-        "⠛": ["⠛"],
-        "⠜": ["⠜"],
-        "⠝": ["⠝"],
-        "⠞": ["⠞"],
-        "⠟": ["⠟"],
-        "⠠": ["⠠"],
-        "⠡": ["⠡"],
-        "⠢": ["⠢"],
-        "⠣": ["⠣"],
-        "⠤": ["⠤"],
-        "⠥": ["⠥"],
-        "⠦": ["⠦"],
-        "⠧": ["⠧"],
-        "⠨": ["⠨"],
-        "⠩": ["⠩"],
-        "⠪": ["⠪"],
-        "⠫": ["⠫"],
-        "⠬": ["⠬"],
-        "⠭": ["⠭"],
-        "⠮": ["⠮"],
-        "⠯": ["⠯"],
-        "⠰": ["⠰"],
-        "⠱": ["⠱"],
-        "⠲": ["⠲"],
-        "⠳": ["⠳"],
-        "⠴": ["⠴"],
-        "⠵": ["⠵"],
-        "⠶": ["⠶"],
-        "⠷": ["⠷"],
-        "⠸": ["⠸"],
-        "⠹": ["⠹"],
-        "⠺": ["⠺"],
-        "⠻": ["⠻"],
-        "⠼": ["⠼"],
-        "⠽": ["⠽"],
-        "⠾": ["⠾"],
-        "⠿": ["⠿"]
-        }
-        self.append_multiple_braille_letters(braille_map)
-
-    def __constructor_map_spaces(self):
-        spaces = {
-            # whitespace
-            "\u0020": ["\u2800"],  # SPACE
-            "\u1680": ["\u2800"],
-            "\u180E": ["\u2800"],
-            "\u2000": ["\u2800"],
-            "\u2001": ["\u2800"],
-            "\u2002": ["\u2800"],
-            "\u2003": ["\u2800"],
-            "\u2004": ["\u2800"],
-            "\u2005": ["\u2800"],
-            "\u2006": ["\u2800"],
-            "\u2007": ["\u2800"],
-            "\u2008": ["\u2800"],
-            "\u2009": ["\u2800"],
-            "\u200A": ["\u2800"],
-            "\u200B": ["\u2800"],
-            "\u200C": ["\u2800"],
-            "\u200D": ["\u2800"],
-            "\u202F": ["\u2800"],
-            "\u205F": ["\u2800"],
-            "\u2060": ["\u2800"],
-            "\u3000": ["\u2800"],
-            "\uFEFF": ["\u2800"],
-
-            #"\u00A0": ["⠀"],      # NBSP
-            #"\t": ["⠄"],   # TAB
-            #"\n": ["\n"]
-        }
-
-        self.append_multiple_braille_letters(spaces)
+        from braillebaseuniversalset import BrailleBaseBniversalSet
+        self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
