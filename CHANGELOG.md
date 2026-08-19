@@ -1,5 +1,5 @@
 
-## 2026/8/16 - Version 0.2.5 Sumary
+## 2026/8/19 - Version 0.2.5 Sumary
 ### Improvements in Rule Generation
 - Updated rule‑generation methods, increasing translation accuracy for characters, symbols, and numbers.
 - Refined internal algorithms for detecting and applying special rules, reducing ambiguities and improving consistency across modules.
