@@ -1,4 +1,29 @@
 
+## 2026/8/16 - Version 0.2.5 Sumary
+### Improvements in Rule Generation
+- Updated rule‑generation methods, increasing translation accuracy for characters, symbols, and numbers.
+- Refined internal algorithms for detecting and applying special rules, reducing ambiguities and improving consistency across modules.
+### Enhancements to Internal Methods
+- Improved the behavior of confidence_test, making output analysis more predictable and better aligned with the translation pipeline.
+- Optimized tokenize_text, ensuring more stable segmentation and compatibility with new token sets.
+### New Rules for Special Symbols
+- Added dedicated rules for translating special symbols, enabling braille generation for icons, markers, and graphical elements.
+- Expanded mathematical sub‑rules, extending support for new operators, indicators, and numeric structures.
+
+        Old >> def prepare_number_braille(self, text: str) -> str:
+        New >> def prepare_number_braille(self, tokens: list[str]) -> list[str]:
+
+        Old >> def prepare_special_braille_rules_uppercase(self, text: str) -> str:
+        New >> def prepare_special_braille_rules_uppercase(self, tokens: list[str]) -> list[str]:
+
+        Old >> def prepare_special_braille_rules_CJK(self, text: str) -> str:
+        New >> def prepare_special_braille_rules_CJK(self, tokens: list[str]) -> list[str]:
+
+        Old >> def prepare_special_braille_rules_RTL(self, text: str) -> str:
+        New >> def prepare_special_braille_rules_RTL(self, tokens: list[str]) -> list[str]:
+
+        New >> def prepare_special_braille_rules_simbol(self, tokens: list[str]) -> list[str]:
+  
 ## 2026/8/16 - Version 0.2.4 Sumary
 ### Architecture Updates
 - Centralization of common data:  
