@@ -1,3 +1,6 @@
+from .braillebaseuniversalset import BrailleBaseBniversalSet
+from .braillebaseoutputstring import BrailleBaseOutputString
+from .braillebaseinout import read_file
 
 class BrailleBase:  
     # map: __letter_brailles[letter: str]  = braille_list} 
@@ -5,9 +8,18 @@ class BrailleBase:
 
 
 #   self.__letter_brailles: dict[str, list[str]]
+#   self.__letter_special_braille_rules_simbol: dict[str, list[str]]
 #   self.__letter_special_braille_rules_uppercase: dict[str, list[str]]
 #   self.__letter_special_braille_rules_CJK: dict[str, list[str]]
 #   self.__letter_special_braille_rules_RTL: dict[str, list[str]]
+
+
+#   self.__braille_rules_simbol: str
+#   self.__braille_rules_uppercase: str
+#   self.__braille_rules_lowcase: str
+#   self.__braille_rules_CJK: str
+#   self.__braille_rules_RTL: str
+
 #   self.__BrailleIndex: dict[str, int]
 
 #   self.__BrailleList: list[str]
@@ -19,20 +31,19 @@ class BrailleBase:
 #   self.__DotNumberingStringList: list[str]
 #   self.__ReverseBrailleList: list[str]
 
-#   self.__braille_rules_uppercase: str
-#   self.__braille_rules_lowcase: str
-#   self.__braille_rules_CJK: str
-#   self.__braille_rules_RTL: str
-
     #0000
     def __init__(self):
         """
         0000
         """
         #Tokenize
-        self.configure_token(12)
+        #self.configure_token(20)
+        self._token_size = 14
 
         self.__letter_brailles: dict[str, list[str]] = {}
+        #rules simbol
+        self.__letter_special_braille_rules_simbol: dict[str, list[str]] = {}
+        self.setting_braille_rules_simbol("")
         #rules uppercase
         self.__letter_special_braille_rules_uppercase: dict[str, list[str]] = {}
         self.setting_braille_rules_uppercase("⠠", "⠠")
@@ -62,6 +73,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
 
         if not isinstance(letter, str):
@@ -79,7 +91,8 @@ class BrailleBase:
                 self.__letter_special_braille_rules_CJK[letter] = braille_list
             case 3:
                 self.__letter_special_braille_rules_RTL[letter] = braille_list
-                
+            case 4:
+                self.__letter_special_braille_rules_simbol[letter] = braille_list
 
     #-----Get-------------------------------------------------------------------------------------------
     #0001-B
@@ -106,6 +119,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
         match type:
             case 0:
@@ -116,6 +130,8 @@ class BrailleBase:
                 return letter in self.__letter_special_braille_rules_CJK
             case 3:
                 return letter in self.__letter_special_braille_rules_RTL
+            case 4:
+                return letter in self.__letter_special_braille_rules_simbol
 
     #-----Remove----------------------------------------------------------------------------------------
     #0001-D
@@ -128,6 +144,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
         if letter in self.__letter_brailles:
             del self.__letter_brailles[letter]
@@ -142,7 +159,10 @@ class BrailleBase:
                 case 3:
                     if letter in self.__letter_special_braille_rules_RTL:
                         del  self.__letter_special_braille_rules_RTL[letter]
-    
+                case 4:
+                    if letter in self.__letter_special_braille_rules_simbol:
+                        del  self.__letter_special_braille_rules_simbol[letter]
+
             return True
         return False
 
@@ -157,6 +177,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
     
         match type:    
@@ -168,7 +189,8 @@ class BrailleBase:
                 return list(self.__letter_special_braille_rules_CJK.keys())
             case 3:
                 return list(self.__letter_special_braille_rules_RTL.keys())
-    
+            case 4:
+                return list(self.__letter_special_braille_rules_simbol.keys())
 
     #0001-FA
     def append_multiple_braille_letters(self, letter_braillelist_pattern: list):
@@ -180,6 +202,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
         if not isinstance(letter_braillelist_pattern, list):
             raise TypeError("Invalid: append_multiple_braille_letters - #0001-F")
@@ -189,7 +212,6 @@ class BrailleBase:
 
     #0001-FB IO Version
     def append_braille_letter_IO(self, target_data_path: str):
-        from .braillebaseinout import read_file
         self.append_multiple_braille_letters(read_file(target_data_path))
 
             
@@ -203,6 +225,7 @@ class BrailleBase:
         rules_uppercase: 1
         CJK: 2
         RTL: 3
+        simbol: 4
         """
         if letter not in self.__letter_brailles:
             raise KeyError(f"letter '{letter}' not registered")
@@ -217,6 +240,8 @@ class BrailleBase:
                 self.__letter_special_braille_rules_CJK[letter] = new_braille_list
             case 3:
                 self.__letter_special_braille_rules_RTL[letter] = new_braille_list
+            case 4:
+                self.__letter_special_braille_rules_simbol[letter] = new_braille_list
 
 #---------------------------------------- Mapping group (0003) ----------------------------------------
     #0003-A
@@ -459,7 +484,14 @@ class BrailleBase:
             lines.append(self.__ReverseBrailleList[idx])
 
         return "".join(lines)
-    
+
+
+
+        #0005-F
+    def output_all_html_test(self, text: str, footer = "Thank you for using Braille Base.") -> str:
+        """
+        """
+        return self.__BrailleBaseOutputString.output_all_html_test(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
     #----------------------------Internal logic of exceptions-------------------------------
     def __validate_braille_list(self, braille_list: list):
         """
@@ -476,33 +508,52 @@ class BrailleBase:
                 raise ValueError(f"invalid braille character: {b}")
             
     #----------------------------Internal logic for braille number processing---------------------------
-    def prepare_number_braille(self, text: str) -> str:
+    def prepare_number_braille(self, tokens: list[str]) -> list[str]:
         """
         """
         result = []
         previous = False
 
-        for ch in text:
-            isnum = ch.isdigit()
+        for token in tokens:
+            isnum = token.isdigit()
 
             if isnum and not previous:
                 result.append("⠼")
 
-            result.append(ch)
+            result.append(token)
             previous = isnum
 
-        return "".join(result)
+        return result
     
-    #----------------------------Prepare Special 01: Roma Letter---------------------------
-
-    def prepare_special_braille_rules_uppercase(self, text: str) -> str:
+    #----------------------------Prepare Special 04: Simbol   ---------------------------
+    def prepare_special_braille_rules_simbol(self, tokens: list[str]) -> list[str]:
         result = []
-        text_size = len(text)
+        previous = False
+
+        for token in tokens:
+            is_special = token in self.__letter_special_braille_rules_simbol
+
+            if is_special and not previous:
+                result.append(self.__braille_rules_simbol)
+
+            result.append(token)
+            previous = is_special
+
+        return result
+    
+    
+    def setting_braille_rules_simbol(self, braille: str):
+        self.__braille_rules_simbol = braille
+
+    #----------------------------Prepare Special 01: Roma Letter---------------------------
+    def prepare_special_braille_rules_uppercase(self, tokens: list[str]) -> list[str]:
+        result = []
+        text_size = len(tokens)
 
         for iLetter in range(text_size):
-            previous_letter = text[iLetter - 1] if iLetter > 0 else None
-            current_letter = text[iLetter]
-            next_letter = text[iLetter + 1] if iLetter < text_size - 1 else None
+            previous_letter = tokens[iLetter - 1] if iLetter > 0 else None
+            current_letter = tokens[iLetter]
+            next_letter = tokens[iLetter + 1] if iLetter < text_size - 1 else None
 
             has_previous_letter = previous_letter in self.__letter_special_braille_rules_uppercase if previous_letter else False
             has_current_letter = current_letter in self.__letter_special_braille_rules_uppercase
@@ -522,7 +573,7 @@ class BrailleBase:
             else:
                 result.append(current_letter)
 
-        return "".join(result)
+        return result
     
     def setting_braille_rules_uppercase(self, braille_uppercase: str, braille_lowercase: str):
         self.__braille_rules_uppercase = braille_uppercase
@@ -530,40 +581,40 @@ class BrailleBase:
 
     #----------------------------Prepare Special 02---------------------------
     
-    def prepare_special_braille_rules_CJK(self, text: str) -> str:
+    def prepare_special_braille_rules_CJK(self, tokens: list[str]) -> list[str]:
         result = []
         previous = False
 
-        for ch in text:
-            is_special = ch in self.__letter_special_braille_rules_CJK
+        for token in tokens:
+            is_special = token in self.__letter_special_braille_rules_CJK
 
             if is_special and not previous:
                 result.append(self.__braille_rules_CJK)
 
-            result.append(ch)
+            result.append(token)
             previous = is_special
 
-        return "".join(result)
+        return result
     
     def setting_braille_rules_CJK(self, braille: str):
         self.__braille_rules_CJK = braille
 
     #----------------------------Prepare Special 02---------------------------
     
-    def prepare_special_braille_rules_RTL(self, text: str) -> str:
+    def prepare_special_braille_rules_RTL(self, tokens: list[str]) -> list[str]:
         result = []
         previous = False
 
-        for ch in text:
-            is_special = ch in self.__letter_special_braille_rules_RTL
+        for token in tokens:
+            is_special = token in self.__letter_special_braille_rules_RTL
 
             if is_special and not previous:
                 result.append(self.__braille_rules_RTL)
 
-            result.append(ch)
+            result.append(token)
             previous = is_special
 
-        return "".join(result)
+        return result
     
     def setting_braille_rules_RTL(self, braille: str):
         self.__braille_rules_RTL = braille
@@ -596,18 +647,25 @@ class BrailleBase:
     def confidence_test(self, text: str) -> dict:
         iToken = 0
 
-        text = self.prepare_number_braille(text)
-        text = self.prepare_special_braille_rules_uppercase(text)
-        text = self.prepare_special_braille_rules_CJK(text)
-        text = self.prepare_special_braille_rules_RTL(text)
 
         tokens = self.tokenize_text(text)
+
+        tokens = self.prepare_special_braille_rules_simbol(tokens)
+        tokens = self.prepare_special_braille_rules_uppercase(tokens)
+        tokens = self.prepare_special_braille_rules_CJK(tokens)
+        tokens = self.prepare_special_braille_rules_RTL(tokens)
+        tokens = self.prepare_number_braille(tokens)
+        
         result = {}
         for token in tokens:
-            brailles = self.get_brailles_with_letter(token)
-            result[iToken] = [token, brailles]
+            
+            if token == "":
+                continue
 
-            iToken+=1
+            brailles = self.get_brailles_with_letter(token)
+
+            result[iToken] = [token, brailles]
+            iToken += 1
         return result
 
     def configure_token(self, token_size: int):
@@ -638,9 +696,7 @@ class BrailleBase:
     }
 
     def __constructor_output(self):
-        from .braillebaseoutputstring import BrailleBaseOutputString
         self.__BrailleBaseOutputString = BrailleBaseOutputString(self.__BrailleList, self.__BinaryList, self.__BinaryStringList, self.__UnicodeList, self.__DotCountList, self.__DotNumberingList, self.__DotNumberingStringList, self.__ReverseBrailleList, self.__BrailleIndex)
 
     def __constructor_map_braille(self):
-        from .braillebaseuniversalset import BrailleBaseBniversalSet
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
