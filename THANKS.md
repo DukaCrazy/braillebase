@@ -5,14 +5,14 @@
 - As a developer who believes in universal standards, I would like to express my gratitude to Joe Becker, Lee Collins, Mark Davis, and the teams who created and maintain Unicode.
 This standard is the silent foundation of virtually all modern technology.
 Whenever I study a writing system, I am impressed by the precision, care, and vision that made such a long‑lasting project possible.
-### ghostfix-pm
-- Thank you for proposing useful solutions for code improvement and for helping to improve the documentation.
 ### João Victor Nagao
 - For contributing to the development of new accessibility tools and helping expand the possibilities of this project.
-### Microsoft – Copilot
-- For providing an accessible AI assistant that played a fundamental role in the growth and refinement of this system.
 ### Koyama Rumi
 - For helping with the marketing and presentation of the tool.
+### ghostfix-pm
+- Thank you for proposing useful solutions for code improvement and for helping to improve the documentation.
+### Microsoft – Copilot
+- For providing an accessible AI assistant that played a fundamental role in the growth and refinement of this system.
 ### Eclipse IDE
 - For offering a powerful, free, and accessible development environment.
 ### Microsoft – Visual Studio Code
