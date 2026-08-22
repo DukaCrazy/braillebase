@@ -1,6 +1,10 @@
 # 🙏 Thanks
 ## This project exists thanks to the support, collaboration, and tools provided by many people and communities.
 ### My sincere appreciation goes to:
+### Unicode Team
+- As a developer who believes in universal standards, I would like to express my gratitude to Joe Becker, Lee Collins, Mark Davis, and the teams who created and maintain Unicode.
+This standard is the silent foundation of virtually all modern technology.
+Whenever I study a writing system, I am impressed by the precision, care, and vision that made such a long‑lasting project possible.
 ### ghostfix-pm
 - Thank you for proposing useful solutions for code improvement and for helping to improve the documentation.
 ### João Victor Nagao
