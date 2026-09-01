@@ -1,6 +1,6 @@
-from .braillebaseuniversalset import BrailleBaseBniversalSet
-from .braillebaseoutputstring import BrailleBaseOutputString
-from .braillebaseinout import read_file
+from braillebaseuniversalset import BrailleBaseBniversalSet
+from braillebaseoutputstring import BrailleBaseOutputString
+from braillebaseio import read_file
 
 class BrailleBase:  
     # map: __letter_brailles[letter: str]  = braille_list} 
@@ -277,6 +277,8 @@ class BrailleBase:
         Receives multiple characters (strings), each of which must be a valid braille symbol, and returns a list of integers (int), 
         where each value represents the position of the corresponding symbol in the Unicode braille table (U+2800 to U+283F).
          """
+
+        print(braille_list)
         return [self.get_braille_to_index(b) for b in braille_list]
     
 
@@ -700,3 +702,5 @@ class BrailleBase:
 
     def __constructor_map_braille(self):
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
+
+
