@@ -2,7 +2,7 @@
 ## 2026/8/30 - Version 0.2.7 Sumary
 - dependence logic update
 
-## 2026/8/19 - Version 0.2.5 Sumary
+## 2026/8/19 - Version 0.2.6 Sumary
 ### Improvements in Rule Generation
 - Updated rule‑generation methods, increasing translation accuracy for characters, symbols, and numbers.
 - Refined internal algorithms for detecting and applying special rules, reducing ambiguities and improving consistency across modules.
