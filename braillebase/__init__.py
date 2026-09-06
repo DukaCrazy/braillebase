@@ -16,6 +16,7 @@ class BrailleBase:
 
 #   self.__braille_rules_simbol: str
 #   self.__braille_rules_uppercase: str
+#   self.__multi_braille_rules_uppercase: str
 #   self.__braille_rules_lowcase: str
 #   self.__braille_rules_CJK: str
 #   self.__braille_rules_RTL: str
@@ -46,7 +47,7 @@ class BrailleBase:
         self.setting_braille_rules_simbol("")
         #rules uppercase
         self.__letter_special_braille_rules_uppercase: dict[str, list[str]] = {}
-        self.setting_braille_rules_uppercase("⠠", "⠠")
+        self.setting_braille_rules_uppercase("⠠", "⠠⠠", "⠠⠄")
         #rules CJK: China, Japan, Korea
         self.__letter_special_braille_rules_CJK: dict[str, list[str]] = {}
         self.setting_braille_rules_CJK("")
@@ -487,8 +488,6 @@ class BrailleBase:
 
         return "".join(lines)
 
-
-
         #0005-F
     def output_all_html_test(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
@@ -561,24 +560,29 @@ class BrailleBase:
             has_current_letter = current_letter in self.__letter_special_braille_rules_uppercase
             has_next_letter = next_letter in self.__letter_special_braille_rules_uppercase if next_letter else False
 
-            if not has_previous_letter and has_current_letter and has_next_letter:
-                result.append(self.__braille_rules_uppercase)
-                result.append(self.__braille_rules_uppercase)
+            #2 more Upper
+            if not has_previous_letter and has_current_letter and has_next_letter and self.__multi_braille_rules_uppercase != "":
+                for iBraille in self.__multi_braille_rules_uppercase:
+                    result.append(iBraille)
 
+            #1 Upper
             elif  not has_previous_letter and has_current_letter and not has_next_letter:
-                result.append(self.__braille_rules_uppercase)
+                for iBraille in self.__braille_rules_uppercase:
+                    result.append(iBraille)
 
-
+            # Upper, Upper -> Lower
             if has_previous_letter and has_current_letter and not has_next_letter:
                 result.append(current_letter)
-                result.append(self.__braille_rules_lowcase)
+                for iBraille in self.__braille_rules_lowcase:
+                    result.append(iBraille) 
             else:
                 result.append(current_letter)
 
         return result
     
-    def setting_braille_rules_uppercase(self, braille_uppercase: str, braille_lowercase: str):
+    def setting_braille_rules_uppercase(self, braille_uppercase: str, multi_braille_uppercase: str, braille_lowercase: str):
         self.__braille_rules_uppercase = braille_uppercase
+        self.__multi_braille_rules_uppercase = multi_braille_uppercase
         self.__braille_rules_lowcase = braille_lowercase
 
     #----------------------------Prepare Special 02---------------------------
@@ -702,5 +706,3 @@ class BrailleBase:
 
     def __constructor_map_braille(self):
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
-
-
