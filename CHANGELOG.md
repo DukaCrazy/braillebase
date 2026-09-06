@@ -1,4 +1,7 @@
 
+## 2026/9/6 - Version 0.2.9 Sumary
+- Update to the logic that processes uppercase and lowercase characters.
+  
 ## 2026/8/30 - Version 0.2.7 Sumary
 - dependence logic update
 
