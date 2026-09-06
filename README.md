@@ -3,7 +3,8 @@
 
 - Its architecture was designed to be intuitive, easy to understand, and simple to manipulate, allowing any developer to explore, transform, and integrate Braille data without complexity.</b>
 
-## BrailleBase is divided into X parts.
+## 1) Introduction
+### BrailleBase is divided into X parts.
 ### Register Letters and Characters
 <b>The first part of BrailleBase is responsible for registering letters, characters, symbols, icons, and other elements.
 The registration methods are organized into four sets:</b>
@@ -147,5 +148,33 @@ print(bbe.output_binary_txt("insert any text"))
 # Confidence test
 print(bbe.confidence_test("insert any text"))
 ```
+
+---
+
+-> pip install braillebase 0.2.9
+
+Other
+-> pip install braille 
+        -> Japanese, Portuguese, English, Arabic, Viet
+
+
+## 2) Objective and motivation
+- The goal is to create a tool capable of translating more complex texts and expressions using simple methods, so that even a beginner in programming can use it and develop their own tools.
+
+- In addition to providing a character‑to‑Braille translation engine, BrailleBase offers classes with a pre‑registered database, allowing the user to simply download it and start using it. This makes it easy to create new translation rules, register new items, and much more.
+
+- Beyond the code itself, BrailleBase will soon allow users to access Braille from other countries simply by calling a method. When sighted people study new languages, the first thing they are introduced to is the alphabet of the target language. With the pre‑registered characters, the user only needs to know which class to call — for example, BrailleBaseEnglish — and insert the character or sentence as the method argument. The Braille output will be generated automatically, along with its metadata if needed.
+
+<b>I Love</b>
+⠠⠊⠀⠠⠇⠕⠧⠑
+6
+2‑4
+
+6
+1‑2‑3
+1‑3‑5
+1‑2‑3‑6
+1‑5
+
 
   <img src="./img/logo.png" alt="Logo" width="500" height="493">
