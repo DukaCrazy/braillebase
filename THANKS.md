@@ -90,6 +90,20 @@ Whenever I study a writing system, I am impressed by the precision, care, and vi
         https://braille.codes/tables.html
         https://www.edvisionservices.org/Formsupdated/PDFForms/UEB_chart_and_reference_guide.pdf
         https://grokipedia.com/page/vietnamese_braille
+        Korean
+        https://stock.adobe.com/jp/images/korean-braille-alphabet/407129011
+        https://newsteacher.chosun.com/site/data/html_dir/2013/07/30/2013073067004.html
+        https://en.wikipedia.org/wiki/Korean_Braille
+        https://www.korean.go.kr/braille/common/greeting.do
+        https://www.hancom.com/
+        https://ko.wikipedia.org/wiki/%ED%95%9C%EA%B8%80
+        https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0000832634
+        https://wiki.arcsnet.dev/content/wikipedia_en_all_maxi_2026-02/Korean_Braille?utm_source=chatgpt.com
+        https://www.korean.go.kr/common/download.do%3Bfront%3DE83E929C9121645D3A123656393CDADE?c_file_name=ef118806-5660-4120-be1e-20388e1d09a6.pdf&file_path=etcData&o_file_name=%EA%B3%B5%EA%B3%B5%EA%B8%B0%EA%B4%80+%EC%A0%90%EC%9E%90+%EB%AC%B8%EC%84%9C+%EC%A0%9C%EA%B3%B5+%EC%95%88%EB%82%B4%EC%84%9C_%EC%9D%B8%EC%87%84%EB%B3%B8%280723%29.pdf&utm_source=chatgpt.com
+        https://m.korean.go.kr/front/page/pageView.do?mn_id=171&mn_id=205&page_id=P000302&utm_source=chatgpt.com
+        https://namu.wiki/w/%ED%95%9C%EA%B8%80%20%EC%A0%90%EC%9E%90
+        https://www.korean.go.kr/synap/skin/doc.html?fn=d54808b0-5243-4eef-9792-cf3422f0292e.pdf&rs=/attachFile/viewer/202608
+
 
 
 <img src="./img/logo.png" alt="Logo" width="500" height="493">
