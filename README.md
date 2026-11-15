@@ -1,4 +1,37 @@
-# Braille Base
+# Braille Base (braillebase)
+- pypi install braillebase
+- version 0.3.0
+
+        Braille Base is an open-source project licensed under the MIT License, designed to offer ease of use for beginners and flexibility for professionals, while prioritizing accuracy, performance, and simplicity in text-to-Braille translation.
+
+In general, official **Braille standards** share the same Braille cells for Roman and Greek alphabet letters, as well as numbers. For this reason, Braille Base uses the **BrailleBaseUniversalSet**, which provides a predefined collection of shared Braille characters across languages.
+
+## Registry Group (0001)
+<p>Each language has its own rules for Braille transcription. These may include phonetic, syllabic, direct character-to-Braille translation, or other specialized transcription rules.
+<br><br>
+Therefore, a static character set alone may not be sufficient. API users must also be able to register new characters, edit existing entries, and remove them when necessary.
+<br><br>
+To support this flexibility, the Braille Base API provides several methods for managing character lists. The following section introduces the methods available in this group.
+</p>
+
+### Group Identification
+        The methods in this group include an argument called type, which determines which map the operation will target. Each value corresponds to a specific group, as described below:
+
+<p>
+<h4>0 — Default</h4>
+The central registry and translation base of Braille Base. All records are stored in this group. The other groups act as auxiliary rule-identification mechanisms, allowing the engine to determine in advance which processing rules should be applied to each character or expression.
+<h4>1 — Uppercase</h4>
+Used to register uppercase letters, allowing the engine to identify when translation requires the application of an uppercase indicator.
+<h4>2 — CJK</h4>
+Used to register characters and writing systems that follow syllabic rules, such as Hiragana, Jamul, and Pinyin.
+<h4>3 — RTL</h4>
+Used to register languages whose writing systems follow a right-to-left (RTL) direction.
+<h4>4 — Symbol</h4>
+Used to register symbols, characters, and special expressions that take priority over all other interpretation rules. It allows complete expressions to be recognized as a single translation unit, preventing their individual characters from being interpreted separately.</p>
+
+# documentation under development.# Braille Base
+# Old Doc
+
 - <b>BrailleBase is an algorithm developed in Python with the goal of making Braille accessible to both blind and sighted individuals.
 
 - Its architecture was designed to be intuitive, easy to understand, and simple to manipulate, allowing any developer to explore, transform, and integrate Braille data without complexity.</b>
