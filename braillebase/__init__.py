@@ -278,22 +278,20 @@ class BrailleBase:
         Receives multiple characters (strings), each of which must be a valid braille symbol, and returns a list of integers (int), 
         where each value represents the position of the corresponding symbol in the Unicode braille table (U+2800 to U+283F).
          """
-
-        print(braille_list)
         return [self.get_braille_to_index(b) for b in braille_list]
     
 
 #---------------------------------------- Translate group (0002) ----------------------------------------
    #0002-A
-    def translate_text_to_braille(self, text: str) -> list:
+    def convert_text_to_braille_data(self, text: str, type = 0) -> list:
         """
-        0002-A
-        The method expects a string as an argument — the text to be translated into braille.
-        Each character is converted into braille.
-        This is the main method of the translate group.
-        The entire text is processed and converted into a list of braille symbols, which will later be transformed into a list of indices.
-        All methods in the translate group are fully dependent on translate_text_to_braille(text: str).
+        Provides conversion data as lists.
+
+        The data may include Braille characters [0], indices [1], binary representations as strings [2], binary representations as lists [3], Unicode [4], dot count [5], dot positions as strings [6], dot positions as lists [7], all data [8], and mirrored Braille [9].
+        
+        The default return is a list of Braille characters (type 0), including when an unrecognized type is provided.
         """
+
 
         tokens = self.confidence_test(text)
 
@@ -302,105 +300,56 @@ class BrailleBase:
             brailles = self.get_brailles_with_letter(tokens[iToken][0])
             result.extend(brailles)
 
+        index_s = self.get_braille_list_to_index_list(result)
+
+        match type:
+            case 0:
+                return result
+            
+            case 1: #0002-B # translate_text_to_index
+                return index_s
+            
+            case 2: #0002-C # translate_text_to_binary_string
+                return [self.__BinaryStringList[i] for i in index_s]
+            
+            case 3: #0002-D # translate_text_to_binary_list
+                return [self.__BinaryList[i] for i in index_s]
+            
+            case 4: #0002-E # translate_text_to_unicode
+                return [self.__UnicodeList[i] for i in index_s]
+            
+            case 5: #0002-F # translate_text_to_dot_count
+                return [self.__DotCountList[i] for i in index_s]
+            
+            case 6: #0002-G translate_text_to_numbering_string
+                return [self.__DotNumberingStringList[i] for i in index_s]
+            
+            case 7: #0002-H # translate_text_to_numbering_list
+                return [self.__DotNumberingList[i] for i in index_s]
+            
+            case 8: #0002-I # translate_text_to_full_list
+
+                results = []
+
+                for idx in range(len(index_s)):
+                    i = index_s[idx]
+                    results.append([
+                        result[idx],
+                        i,
+                        self.__BinaryStringList[i],
+                        self.__BinaryList[i],
+                        self.__UnicodeList[i],
+                        self.__DotCountList[i],
+                        self.__DotNumberingStringList[i],
+                        self.__DotNumberingList[i],
+                        self.__ReverseBrailleList[i],
+                    ])
+                return results
+            
+            case 9: #0002-J # translate_text_to_reverse_braille
+                return [self.__ReverseBrailleList[i] for i in reversed(index_s)]
         return result
 
-    #0002-B
-    def translate_text_to_index(self, textBraille: str) -> list:
-        """
-        Translates the input text into a list of braille indices. Each character may expand into multiple braille cells.
-        """
-        brailles = self.translate_text_to_braille(textBraille)
-        return self.get_braille_list_to_index_list(brailles)
-    
-    #0002-C
-    def translate_text_to_binary_string(self, text: str) -> list:
-        """
-        Translates the input text into a list of 6-bit binary strings representing each braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__BinaryStringList[i] for i in indices]
-    
-    #0002-D
-    def translate_text_to_binary_list(self, text: str) -> list:
-        """
-        Translates the input text into a list of 6-bit binary arrays representing each braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__BinaryList[i] for i in indices]
-    
-    #0002-E
-    def translate_text_to_unicode(self, text: str) -> list:
-        """
-        Translates the input text into a list of Unicode code representations for each braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__UnicodeList[i] for i in indices]
-    
-    #0002-F
-    def translate_text_to_dot_count(self, text: str) -> list:
-        """
-        Translates the input text into a list containing the dot count of each braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__DotCountList[i] for i in indices]
-
-    #0002-G
-    def translate_text_to_numbering_string(self, text: str) -> list:
-        """
-        Translates the input text into a list of numbering strings, each indicating the active dot positions of every braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__DotNumberingStringList[i] for i in indices]
-    
-    #0002-H
-    def translate_text_to_numbering_list(self, text: str) -> list:
-        """
-        Translates the input text into a list of numbering lists, each containing the active dot positions of every braille cell.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__DotNumberingList[i] for i in indices]
-    
-    #0002-I
-    def translate_text_to_full_list(self, text: str) -> list:
-        """
-        Translates the input text into a full list of braille-related data.  
-        Each entry contains: braille symbol, index, binary string, binary array, Unicode value, dot count, numbering string, and numbering list.
-        """
-        brailles = self.translate_text_to_braille(text)
-        indices = self.get_braille_list_to_index_list(brailles)
-
-        result = []
-
-        for idx in range(len(indices)):
-            i = indices[idx]
-            result.append([
-                brailles[idx],
-                i,
-                self.__BinaryStringList[i],
-                self.__BinaryList[i],
-                self.__UnicodeList[i],
-                self.__DotCountList[i],
-                self.__DotNumberingStringList[i],
-                self.__DotNumberingList[i],
-                self.__ReverseBrailleList[idx],
-            ])
-        return result
-    
-
-    #0002-J
-    def translate_text_to_reverse_braille(self, textBraille: str) -> list:
-        """
-        Translates the input text into a list of Reverse Braille.
-        """
-        brailles = self.translate_text_to_braille(textBraille)
-        indices = self.get_braille_list_to_index_list(brailles)
-        return [self.__ReverseBrailleList[i] for i in reversed(indices)]
     
 #---------------------------------------- Output group (0005) ----------------------------------------
         
@@ -432,19 +381,19 @@ class BrailleBase:
     def output_all_markdown(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutputString.output_all_markdown(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_markdown(self.confidence_test(text), self.convert_text_to_braille_data(text), self.convert_text_to_braille_data(text, 9), text, footer)
     
     #0005-F
     def output_all_html(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutputString.output_all_html(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_html(self.confidence_test(text), self.convert_text_to_braille_data(text), self.convert_text_to_braille_data(text, 9), text, footer)
 
     #0005-GA
     def output_all_txt(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutputString.output_all_txt(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_txt(self.confidence_test(text), self.convert_text_to_braille_data(text), self.convert_text_to_braille_data(text, 9), text, footer)
     
     #0005-GB
     def output_binary_txt(self, text: str) -> str:
@@ -452,7 +401,7 @@ class BrailleBase:
         """
         lines = []
 
-        brailles = self.translate_text_to_braille(text)
+        brailles = self.convert_text_to_braille_data(text)
 
         for braille_cell in brailles:
             idx = self.__BrailleList.index(braille_cell)                    
@@ -466,7 +415,7 @@ class BrailleBase:
         """
         lines = []
 
-        brailles = self.translate_text_to_braille(text)
+        brailles = self.convert_text_to_braille_data(text)
 
         for braille_cell in brailles:
             idx = self.__BrailleList.index(braille_cell)
@@ -480,7 +429,7 @@ class BrailleBase:
         """
         lines = []
 
-        brailles = self.translate_text_to_braille(text)
+        brailles = self.convert_text_to_braille_data(text)
 
         for braille_cell in reversed(brailles):
             idx = self.__BrailleList.index(braille_cell)
@@ -492,7 +441,7 @@ class BrailleBase:
     def output_all_html_test(self, text: str, footer = "Thank you for using Braille Base.") -> str:
         """
         """
-        return self.__BrailleBaseOutputString.output_all_html_test(self.confidence_test(text), self.translate_text_to_braille(text), self.translate_text_to_reverse_braille(text), text, footer)
+        return self.__BrailleBaseOutputString.output_all_html_test(self.confidence_test(text), self.convert_text_to_braille_data(text), self.convert_text_to_braille_data(text, 9), text, footer)
     #----------------------------Internal logic of exceptions-------------------------------
     def __validate_braille_list(self, braille_list: list):
         """
@@ -706,3 +655,5 @@ class BrailleBase:
 
     def __constructor_map_braille(self):
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
+
+
