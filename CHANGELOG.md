@@ -1,4 +1,9 @@
 
+## 2026/11/17 - Version 0.3.1
+- Renamed CJK methods and constants to Syllabic.
+- Renamed Symbol methods and constants for naming consistency.
+- Improved documentation for configure_token(), get_token_size(), and tokenize_text().
+
 ## 2026/11/14 - Version 0.3.0
 - Renamed translate_text_to_braille() to convert_text_to_braille_data().
 - Consolidated Braille conversion outputs into a single method supporting ten return types (0–9).
