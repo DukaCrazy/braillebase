@@ -8,17 +8,17 @@ class BrailleBase:
 
 
 #   self.__letter_brailles: dict[str, list[str]]
-#   self.__letter_special_braille_rules_simbol: dict[str, list[str]]
+#   self.__letter_special_braille_rules_symbol: dict[str, list[str]]
 #   self.__letter_special_braille_rules_uppercase: dict[str, list[str]]
-#   self.__letter_special_braille_rules_CJK: dict[str, list[str]]
+#   self.__letter_special_braille_rules_syllabic: dict[str, list[str]]
 #   self.__letter_special_braille_rules_RTL: dict[str, list[str]]
 
 
-#   self.__braille_rules_simbol: str
+#   self.__braille_rules_symbol: str
 #   self.__braille_rules_uppercase: str
 #   self.__multi_braille_rules_uppercase: str
 #   self.__braille_rules_lowcase: str
-#   self.__braille_rules_CJK: str
+#   self.__braille_rules_syllabic: str
 #   self.__braille_rules_RTL: str
 
 #   self.__BrailleIndex: dict[str, int]
@@ -32,26 +32,34 @@ class BrailleBase:
 #   self.__DotNumberingStringList: list[str]
 #   self.__ReverseBrailleList: list[str]
 
+    bbDEFAULT = 0
+    bbUPPERCASE = 1
+    bbSYLLABIC = 2
+    bbRTL = 3
+    bbSYMBOL = 4
+
     #0000
     def __init__(self):
         """
         0000
         """
         #Tokenize
-        #self.configure_token(20)
-        self._token_size = 14
+        self.configure_token(14)
 
         self.__letter_brailles: dict[str, list[str]] = {}
-        #rules simbol
-        self.__letter_special_braille_rules_simbol: dict[str, list[str]] = {}
-        self.setting_braille_rules_simbol("")
-        #rules uppercase
+        #SYMBOL
+        self.__letter_special_braille_rules_symbol: dict[str, list[str]] = {}
+        self.setting_braille_rules_symbol("")
+
+        #UPPERCASE
         self.__letter_special_braille_rules_uppercase: dict[str, list[str]] = {}
         self.setting_braille_rules_uppercase("⠠", "⠠⠠", "⠠⠄")
-        #rules CJK: China, Japan, Korea
-        self.__letter_special_braille_rules_CJK: dict[str, list[str]] = {}
-        self.setting_braille_rules_CJK("")
-        #rules RTL: Right-to-Left
+
+        #SYLLABIC
+        self.__letter_special_braille_rules_syllabic: dict[str, list[str]] = {}
+        self.setting_braille_rules_syllabic("")
+
+        #RTL: Right-to-Left
         self.__letter_special_braille_rules_RTL: dict[str, list[str]] = {}
         self.setting_braille_rules_RTL("")
 
@@ -65,16 +73,15 @@ class BrailleBase:
 #---------------------------------------- Registry group (0001) ----------------------------------------
     #-----Append----------------------------------------------------------------------------------------
     #0001-AA
-    def append_braille_letter(self, letter: str, braille_list: list, type = 0):
+    def append_braille_letter(self, letter: str, braille_list: list, type = bbDEFAULT):
         """
-        0001-AA
         Registers a letter and its associated braille list. If the letter already exists, its mapping is overwritten.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
 
         if not isinstance(letter, str):
@@ -89,17 +96,16 @@ class BrailleBase:
             case 1:
                 self.__letter_special_braille_rules_uppercase[letter] = braille_list
             case 2:
-                self.__letter_special_braille_rules_CJK[letter] = braille_list
+                self.__letter_special_braille_rules_syllabic[letter] = braille_list
             case 3:
                 self.__letter_special_braille_rules_RTL[letter] = braille_list
             case 4:
-                self.__letter_special_braille_rules_simbol[letter] = braille_list
+                self.__letter_special_braille_rules_symbol[letter] = braille_list
 
     #-----Get-------------------------------------------------------------------------------------------
     #0001-B
     def get_brailles_with_letter(self, letter: str):
         """
-        0001-B
         This method is the core of the application: it receives a letter* and returns the list of braille symbols associated with it. 
         If the letter* is not registered, an error is raised.
         """
@@ -113,14 +119,13 @@ class BrailleBase:
     #0001-CA
     def has_letter(self, letter: str, type = 0) -> bool:
         """
-        0001-CA
         Checks whether the given letter is registered in the internal mapping. Returns True or False.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
         match type:
             case 0:
@@ -128,24 +133,23 @@ class BrailleBase:
             case 1:
                 return letter in self.__letter_special_braille_rules_uppercase
             case 2:
-                return letter in self.__letter_special_braille_rules_CJK
+                return letter in self.__letter_special_braille_rules_syllabic
             case 3:
                 return letter in self.__letter_special_braille_rules_RTL
             case 4:
-                return letter in self.__letter_special_braille_rules_simbol
+                return letter in self.__letter_special_braille_rules_symbol
 
     #-----Remove----------------------------------------------------------------------------------------
     #0001-D
     def remove_letter(self, letter: str, type = 0) -> bool:
         """
-        0001-D
         Removes the given letter from the internal mapping. Returns True if the letter existed and was removed, otherwise returns False.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
         if letter in self.__letter_brailles:
             del self.__letter_brailles[letter]
@@ -155,14 +159,14 @@ class BrailleBase:
                     if letter in self.__letter_special_braille_rules_uppercase:
                         del  self.__letter_special_braille_rules_uppercase[letter]
                 case 2:
-                    if letter in self.__letter_special_braille_rules_CJK:
-                        del  self.__letter_special_braille_rules_CJK[letter]
+                    if letter in self.__letter_special_braille_rules_syllabic:
+                        del  self.__letter_special_braille_rules_syllabic[letter]
                 case 3:
                     if letter in self.__letter_special_braille_rules_RTL:
                         del  self.__letter_special_braille_rules_RTL[letter]
                 case 4:
-                    if letter in self.__letter_special_braille_rules_simbol:
-                        del  self.__letter_special_braille_rules_simbol[letter]
+                    if letter in self.__letter_special_braille_rules_symbol:
+                        del  self.__letter_special_braille_rules_symbol[letter]
 
             return True
         return False
@@ -171,14 +175,13 @@ class BrailleBase:
     #0001-EA
     def get_registered_letters(self, type = 0):
         """
-        0001-EA
         Returns a list containing all letters currently registered in the internal mapping.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
     
         match type:    
@@ -187,23 +190,22 @@ class BrailleBase:
             case 1:
                 return list(self.__letter_special_braille_rules_uppercase.keys())
             case 2:
-                return list(self.__letter_special_braille_rules_CJK.keys())
+                return list(self.__letter_special_braille_rules_syllabic.keys())
             case 3:
                 return list(self.__letter_special_braille_rules_RTL.keys())
             case 4:
-                return list(self.__letter_special_braille_rules_simbol.keys())
+                return list(self.__letter_special_braille_rules_symbol.keys())
 
     #0001-FA
     def append_multiple_braille_letters(self, letter_braillelist_pattern: list):
         """
-        0001-F
         Registers multiple letter-to-braille mappings at once. Each entry is validated and added individually.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
         if not isinstance(letter_braillelist_pattern, list):
             raise TypeError("Invalid: append_multiple_braille_letters - #0001-F")
@@ -219,14 +221,13 @@ class BrailleBase:
     #0001-G
     def edit_braille_letter(self, letter: str, new_braille_list: list, type = 0):
         """
-        0001-G
         Edits the braille list associated with the given letter. Raises an error if the letter is not registered.
 
-        default: 0
-        rules_uppercase: 1
-        CJK: 2
+        DEFAULT: 0
+        UPPERCASE: 1
+        SYLLABIC: 2
         RTL: 3
-        simbol: 4
+        SYMBOL: 4
         """
         if letter not in self.__letter_brailles:
             raise KeyError(f"letter '{letter}' not registered")
@@ -238,17 +239,16 @@ class BrailleBase:
             case 1:
                 self.__letter_special_braille_rules_uppercase[letter] = new_braille_list
             case 2:
-                self.__letter_special_braille_rules_CJK[letter] = new_braille_list
+                self.__letter_special_braille_rules_syllabic[letter] = new_braille_list
             case 3:
                 self.__letter_special_braille_rules_RTL[letter] = new_braille_list
             case 4:
-                self.__letter_special_braille_rules_simbol[letter] = new_braille_list
+                self.__letter_special_braille_rules_symbol[letter] = new_braille_list
 
 #---------------------------------------- Mapping group (0003) ----------------------------------------
     #0003-A
     def get_braille_to_index(self, braille: str) -> int:
         """
-        0003-A
         Receives a character (string), which must be a valid braille symbol, 
         and returns an integer (int) that represents its position in the Unicode braille table (U+2800 to U+283F).
 
@@ -267,14 +267,12 @@ class BrailleBase:
     #0003-C
     def get_index_to_braille(self, index: int) -> str:
         """
-        0003-C
         """
         return self.__BrailleList[index]
     
     #0003-B
     def get_braille_list_to_index_list(self, braille_list: list[str]) -> list[int]:
         """
-        0003-B
         Receives multiple characters (strings), each of which must be a valid braille symbol, and returns a list of integers (int), 
         where each value represents the position of the corresponding symbol in the Unicode braille table (U+2800 to U+283F).
          """
@@ -475,16 +473,16 @@ class BrailleBase:
 
         return result
     
-    #----------------------------Prepare Special 04: Simbol   ---------------------------
-    def prepare_special_braille_rules_simbol(self, tokens: list[str]) -> list[str]:
+    #----------------------------Prepare Special 04: symbol   ---------------------------
+    def prepare_special_braille_rules_symbol(self, tokens: list[str]) -> list[str]:
         result = []
         previous = False
 
         for token in tokens:
-            is_special = token in self.__letter_special_braille_rules_simbol
+            is_special = token in self.__letter_special_braille_rules_symbol
 
             if is_special and not previous:
-                result.append(self.__braille_rules_simbol)
+                result.append(self.__braille_rules_symbol)
 
             result.append(token)
             previous = is_special
@@ -492,8 +490,8 @@ class BrailleBase:
         return result
     
     
-    def setting_braille_rules_simbol(self, braille: str):
-        self.__braille_rules_simbol = braille
+    def setting_braille_rules_symbol(self, braille: str):
+        self.__braille_rules_symbol = braille
 
     #----------------------------Prepare Special 01: Roma Letter---------------------------
     def prepare_special_braille_rules_uppercase(self, tokens: list[str]) -> list[str]:
@@ -536,23 +534,23 @@ class BrailleBase:
 
     #----------------------------Prepare Special 02---------------------------
     
-    def prepare_special_braille_rules_CJK(self, tokens: list[str]) -> list[str]:
+    def prepare_special_braille_rules_syllabic(self, tokens: list[str]) -> list[str]:
         result = []
         previous = False
 
         for token in tokens:
-            is_special = token in self.__letter_special_braille_rules_CJK
+            is_special = token in self.__letter_special_braille_rules_syllabic
 
             if is_special and not previous:
-                result.append(self.__braille_rules_CJK)
+                result.append(self.__braille_rules_syllabic)
 
             result.append(token)
             previous = is_special
 
         return result
     
-    def setting_braille_rules_CJK(self, braille: str):
-        self.__braille_rules_CJK = braille
+    def setting_braille_rules_syllabic(self, braille: str):
+        self.__braille_rules_syllabic = braille
 
     #----------------------------Prepare Special 02---------------------------
     
@@ -575,8 +573,45 @@ class BrailleBase:
         self.__braille_rules_RTL = braille
 
     #----------------------------Token---------------------------
+    def configure_token(self, token_size: int):
+        """
+        Defines the maximum token size analyzed by tokenize_text().
+
+        Higher values allow longer tokens to be recognized, but require
+        more checks during tokenization. To use all records from
+        BrailleBaseUniversalSet, it is recommended to keep this value
+        equal to or greater than the length of the longest registered token.
+
+        Parameters:
+            token_size (int): Maximum token size to analyze.
+        """
+        self._token_size = token_size
+
+    def get_token_size(self) -> int:
+        """
+        Returns the maximum token size used by tokenize_text().
+
+        This value defines the character limit analyzed during
+        tokenization and directly affects methods that depend on
+        the token recognition process.
+
+        Returns:
+            int
+        """
+        return self._token_size
 
     def tokenize_text(self, text: str) -> list[str]:
+        """
+        Converts a text into a list of registered tokens.
+
+        The method prioritizes the longest possible token at the current
+        position in the text. The maximum token size is defined through
+        the configure_token() method.
+
+        Returns:
+            list[str]
+        """
+
         tokens = []
         i = 0
         max_len = self._token_size  
@@ -598,16 +633,14 @@ class BrailleBase:
 
         return tokens
     
-    #    def tokenize_text(self, text: str) -> list[str]:
     def confidence_test(self, text: str) -> dict:
         iToken = 0
 
-
         tokens = self.tokenize_text(text)
 
-        tokens = self.prepare_special_braille_rules_simbol(tokens)
+        tokens = self.prepare_special_braille_rules_symbol(tokens)
         tokens = self.prepare_special_braille_rules_uppercase(tokens)
-        tokens = self.prepare_special_braille_rules_CJK(tokens)
+        tokens = self.prepare_special_braille_rules_syllabic(tokens)
         tokens = self.prepare_special_braille_rules_RTL(tokens)
         tokens = self.prepare_number_braille(tokens)
         
@@ -623,8 +656,7 @@ class BrailleBase:
             iToken += 1
         return result
 
-    def configure_token(self, token_size: int):
-        self._token_size = token_size
+
         #----------------------------Constructor ---------------------------
 
     def __constructor_all_table(self):
@@ -655,5 +687,3 @@ class BrailleBase:
 
     def __constructor_map_braille(self):
         self.append_multiple_braille_letters(BrailleBaseBniversalSet.braille_base_universal_set())
-
-
