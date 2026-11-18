@@ -1,6 +1,6 @@
 # Braille Base (braillebase)
 - pypi install braillebase
-- version 0.3.0
+- version 0.3.2
 
         Braille Base is an open-source project licensed under the MIT License, designed to offer ease of use for beginners and flexibility for professionals, while prioritizing accuracy, performance, and simplicity in text-to-Braille translation.
 
