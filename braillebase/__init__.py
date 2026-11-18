@@ -73,7 +73,7 @@ class BrailleBase:
 #---------------------------------------- Registry group (0001) ----------------------------------------
     #-----Append----------------------------------------------------------------------------------------
     #0001-AA
-    def append_braille_letter(self, letter: str, braille_list: list, type = bbDEFAULT):
+    def append_braille_letter(self, letter: str, braille_list: list, collection = bbDEFAULT):
         """
         Registers a letter and its associated braille list. If the letter already exists, its mapping is overwritten.
 
@@ -92,7 +92,7 @@ class BrailleBase:
         self.__validate_braille_list(braille_list)
         self.__letter_brailles[letter] = braille_list
 
-        match type:
+        match collection:
             case 1:
                 self.__letter_special_braille_rules_uppercase[letter] = braille_list
             case 2:
@@ -117,7 +117,7 @@ class BrailleBase:
 
     #-----Has-------------------------------------------------------------------------------------------
     #0001-CA
-    def has_letter(self, letter: str, type = 0) -> bool:
+    def has_letter(self, letter: str, collection = bbDEFAULT) -> bool:
         """
         Checks whether the given letter is registered in the internal mapping. Returns True or False.
 
@@ -127,7 +127,7 @@ class BrailleBase:
         RTL: 3
         SYMBOL: 4
         """
-        match type:
+        match collection:
             case 0:
                 return letter in self.__letter_brailles
             case 1:
@@ -141,7 +141,7 @@ class BrailleBase:
 
     #-----Remove----------------------------------------------------------------------------------------
     #0001-D
-    def remove_letter(self, letter: str, type = 0) -> bool:
+    def remove_letter(self, letter: str, collection = bbDEFAULT) -> bool:
         """
         Removes the given letter from the internal mapping. Returns True if the letter existed and was removed, otherwise returns False.
 
@@ -154,7 +154,7 @@ class BrailleBase:
         if letter in self.__letter_brailles:
             del self.__letter_brailles[letter]
 
-            match type:                 
+            match collection:                 
                 case 1:
                     if letter in self.__letter_special_braille_rules_uppercase:
                         del  self.__letter_special_braille_rules_uppercase[letter]
@@ -173,7 +173,7 @@ class BrailleBase:
 
     #-----Get Registered--------------------------------------------------------------------------------
     #0001-EA
-    def get_registered_letters(self, type = 0):
+    def get_registered_letters(self, collection = bbDEFAULT):
         """
         Returns a list containing all letters currently registered in the internal mapping.
 
@@ -184,7 +184,7 @@ class BrailleBase:
         SYMBOL: 4
         """
     
-        match type:    
+        match collection:    
             case 0:
                 return list(self.__letter_brailles.keys())             
             case 1:
@@ -219,7 +219,7 @@ class BrailleBase:
 
             
     #0001-G
-    def edit_braille_letter(self, letter: str, new_braille_list: list, type = 0):
+    def edit_braille_letter(self, letter: str, new_braille_list: list, collection = bbDEFAULT):
         """
         Edits the braille list associated with the given letter. Raises an error if the letter is not registered.
 
@@ -235,7 +235,7 @@ class BrailleBase:
         self.__validate_braille_list(new_braille_list)
         self.__letter_brailles[letter] = new_braille_list
 
-        match type:                
+        match collection:                
             case 1:
                 self.__letter_special_braille_rules_uppercase[letter] = new_braille_list
             case 2:
@@ -281,13 +281,13 @@ class BrailleBase:
 
 #---------------------------------------- Translate group (0002) ----------------------------------------
    #0002-A
-    def convert_text_to_braille_data(self, text: str, type = 0) -> list:
+    def convert_text_to_braille_data(self, text: str, collection = 0) -> list:
         """
         Provides conversion data as lists.
 
         The data may include Braille characters [0], indices [1], binary representations as strings [2], binary representations as lists [3], Unicode [4], dot count [5], dot positions as strings [6], dot positions as lists [7], all data [8], and mirrored Braille [9].
         
-        The default return is a list of Braille characters (type 0), including when an unrecognized type is provided.
+        The default return is a list of Braille characters (collection 0), including when an unrecognized collection is provided.
         """
 
 
@@ -300,7 +300,7 @@ class BrailleBase:
 
         index_s = self.get_braille_list_to_index_list(result)
 
-        match type:
+        match collection:
             case 0:
                 return result
             
