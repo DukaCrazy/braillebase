@@ -1,4 +1,12 @@
 
+## 2026/11/18 - Version 0.3.2
+- Renamed the Registry Group argument from type to collection for improved API clarity.
+- Added Registry Group constants documentation and usage examples. 
+- Added a quick-reference section documenting Registry Group (0001) method signatures and return types. 
+- Added dedicated documentation for append_braille_letter_IO(). 
+- Added JSON, XML, and CSV import examples for append_braille_letter_IO(). 
+- Added references to the **BrailleBaseIO** documentation for external data file creation.
+
 ## 2026/11/17 - Version 0.3.1
 - Renamed CJK methods and constants to Syllabic.
 - Renamed Symbol methods and constants for naming consistency.
