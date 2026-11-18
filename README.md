@@ -15,19 +15,128 @@ To support this flexibility, the Braille Base API provides several methods for m
 </p>
 
 ### Group Identification
-        The methods in this group include an argument called type, which determines which map the operation will target. Each value corresponds to a specific group, as described below:
+        The methods in this group include an argument called collection, which determines which map the operation will target. Each value corresponds to a specific group, as described below:
 
 <p>
 <h4>0 — Default</h4>
 The central registry and translation base of Braille Base. All records are stored in this group. The other groups act as auxiliary rule-identification mechanisms, allowing the engine to determine in advance which processing rules should be applied to each character or expression.
 <h4>1 — Uppercase</h4>
 Used to register uppercase letters, allowing the engine to identify when translation requires the application of an uppercase indicator.
-<h4>2 — CJK</h4>
+<h4>2 — Syllabic</h4>
 Used to register characters and writing systems that follow syllabic rules, such as Hiragana, Jamul, and Pinyin.
 <h4>3 — RTL</h4>
 Used to register languages whose writing systems follow a right-to-left (RTL) direction.
 <h4>4 — Symbol</h4>
-Used to register symbols, characters, and special expressions that take priority over all other interpretation rules. It allows complete expressions to be recognized as a single translation unit, preventing their individual characters from being interpreted separately.</p>
+Used to register symbols, characters, and special expressions that take priority over all other interpretation rules. It allows complete expressions to be recognized as a single translation unit, preventing their individual characters from being interpreted separately.
+</p>
+
+### Registry Group Constants
+```python
+        bbDEFAULT = 0
+        bbUPPERCASE = 1
+        bbSYLLABIC = 2
+        bbRTL = 3
+        bbSYMBOL = 4
+```
+
+        As described earlier, registry groups are identified by indices ranging from 0 to 4. However, there is no need to memorize these values. Braille Base exposes predefined constants that map directly to each registry group. For example, use bbUPPERCASE instead of 1.
+
+- In practice, both the numeric identifier and its corresponding constant can be used interchangeably when registering or editing Braille entries. However, using constants is recommended because it improves code readability and makes maintenance easier.
+
+```python
+from braillebase import BrailleBase
+
+class BrailleBaseMyLanguage(BrailleBase):
+    def __init__(self):
+
+        self.append_braille_letter("CH", ["⠡"], bbUPPERCASE) 
+        self.append_braille_letter("SH", ["⠩"], bbUPPERCASE) 
+        self.append_braille_letter("TH", ["⠹"], 1) 
+        self.append_braille_letter("WH", ["⠱"], 1)
+        self.append_braille_letter("あ", ["⠁"],bbSYLLABIC) 
+        self.append_braille_letter("い", ["⠃"],bbSYLLABIC) 
+        self.append_braille_letter("う", ["⠉"],2) 
+
+        self.edit_braille_letter("え", ["⠋"],bbSYLLABIC)
+        self.edit_braille_letter("お", ["⠊"],2)
+```
+
+- The methods in Registry Group (0001) are intuitive and self-explanatory. Nevertheless, the following section provides a brief overview of each method signature.
+```python
+        Registers a new letter and its Braille representation. Return: None
+        def append_braille_letter(self, letter: str, braille_list: list, collection = bbDEFAULT):​‌
+```
+```python
+        Retrieves all Braille cells associated with a letter. Return: list
+        def get_brailles_with_letter(self, letter: str):​‌
+```
+```python
+        Checks whether a letter is registered. Return: bool
+        def has_letter(self, letter: str, collection = bbDEFAULT) -> bool:​‌
+```
+```python
+        Removes a registered letter. Return: bool (True if removed)
+        def remove_letter(self, letter: str, collection = bbDEFAULT) -> bool:​‌
+```
+```python
+        Returns all registered letters from a group. Return: list
+        def get_registered_letters(self, collection = bbDEFAULT):​‌
+```
+```python
+        Registers multiple letters at once. Return: None
+        def append_multiple_braille_letters(self, letter_braillelist_pattern: list):​‌
+```
+```python
+        Imports letter registrations from a data source. Return: None
+        def append_braille_letter_IO(self, target_data_path: str):​‌
+```
+```python
+        Updates the Braille representation of a registered letter. Return: None
+        def edit_braille_letter(self, letter: str, new_braille_list: list, collection = bbDEFAULT):
+```
+### append_braille_letter_IO
+- The append_braille_letter_IO method accepts only one argument, which is the path to the file containing the data. The API supports only three data formats: JSON, XML, and CSV.
+
+```json
+JSON
+[
+    {
+        "letter": "a",
+        "braille": "⠁,⠁",
+        "pattern": 0
+    },
+    {
+        "letter": "b",
+        "braille": "⠟,⠟,⠟",
+        "pattern": 0
+    }
+]
+```
+
+```xml
+XML
+<?xml version="1.0" encoding="utf-8"?>
+<braille_append>
+    <item>
+        <letter>a</letter>
+        <braille>⠁,⠁</braille>
+        <pattern>0</pattern>
+    </item>
+
+    <item>
+        <letter>b</letter>
+        <braille>⠟,⠟,⠟</braille>
+        <pattern>0</pattern>
+    </item>
+</braille_append>
+```
+```csv
+CSV
+a,"⠁,⠁",0
+b,"⠟,⠟,⠟",0
+```
+- The file data does not contain a header. You must provide the character, the Braille representation, and the group using its numeric identifier, following the format demonstrated in the examples. The group field cannot be omitted, so make sure to specify the correct group for each entry.
+- For more information on how to create JSON, XML, or CSV files, please refer directly to the BrailleBaseIO documentation.
 
 # documentation under development.# Braille Base
 # Old Doc
@@ -208,6 +317,3 @@ Other
 1‑3‑5
 1‑2‑3‑6
 1‑5
-
-
-  <img src="./img/logo.png" alt="Logo" width="500" height="493">
