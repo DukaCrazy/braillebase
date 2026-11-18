@@ -281,13 +281,13 @@ class BrailleBase:
 
 #---------------------------------------- Translate group (0002) ----------------------------------------
    #0002-A
-    def convert_text_to_braille_data(self, text: str, collection = 0) -> list:
+    def convert_text_to_braille_data(self, text: str, type = 0) -> list:
         """
         Provides conversion data as lists.
 
         The data may include Braille characters [0], indices [1], binary representations as strings [2], binary representations as lists [3], Unicode [4], dot count [5], dot positions as strings [6], dot positions as lists [7], all data [8], and mirrored Braille [9].
         
-        The default return is a list of Braille characters (collection 0), including when an unrecognized collection is provided.
+        The default return is a list of Braille characters (type 0), including when an unrecognized type is provided.
         """
 
 
@@ -300,7 +300,7 @@ class BrailleBase:
 
         index_s = self.get_braille_list_to_index_list(result)
 
-        match collection:
+        match type:
             case 0:
                 return result
             
