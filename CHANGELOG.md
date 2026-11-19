@@ -1,4 +1,9 @@
 
+## 2026/11/19 - Version 0.3.3
+- Renamed the Translate Group argument from type to output_format for improved API clarity.
+- Added output format constants and standardized output format selection across Translate Group methods.
+- Added dedicated documentation for Translate Group (0002), including collections, tokenization, conversion rules, and output formats.
+
 ## 2026/11/18 - Version 0.3.2
 - Renamed the Registry Group argument from type to collection for improved API clarity.
 - Added Registry Group constants documentation and usage examples. 
