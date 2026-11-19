@@ -32,11 +32,25 @@ class BrailleBase:
 #   self.__DotNumberingStringList: list[str]
 #   self.__ReverseBrailleList: list[str]
 
+
+    # collection
     bbDEFAULT = 0
     bbUPPERCASE = 1
     bbSYLLABIC = 2
     bbRTL = 3
     bbSYMBOL = 4
+
+    # output_format
+    otBRAILLE = 0
+    otINDEX = 1
+    otBINARYSTR = 2
+    otBINARYLIST = 3
+    otUNICODE = 4
+    otDOTCOUNT = 5
+    otDOTNUMBERINGSTR = 6
+    otDOTNUMBERINGLIST = 7
+    otFULL = 8
+    otREVERSEBRAILLE = 9
 
     #0000
     def __init__(self):
@@ -279,15 +293,31 @@ class BrailleBase:
         return [self.get_braille_to_index(b) for b in braille_list]
     
 
-#---------------------------------------- Translate group (0002) ----------------------------------------
+#---------------------------------------- Translate Group (0002) ----------------------------------------
    #0002-A
-    def convert_text_to_braille_data(self, text: str, type = 0) -> list:
+    def convert_text_to_braille_data(self, text: str, output_format = otBRAILLE) -> list:
         """
-        Provides conversion data as lists.
+        Converts text into Braille conversion data.
 
-        The data may include Braille characters [0], indices [1], binary representations as strings [2], binary representations as lists [3], Unicode [4], dot count [5], dot positions as strings [6], dot positions as lists [7], all data [8], and mirrored Braille [9].
-        
-        The default return is a list of Braille characters (type 0), including when an unrecognized type is provided.
+        The text provided in the first argument is processed through
+        the tokenization system. Each token is then converted into a
+        list containing the data specified by output_format.
+
+        Available output formats:
+
+        BRAILLE: 0
+        INDEX: 1
+        BINARY STR: 2
+        BINARY LIST: 3
+        UNICODE: 4
+        DOT COUNT: 5
+        DOT NUMBERING STR: 6
+        DOT NUMBERING LIST: 7
+        FULL DATA: 8
+        REVERSE BRAILLE: 9
+
+        Returns:
+            list
         """
 
 
@@ -300,8 +330,9 @@ class BrailleBase:
 
         index_s = self.get_braille_list_to_index_list(result)
 
-        match type:
+        match output_format:
             case 0:
+                # Braille
                 return result
             
             case 1: #0002-B # translate_text_to_index
